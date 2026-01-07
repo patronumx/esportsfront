@@ -46,7 +46,7 @@ const TeamRoster = () => {
                 instagram: player.socialLinks?.instagram || '',
                 twitter: player.socialLinks?.twitter || '',
                 discord: player.socialLinks?.discord || '',
-                image: player.image || '',
+                image: player.image || player.avatarUrl || '',
                 file: null
             });
         } else {
@@ -57,20 +57,12 @@ const TeamRoster = () => {
 
 
     const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        console.log('File Selected:', file);
-        if (file) {
-            setEditForm(prev => {
-                console.log('Setting file in state:', file.name);
-                return { ...prev, file: file };
-            });
+        if (e.target.files[0]) {
+            setEditForm({ ...editForm, file: e.target.files[0] });
         }
     };
 
     const handleSave = async (index) => {
-        console.log('handleSave called for index:', index);
-        console.log('Current EditForm State:', editForm);
-
         setUploading(true);
         try {
             let imageUrl = editForm.image;
@@ -286,8 +278,8 @@ const TeamRoster = () => {
                                 <>
                                     <div className="h-48 w-full relative group">
                                         <div className="absolute inset-0 bg-[#151515] flex items-center justify-center overflow-hidden">
-                                            {player.image ? (
-                                                <img src={player.image} alt={player.name} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110" />
+                                            {(player.image || player.avatarUrl) ? (
+                                                <img src={player.image || player.avatarUrl} alt={player.name} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110" />
                                             ) : (
                                                 <User className="w-16 h-16 text-gray-700" />
                                             )}
