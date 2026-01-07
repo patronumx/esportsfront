@@ -74,7 +74,10 @@ const TeamRoster = () => {
                 const uploadRes = await api.post('/upload', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
-                imageUrl = uploadRes.data.url;
+                // Cloudinary typically returns secure_url, but our backend map might return 'url' or 'secure_url'
+                imageUrl = uploadRes.data.secure_url || uploadRes.data.url;
+
+                console.log('Image Uploaded, URL:', imageUrl);
             }
 
             // Construct new roster
