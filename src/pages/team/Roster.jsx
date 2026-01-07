@@ -102,6 +102,8 @@ const TeamRoster = () => {
             // clean array
             const cleanRoster = newRoster.filter(p => p !== null);
 
+            console.log('Saving Roster Payload:', cleanRoster);
+
             const { data } = await api.post('/team/roster', { roster: cleanRoster });
             setTeam(data); // data is the updated team object
             setTeam(data); // data is the updated team object
