@@ -1267,7 +1267,7 @@ const LeafletMapCanvas = ({
                 zoomSnap={0.1}
                 zoomDelta={0.5}
                 style={{ height: '100%', width: '100%', background: '#09090b' }}
-                preferCanvas={true} // Keep this as default
+                preferCanvas={false} // usage False to prevent "Too many active WebGL contexts" warning
                 attributionControl={false}
                 renderer={canvasRenderer} // Apply globally if possible, otherwise per layer
             >

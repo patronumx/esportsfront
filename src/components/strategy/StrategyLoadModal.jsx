@@ -27,7 +27,7 @@ const StrategyLoadModal = ({ isOpen, onClose, onLoadStrategy, type = 'general' }
         try {
             setLoading(true);
             const token = localStorage.getItem('token');
-            const { data } = await axios.get('https://petite-towns-follow.loca.lt/api/strategies', {
+            const { data } = await axios.get('https://esportsback-5f0e5dfa1bec.herokuapp.com/api/strategies', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             // Client-side filtering for simplicity, or could pass query param

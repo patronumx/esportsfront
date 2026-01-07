@@ -46,7 +46,7 @@ const AdminPlanning = () => {
     const fetchGuidelines = async () => {
         setIsLoadingGuidelines(true);
         try {
-            const res = await fetch(`https://petite-towns-follow.loca.lt/api/guidelines/match-updates`);
+            const res = await fetch(`https://esportsback-5f0e5dfa1bec.herokuapp.com/api/guidelines/match-updates`);
             if (res.ok) {
                 const data = await res.json();
                 setGuidelineContent(data.content || '');
@@ -61,7 +61,7 @@ const AdminPlanning = () => {
     const handleSaveGuidelines = async () => {
         setIsSaving(true);
         try {
-            const res = await fetch('https://petite-towns-follow.loca.lt/api/guidelines', {
+            const res = await fetch('https://esportsback-5f0e5dfa1bec.herokuapp.com/api/guidelines', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${user.token}` },
                 body: JSON.stringify({ type: 'match-updates', content: guidelineContent })
@@ -79,7 +79,7 @@ const AdminPlanning = () => {
     const fetchTeamPlans = async () => {
         setIsLoadingPlans(true);
         try {
-            const res = await fetch(`https://petite-towns-follow.loca.lt/api/planning/admin/all`, {
+            const res = await fetch(`https://esportsback-5f0e5dfa1bec.herokuapp.com/api/planning/admin/all`, {
                 headers: { 'Authorization': `Bearer ${user.token}` }
             });
             if (res.ok) {
@@ -99,7 +99,7 @@ const AdminPlanning = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`https://petite-towns-follow.loca.lt/api/planning/admin/feedback/${activePlan._id}`, {
+            const res = await fetch(`https://esportsback-5f0e5dfa1bec.herokuapp.com/api/planning/admin/feedback/${activePlan._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

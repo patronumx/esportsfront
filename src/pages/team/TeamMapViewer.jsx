@@ -131,7 +131,7 @@ const TeamMapViewer = () => {
                 headers: { Authorization: `Bearer ${token} ` }
             };
 
-            await axios.post('https://petite-towns-follow.loca.lt/api/strategies', payload, config);
+            await axios.post('https://esportsback-5f0e5dfa1bec.herokuapp.com/api/strategies', payload, config);
             showToast.success('Strategy saved successfully!');
             setIsSaveModalOpen(false);
         } catch (error) {
