@@ -37,7 +37,7 @@ import ProLogin from './pages/auth/ProLogin';
 import ProDashboard from './pages/pro/Dashboard';
 
 // Event Pages
-import PMGC2025 from './pages/events/PMGC2025';
+// import PMGC2025 from './pages/events/PMGC2025New';
 import PGC2025 from './pages/events/PGC2025';
 import Stats from './pages/Stats';
 
@@ -145,7 +145,7 @@ const ProtectedRoute = ({ children, allowedRole, isProRequired }) => {
     // For admin, we don't want to redirect to the secret login if they are just a guest hitting a protected route blindly.
     // But if they are trying to access admin, they likely know the URL. 
     // Let's redirect to the secret login.
-    return <Navigate to={allowedRole === 'admin' ? '/sys-admin/login' : '/team/login'} />;
+    return <Navigate to={allowedRole === 'admin' ? '/secret-admin-login' : '/team/login'} />;
   }
 
   if (allowedRole && user.role !== allowedRole) {
@@ -188,7 +188,7 @@ function App() {
               <Route path="/join-us" element={<JoinUs />} />
               <Route path="/media-coverage" element={<MediaCoverage />} />
               <Route path="/tech-anti-cheat" element={<TechAntiCheat />} />
-              <Route path="/events/pmgc-2025" element={<PMGC2025 />} />
+              {/* <Route path="/events/pmgc-2025" element={<PMGC2025 />} /> */}
               <Route path="/events/pgc-2025" element={<PGC2025 />} />
               <Route path="/talent" element={<Talent />} />
               <Route path="/talent/pubg-mobile" element={<PUBGMobile />} />
@@ -197,7 +197,8 @@ function App() {
 
               {/* Auth Routes inside Public Layout (Transparent) */}
               <Route path="/team/login" element={<GuestRoute><UnifiedLogin type="team" /></GuestRoute>} />
-              <Route path="/sys-admin/login" element={<UnifiedLogin type="admin" />} />
+              <Route path="/sys-admin-secret-login/auth" element={<Navigate to="/secret-admin-login" replace />} />
+              <Route path="/secret-admin-login" element={<UnifiedLogin type="admin" />} />
               <Route path="/pro/login" element={<GuestRoute><ProLogin /></GuestRoute>} />
               <Route path="/talent/player/signup" element={<GuestRoute><PlayerSignup /></GuestRoute>} />
               <Route path="/talent/team/signup" element={<GuestRoute><TeamSignup /></GuestRoute>} />

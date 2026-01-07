@@ -8,7 +8,7 @@ import StrategyLoadModal from '../../../components/strategy/StrategyLoadModal';
 import erangelMap from '../../../assets/maps/ERANGEL.jpg';
 import miramarMap from '../../../assets/maps/MIRAMAR.jpg';
 import rondoMap from '../../../assets/maps/RONDO.jpg';
-import api from '../../../api/client';
+import axios from 'axios';
 import { ZONE_RADII } from '../../../utils/esportsConstants';
 import { showToast } from '../../../utils/toast';
 import { fetchMapHistory, loadMapFromHistory } from '../../../store/slices/mapDropSlice'; // Import mapDrop actions
@@ -133,7 +133,7 @@ const Rotations = () => {
                     // 1. Try to fetch existing Event Strategy first
                     const targetMap = mapData.mapName ? mapData.mapName.toLowerCase() : 'erangel';
                     const targetTeamId = `event_${mapData._id}`;
-                    const eventStrategyRes = await api.get(`/rotations/${targetMap}/${targetTeamId}?t=${Date.now()}`);
+                    const eventStrategyRes = await axios.get(`https://esportsback-5f0e5dfa1bec.herokuapp.com/api/rotations/${targetMap}/${targetTeamId}?t=${Date.now()}`);
 
                     let newObjs = [];
 
@@ -218,7 +218,7 @@ const Rotations = () => {
             setLoading(true);
             try {
                 // Determine API URL - this will return Global Default if team specific doesn't exist
-                const res = await api.get(`/rotations/${currentMapId}/${teamId}`);
+                const res = await axios.get(`https://esportsback-5f0e5dfa1bec.herokuapp.com/api/rotations/${currentMapId}/${teamId}`);
                 if (res.data && res.data.objects) {
                     setObjects(res.data.objects);
                 } else {
@@ -254,7 +254,7 @@ const Rotations = () => {
 
             console.log('Frontend: Saving objects to backend:', JSON.stringify(objects, null, 2));
 
-            await api.post('/strategies', payload);
+            await axios.post('https://esportsback-5f0e5dfa1bec.herokuapp.com/api/strategies', payload, config);
             showToast.success('Strategy saved successfully!');
             setIsSaveModalOpen(false);
         } catch (error) {

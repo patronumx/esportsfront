@@ -15,7 +15,7 @@ const AdminLayout = () => {
     const handleLogout = () => {
         logout();
         showToast.success('Logged out successfully');
-        navigate('/sys-admin/login');
+        navigate('/secret-admin-login');
     };
 
     const isActive = (path) => location.pathname.startsWith(path);

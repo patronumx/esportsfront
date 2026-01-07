@@ -43,10 +43,9 @@ const PlayerDashboard = () => {
         }
         setUpdating(true);
         try {
-            // Force lookingForTeam to true to ensure request is active
-            const submissionData = { ...recruitForm, lookingForTeam: true };
-            const { data } = await api.put('/player/recruitment', submissionData);
-
+            // Force lookingForTeam to true whenever profile is updated
+            const payload = { ...recruitForm, lookingForTeam: true };
+            const { data } = await api.put('/player/recruitment', payload);
             updateUser({
                 ...data,
                 role: user.role,

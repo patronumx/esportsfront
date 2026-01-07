@@ -80,15 +80,6 @@ const VideoAnalysis = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            // 100MB Limit Check
-            const MAX_SIZE = 100 * 1024 * 1024; // 100MB
-            if (file.size > MAX_SIZE) {
-                showToast.error("Video can't be saved as it is above 100MB");
-                // Reset input so they can try again
-                e.target.value = '';
-                return;
-            }
-
             const url = URL.createObjectURL(file);
             setVideoSrc(url);
             setVideoFile(file); // Store file for potential upload
@@ -116,34 +107,12 @@ const VideoAnalysis = () => {
 
             // If it's a local blob, upload it
             if (videoSrc.startsWith('blob:') && videoFile) {
-                showToast.info("Preparing optimized upload...");
-
-                // 1. Get Signature from Backend
-                const sigRes = await api.get('/upload/signature');
-                const { signature, timestamp, cloud_name, api_key } = sigRes.data;
-
-                // 2. Upload Direct to Cloudinary (Bypassing Heroku Limit)
                 const formData = new FormData();
-                formData.append("file", videoFile);
-                formData.append("api_key", api_key);
-                formData.append("timestamp", timestamp);
-                formData.append("signature", signature);
-                // formData.append("folder", "esports_strategies"); // Optional
+                formData.append('file', videoFile);
 
-                showToast.info("Uploading directly to cloud (this performs better)...");
-
-                const cloudinaryRes = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/video/upload`, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await cloudinaryRes.json();
-
-                if (!cloudinaryRes.ok) {
-                    throw new Error(data.error?.message || "Cloudinary Upload Failed");
-                }
-
-                finalVideoUrl = data.secure_url;
+                showToast.info("Uploading video to cloud... This may take a moment.");
+                const uploadRes = await api.post('/upload', formData);
+                finalVideoUrl = uploadRes.data.url;
             }
 
             // Save Analysis Record
@@ -158,8 +127,8 @@ const VideoAnalysis = () => {
             setVideoSrc(finalVideoUrl); // Update state to use remote URL now
             setVideoFile(null); // No longer needed
         } catch (err) {
-            console.error("Save Error Details:", err);
-            const errMsg = err.response?.data?.error || err.message || "Unknown error";
+            console.error("Save Error Details:", err.response?.data);
+            const errMsg = err.response?.data?.error || err.response?.data?.message || err.message;
             showToast.error(`Failed to save: ${errMsg}`);
         } finally {
             setIsSaving(false);
@@ -652,151 +621,39 @@ const VideoAnalysis = () => {
             </div>
 
             {/* Main Editor Area */}
-            <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6 h-auto lg:h-[calc(100vh-200px)]">
+            <div className="flex flex-col-reverse lg:grid lg:grid-cols-4 gap-6 h-auto lg:h-[calc(100vh-200px)] min-h-[600px]">
 
-                {/* Right Area - Canvas & Video (First on Mobile) */}
-                <div
-                    ref={containerRef}
-                    className="lg:col-span-3 bg-[#0a0a0a] rounded-2xl overflow-hidden shadow-2xl border border-white/5 relative flex flex-col min-h-[40vh] max-h-[60vh] lg:max-h-none lg:min-h-0 lg:h-full sticky top-0 z-30 lg:static"
-                >
-                    {videoSrc ? (
-                        <>
-                            {/* Video & Canvas Container */}
-                            <div ref={videoContainerRef} className="relative w-full h-full flex-grow bg-black flex items-center justify-center overflow-hidden">
-                                <video
-                                    ref={videoRef}
-                                    src={videoSrc}
-                                    className="absolute inset-0 w-full h-full object-contain pointer-events-none"
-                                    onTimeUpdate={handleTimeUpdate}
-                                    onLoadedMetadata={handleLoadedMetadata}
-                                    onEnded={() => setIsPlaying(false)}
-                                    playsInline
-                                    webkit-playsinline="true"
-                                // Make sure video doesn't capture clicks, passed to canvas
-                                />
-                                <Stage
-                                    width={dimensions.width}
-                                    height={dimensions.height}
-                                    onMouseDown={handleMouseDown}
-                                    onTouchStart={handleMouseDown}
-                                    onClick={handleStageClick}
-                                    onTap={handleStageClick}
-                                    className="absolute inset-0 z-10"
-                                    style={{ cursor: currentTool === 'cursor' ? 'default' : 'crosshair', touchAction: 'none' }}
-                                >
-                                    <Layer>
-                                        {annotations.map((ann, i) => (
-                                            <Shape
-                                                key={ann.id}
-                                                shape={ann}
-                                                isSelected={ann.id === selectedId}
-                                                onSelect={() => {
-                                                    if (currentTool === 'cursor') {
-                                                        setSelectedId(ann.id);
-                                                    }
-                                                }}
-                                                onChange={(newAttrs) => {
-                                                    const newAnns = annotations.slice();
-                                                    newAnns[i] = newAttrs;
-                                                    setAnnotations(newAnns);
-                                                }}
-                                            />
-                                        ))}
-                                    </Layer>
-                                </Stage>
-                            </div>
-
-                            {/* Playback Controls Bar */}
-                            <div className="h-14 lg:h-16 bg-[#121212] border-t border-white/5 flex items-center px-4 gap-4 z-20 shrink-0">
-                                <button
-                                    onClick={togglePlay}
-                                    className="w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center rounded-full bg-purple-600 hover:bg-purple-700 text-white transition-colors flex-shrink-0"
-                                >
-                                    {isPlaying ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" className="ml-0.5" />}
-                                </button>
-
-                                <div className="flex-1 flex flex-col gap-1">
-                                    <input
-                                        type="range"
-                                        min="0"
-                                        max={duration || 100}
-                                        value={currentTime}
-                                        onChange={handleSeek}
-                                        className="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-purple-500 [&::-webkit-slider-thumb]:rounded-full hover:[&::-webkit-slider-thumb]:scale-125 transition-all"
-                                    />
-                                    <div className="flex justify-between text-[10px] lg:text-xs text-gray-400 font-mono">
-                                        <span>{new Date(currentTime * 1000).toISOString().substr(14, 5)}</span>
-                                        <span>{new Date(duration * 1000).toISOString().substr(14, 5)}</span>
-                                    </div>
-                                </div>
-
-                                <button
-                                    onClick={handleSpeedChange}
-                                    className="px-2 py-1 lg:px-3 lg:py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[10px] lg:text-xs font-semibold text-gray-300 min-w-[50px] lg:min-w-[60px]"
-                                >
-                                    {playbackSpeed}x
-                                </button>
-                            </div>
-                        </>
-                    ) : (
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500 gap-4 p-6">
-                            <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white/5 flex items-center justify-center mb-2">
-                                <Upload size={28} className="opacity-50" />
-                            </div>
-                            <p className="text-base lg:text-lg font-medium text-center">No video loaded</p>
-                            <p className="text-xs lg:text-sm max-w-xs text-center opacity-60">Import a video file to begin analysis</p>
-                            <div className="flex gap-3 mt-4">
-                                <button
-                                    onClick={() => fileInputRef.current?.click()}
-                                    className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-full text-xs lg:text-sm font-medium transition-colors"
-                                >
-                                    Select File
-                                </button>
-                                <button
-                                    onClick={openLoadModal}
-                                    className="px-5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-full text-xs lg:text-sm font-medium transition-colors"
-                                >
-                                    Load Saved
-                                </button>
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* Left Sidebar - Tools (Scrollable on Mobile) */}
+                {/* Left Sidebar - Tools */}
                 <div className="lg:col-span-1 flex flex-col gap-4">
                     {/* Controls Card */}
                     <div className="bg-[#121212] border border-white/5 rounded-2xl p-5 shadow-xl flex-1 flex flex-col gap-6">
 
                         {/* File & Save/Load Section */}
                         <div className="space-y-3">
-                            <div className="flex justify-between items-center">
-                                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Session</h3>
-                                <input
-                                    type="file"
-                                    ref={fileInputRef}
-                                    className="hidden"
-                                    accept="video/*"
-                                    onChange={handleFileChange}
-                                />
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-2">
+                            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Session</h3>
+                            <div className="flex gap-2">
                                 <button
                                     onClick={() => fileInputRef.current?.click()}
-                                    className="flex items-center justify-center gap-2 py-2.5 px-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition-all font-medium text-xs lg:text-sm group"
+                                    className="flex-1 flex items-center justify-center gap-2 py-3 px-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition-all font-medium text-sm group"
                                 >
-                                    <Upload size={14} />
+                                    <Upload size={16} />
                                     <span>Import</span>
                                 </button>
                                 <button
                                     onClick={openLoadModal}
-                                    className="flex items-center justify-center gap-2 py-2.5 px-3 bg-white/5 hover:bg-white/10 text-white rounded-xl transition-all font-medium text-xs lg:text-sm border border-white/10"
+                                    className="flex-1 flex items-center justify-center gap-2 py-3 px-2 bg-white/5 hover:bg-white/10 text-white rounded-xl transition-all font-medium text-sm border border-white/10"
                                 >
-                                    <FolderOpen size={14} />
+                                    <FolderOpen size={16} />
                                     <span>Load</span>
                                 </button>
                             </div>
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                className="hidden"
+                                accept="video/*"
+                                onChange={handleFileChange}
+                            />
 
                             {/* Save UI */}
                             {videoSrc && (
@@ -822,20 +679,20 @@ const VideoAnalysis = () => {
 
                         {/* Drawing Tools */}
                         <div className="space-y-3">
-                            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Tools</h3>
-                            <div className="flex overflow-x-auto pb-2 gap-2 lg:grid lg:grid-cols-3 no-scrollbar snap-x">
+                            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Annotation Tools</h3>
+                            <div className="grid grid-cols-3 gap-2">
                                 {tools.map((t) => (
                                     <button
                                         key={t.id}
                                         onClick={() => setCurrentTool(t.id)}
-                                        className={`flex flex-col items-center justify-center gap-1 p-3 min-w-[70px] rounded-xl border transition-all snap-start ${currentTool === t.id
+                                        className={`flex flex-col items-center justify-center gap-1 p-3 rounded-xl border transition-all ${currentTool === t.id
                                             ? 'bg-purple-600/20 border-purple-500 text-purple-400'
                                             : 'bg-white/5 border-transparent hover:bg-white/10 text-gray-400 hover:text-white'
                                             }`}
                                         title={t.label}
                                     >
                                         <t.icon size={20} />
-                                        <span className="text-[10px] whitespace-nowrap">{t.label}</span>
+                                        <span className="text-[10px] hidden xl:block">{t.label}</span>
                                     </button>
                                 ))}
                             </div>
@@ -843,13 +700,13 @@ const VideoAnalysis = () => {
 
                         {/* Colors */}
                         <div className="space-y-3">
-                            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Colors</h3>
+                            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Color Palette</h3>
                             <div className="flex flex-wrap gap-2">
                                 {colors.map((c) => (
                                     <button
                                         key={c}
                                         onClick={() => setCurrentColor(c)}
-                                        className={`w-8 h-8 lg:w-6 lg:h-6 rounded-full border-2 transition-transform hover:scale-110 ${currentColor === c ? 'border-white ring-2 ring-purple-500/50' : 'border-transparent'
+                                        className={`w-6 h-6 rounded-full border-2 transition-transform hover:scale-110 ${currentColor === c ? 'border-white ring-2 ring-purple-500/50' : 'border-transparent'
                                             }`}
                                         style={{ backgroundColor: c }}
                                     />
@@ -858,32 +715,32 @@ const VideoAnalysis = () => {
                         </div>
 
                         {/* Actions */}
-                        <div className="mt-auto grid grid-cols-3 lg:grid-cols-1 gap-2">
+                        <div className="mt-auto space-y-2">
                             <button
                                 onClick={undoLast}
-                                className="flex items-center justify-center gap-2 py-2.5 px-2 bg-white/5 hover:bg-white/10 text-gray-300 rounded-lg transition-colors text-xs lg:text-sm"
+                                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-white/5 hover:bg-white/10 text-gray-300 rounded-lg transition-colors text-sm"
                             >
-                                <RotateCcw size={14} />
-                                <span className="hidden lg:inline">Undo</span>
+                                <RotateCcw size={16} />
+                                <span>Undo Last</span>
                             </button>
                             <button
                                 onClick={handleDeleteSelected}
                                 disabled={!selectedId}
-                                className={`flex items-center justify-center gap-2 py-2.5 px-2 rounded-lg transition-colors text-xs lg:text-sm border
+                                className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg transition-colors text-sm border
                                 ${selectedId
                                         ? 'bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/20 cursor-pointer'
                                         : 'bg-white/5 text-gray-500 border-transparent cursor-not-allowed opacity-50'
                                     }`}
                             >
-                                <Trash2 size={14} />
-                                <span className="hidden lg:inline">Delete</span>
+                                <X size={16} />
+                                <span>Delete Selected</span>
                             </button>
                             <button
                                 onClick={clearAnnotations}
-                                className="flex items-center justify-center gap-2 py-2.5 px-2 bg-red-900/10 hover:bg-red-900/20 text-red-500/70 border border-transparent rounded-lg transition-colors text-xs lg:text-sm"
+                                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-red-900/10 hover:bg-red-900/20 text-red-500/70 border border-transparent rounded-lg transition-colors text-xs"
                             >
                                 <Eraser size={14} />
-                                <span className="hidden lg:inline">Clear</span>
+                                <span>Clear Canvas</span>
                             </button>
                         </div>
 
@@ -934,6 +791,111 @@ const VideoAnalysis = () => {
                         </div>
                     </div>
                 )}
+
+                {/* Right Area - Canvas & Video */}
+                <div
+                    ref={containerRef}
+                    className="lg:col-span-3 bg-[#0a0a0a] rounded-2xl overflow-hidden shadow-2xl border border-white/5 relative flex flex-col"
+                >
+                    {videoSrc ? (
+                        <>
+                            {/* Video & Canvas Container */}
+                            <div ref={videoContainerRef} className="relative w-full h-full flex-grow bg-black flex items-center justify-center overflow-hidden">
+                                <video
+                                    ref={videoRef}
+                                    src={videoSrc}
+                                    className="absolute inset-0 w-full h-full object-contain pointer-events-none"
+                                    onTimeUpdate={handleTimeUpdate}
+                                    onLoadedMetadata={handleLoadedMetadata}
+                                    onEnded={() => setIsPlaying(false)}
+                                // Make sure video doesn't capture clicks, passed to canvas
+                                />
+                                <Stage
+                                    width={dimensions.width}
+                                    height={dimensions.height}
+                                    onMouseDown={handleMouseDown}
+                                    onClick={handleStageClick}
+                                    className="absolute inset-0 z-10"
+                                    style={{ cursor: currentTool === 'cursor' ? 'default' : 'crosshair' }}
+                                >
+                                    <Layer>
+                                        {annotations.map((ann, i) => (
+                                            <Shape
+                                                key={ann.id}
+                                                shape={ann}
+                                                isSelected={ann.id === selectedId}
+                                                onSelect={() => {
+                                                    if (currentTool === 'cursor') {
+                                                        setSelectedId(ann.id);
+                                                    }
+                                                }}
+                                                onChange={(newAttrs) => {
+                                                    const newAnns = annotations.slice();
+                                                    newAnns[i] = newAttrs;
+                                                    setAnnotations(newAnns);
+                                                }}
+                                            />
+                                        ))}
+                                    </Layer>
+                                </Stage>
+                            </div>
+
+                            {/* Playback Controls Bar */}
+                            <div className="h-16 bg-[#121212] border-t border-white/5 flex items-center px-4 gap-4 z-20">
+                                <button
+                                    onClick={togglePlay}
+                                    className="w-10 h-10 flex items-center justify-center rounded-full bg-purple-600 hover:bg-purple-700 text-white transition-colors flex-shrink-0"
+                                >
+                                    {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-0.5" />}
+                                </button>
+
+                                <div className="flex-1 flex flex-col gap-1">
+                                    <input
+                                        type="range"
+                                        min="0"
+                                        max={duration || 100}
+                                        value={currentTime}
+                                        onChange={handleSeek}
+                                        className="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-purple-500 [&::-webkit-slider-thumb]:rounded-full hover:[&::-webkit-slider-thumb]:scale-125 transition-all"
+                                    />
+                                    <div className="flex justify-between text-xs text-gray-400 font-mono">
+                                        <span>{new Date(currentTime * 1000).toISOString().substr(14, 5)}</span>
+                                        <span>{new Date(duration * 1000).toISOString().substr(14, 5)}</span>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={handleSpeedChange}
+                                    className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-semibold text-gray-300 min-w-[60px]"
+                                >
+                                    {playbackSpeed}x
+                                </button>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500 gap-4">
+                            <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-2">
+                                <Upload size={32} className="opacity-50" />
+                            </div>
+                            <p className="text-lg font-medium">No video loaded</p>
+                            <p className="text-sm max-w-xs text-center opacity-60">Import a video file from the sidebar to begin analysis</p>
+                            <div className="flex gap-4 mt-6">
+                                <button
+                                    onClick={() => fileInputRef.current?.click()}
+                                    className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-full text-sm font-medium transition-colors"
+                                >
+                                    Select File
+                                </button>
+                                <button
+                                    onClick={openLoadModal}
+                                    className="px-6 py-2 bg-white/10 hover:bg-white/20 text-white rounded-full text-sm font-medium transition-colors"
+                                >
+                                    Load Saved
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
 
             {/* Load Modal */}

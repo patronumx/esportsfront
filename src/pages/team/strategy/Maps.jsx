@@ -6,7 +6,7 @@ import StrategyLoadModal from '../../../components/strategy/StrategyLoadModal';
 import StrategySaveModal from '../../../components/strategy/StrategySaveModal';
 import { showToast } from '../../../utils/toast';
 import { ZONE_RADII } from '../../../utils/esportsConstants';
-import api from '../../../api/client';
+import axios from 'axios';
 
 // Import map assets
 import MapLogosToolbar from '../../../components/strategy/MapLogosToolbar';
@@ -111,12 +111,12 @@ const Maps = () => {
                 thumbnailUrl: null
             };
 
-            // const token = localStorage.getItem('token');
-            // const config = {
-            //     headers: { Authorization: `Bearer ${token}` }
-            // };
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
 
-            await api.post('/strategies', payload);
+            await axios.post('https://esportsback-5f0e5dfa1bec.herokuapp.com/api/strategies', payload, config);
             showToast.success('Strategy saved successfully!');
         } catch (error) {
             console.error(error);

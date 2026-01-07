@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'https://esportsback-5f0e5dfa1bec.herokuapp.com/api',
+    baseURL: import.meta.env.VITE_API_URL || (window.location.hostname === 'localhost'
+        ? 'https://esportsback-5f0e5dfa1bec.herokuapp.com/api'
+        : 'https://esportsback-5f0e5dfa1bec.herokuapp.com/api'),
     withCredentials: true
 });
 
