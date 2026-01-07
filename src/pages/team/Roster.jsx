@@ -57,12 +57,20 @@ const TeamRoster = () => {
 
 
     const handleFileChange = (e) => {
-        if (e.target.files[0]) {
-            setEditForm({ ...editForm, file: e.target.files[0] });
+        const file = e.target.files[0];
+        console.log('File Selected:', file);
+        if (file) {
+            setEditForm(prev => {
+                console.log('Setting file in state:', file.name);
+                return { ...prev, file: file };
+            });
         }
     };
 
     const handleSave = async (index) => {
+        console.log('handleSave called for index:', index);
+        console.log('Current EditForm State:', editForm);
+
         setUploading(true);
         try {
             let imageUrl = editForm.image;
