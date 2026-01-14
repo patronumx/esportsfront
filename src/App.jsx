@@ -39,6 +39,7 @@ import ProDashboard from './pages/pro/Dashboard';
 // Event Pages
 // import PMGC2025 from './pages/events/PMGC2025New';
 import PGC2025 from './pages/events/PGC2025';
+import Tekken8FaceOff2026 from './pages/events/Tekken8FaceOff2026';
 import Stats from './pages/Stats';
 
 // Admin Pages
@@ -190,6 +191,7 @@ function App() {
               <Route path="/tech-anti-cheat" element={<TechAntiCheat />} />
               {/* <Route path="/events/pmgc-2025" element={<PMGC2025 />} /> */}
               <Route path="/events/pgc-2025" element={<PGC2025 />} />
+              <Route path="/events/tekken-8-face-off-2026" element={<Tekken8FaceOff2026 />} />
               <Route path="/talent" element={<Talent />} />
               <Route path="/talent/pubg-mobile" element={<PUBGMobile />} />
               <Route path="/talent/coming-soon" element={<ComingSoonGame />} />
