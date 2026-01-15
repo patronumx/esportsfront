@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import banner from '../../assets/tekken8/banner.png';
 
 const Tekken8AdminLogin = () => {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -16,7 +17,8 @@ const Tekken8AdminLogin = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/tekken8/admin/login`, credentials);
+            const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/api$/, '');
+            const res = await axios.post(`${API_BASE}/api/tekken8/admin/login`, credentials);
             if (res.data.success) {
                 localStorage.setItem('tekken8_admin_token', res.data.token);
                 toast.success('Access Granted');
@@ -30,8 +32,14 @@ const Tekken8AdminLogin = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#050505] text-white flex items-center justify-center p-4">
-            <div className="w-full max-w-md bg-[#0c0c10] border border-white/10 rounded-2xl p-8 relative overflow-hidden shadow-2xl">
+        <div
+            className="min-h-screen bg-[#050505] text-white flex items-center justify-center p-4 relative bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${banner})` }}
+        >
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+
+            <div className="w-full max-w-md bg-[#0c0c10]/90 border border-white/10 rounded-2xl p-8 relative overflow-hidden shadow-2xl backdrop-blur-md z-10">
 
                 {/* Decorative Elements */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>

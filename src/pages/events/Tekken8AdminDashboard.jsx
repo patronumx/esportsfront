@@ -23,7 +23,8 @@ const Tekken8AdminDashboard = () => {
         }
 
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/tekken8/registrations`, {
+            const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/api$/, '');
+            const res = await axios.get(`${API_BASE}/api/tekken8/registrations`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setRegistrations(res.data);
