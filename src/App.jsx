@@ -40,6 +40,8 @@ import ProDashboard from './pages/pro/Dashboard';
 // import PMGC2025 from './pages/events/PMGC2025New';
 import PGC2025 from './pages/events/PGC2025';
 import Tekken8FaceOff2026 from './pages/events/Tekken8FaceOff2026';
+import Tekken8AdminLogin from './pages/events/Tekken8AdminLogin';
+import Tekken8AdminDashboard from './pages/events/Tekken8AdminDashboard';
 import Stats from './pages/Stats';
 
 // Admin Pages
@@ -196,6 +198,10 @@ function App() {
               <Route path="/talent/pubg-mobile" element={<PUBGMobile />} />
               <Route path="/talent/coming-soon" element={<ComingSoonGame />} />
               <Route path="/stats" element={<Stats />} />
+
+              {/* Tekken 8 Admin */}
+              <Route path="/events/tekken8/admin" element={<Tekken8AdminLogin />} />
+              <Route path="/events/tekken8/admin/dashboard" element={<Tekken8AdminDashboard />} />
 
               {/* Auth Routes inside Public Layout (Transparent) */}
               <Route path="/team/login" element={<GuestRoute><UnifiedLogin type="team" /></GuestRoute>} />

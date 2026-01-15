@@ -22,6 +22,11 @@ const Tekken8FaceOff2026 = () => {
         setFormData({ ...formData, paymentScreenshot: e.target.files[0] });
     };
 
+    const copyToClipboard = (text, label) => {
+        navigator.clipboard.writeText(text);
+        toast.success(`${label} copied to clipboard!`);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -274,6 +279,128 @@ const Tekken8FaceOff2026 = () => {
 
                                 {/* Payment Screenshot */}
                                 <div className="space-y-4 pt-4 border-t border-white/5">
+
+                                    {/* Bank Details Section - Phase 2 Electric DoJo */}
+                                    <div className="relative mb-10 mt-2">
+
+                                        {/* Outer Skewed Container */}
+                                        <div className="relative transform skew-x-[-10deg] bg-[#0c0c10] border-l-4 border-orange-600 rounded-r-2xl overflow-hidden group/bank transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(249,115,22,0.2)]">
+
+                                            {/* Dynamic Background Elements */}
+                                            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
+                                            <div className="absolute top-0 right-0 w-64 h-full bg-gradient-to-l from-orange-600/10 to-transparent"></div>
+                                            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-orange-600/0 via-orange-600/50 to-orange-600/0"></div>
+
+                                            {/* Content Wrapper (Unskew) */}
+                                            <div className="transform skew-x-[10deg] p-6 relative z-10">
+
+                                                {/* Header */}
+                                                <div className="flex items-center justify-between mb-8 pb-2 border-b border-white/5">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-2 h-2 bg-orange-500 rotate-45 animate-pulse"></div>
+                                                        <h4 className="text-sm font-black italic uppercase tracking-[0.2em] text-gray-200 group-hover/bank:text-orange-500 transition-colors">
+                                                            Bank Transfer <span className="text-orange-600">Details</span>
+                                                        </h4>
+                                                    </div>
+                                                    <span className="text-[10px] font-mono text-orange-500/50 bg-orange-950/30 px-2 py-1 rounded border border-orange-500/10">SECURE_PAYMENT_GATEWAY</span>
+                                                </div>
+
+                                                <div className="space-y-6">
+
+                                                    {/* Bank & Title Grid */}
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                        <div className="group/item">
+                                                            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 block group-hover/item:text-orange-400 transition-colors">Bank Name</span>
+                                                            <div className="text-white font-bold text-lg tracking-wide pl-3 border-l-2 border-orange-500/30 group-hover/item:border-orange-500 transition-all font-display">
+                                                                United Bank Limited (UBL)
+                                                            </div>
+                                                        </div>
+                                                        <div className="group/item">
+                                                            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 block group-hover/item:text-orange-400 transition-colors">Account Title</span>
+                                                            <div className="text-white font-bold text-lg tracking-wide pl-3 border-l-2 border-orange-500/30 group-hover/item:border-orange-500 transition-all font-display">
+                                                                PATRONUM X PVT LTD
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Account Number - Big & Bold */}
+                                                    <div className="bg-black/40 p-4 border border-white/5 rounded-lg group/acc hover:border-orange-500/30 transition-all relative overflow-hidden">
+                                                        <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-orange-500/10 to-transparent opacity-0 group-hover/acc:opacity-100 transition-opacity"></div>
+                                                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+                                                            <div>
+                                                                <span className="text-[10px] text-gray-500 font-mono mb-1 block">ACCOUNT NUMBER</span>
+                                                                <span className="font-mono text-3xl font-black text-white tracking-wider group-hover/acc:text-orange-400 transition-colors">312367802</span>
+                                                            </div>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => copyToClipboard('0312367802', 'Account Number')}
+                                                                className="px-6 py-2 bg-white/5 hover:bg-orange-600 hover:text-black text-gray-300 text-xs font-bold uppercase tracking-widest border border-white/10 hover:border-orange-500 transition-all skew-x-[-10deg] group/btn"
+                                                            >
+                                                                <span className="inline-block skew-x-[10deg]">Copy Number</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* IBAN */}
+                                                    <div className="bg-black/40 p-4 border border-white/5 rounded-lg group/iban hover:border-blue-500/30 transition-all relative overflow-hidden">
+                                                        <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-blue-500/10 to-transparent opacity-0 group-hover/iban:opacity-100 transition-opacity"></div>
+                                                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+                                                            <div className="overflow-hidden">
+                                                                <span className="text-[10px] text-gray-500 font-mono mb-1 block">IBAN </span>
+                                                                <span className="font-mono text-sm md:text-lg font-bold text-gray-300 tracking-wider truncate block group-hover/iban:text-blue-400 transition-colors">PK89UNIL0109000312367802</span>
+                                                            </div>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => copyToClipboard('PK89UNIL0109000312367802', 'IBAN')}
+                                                                className="px-6 py-2 bg-white/5 hover:bg-blue-600 hover:text-white text-gray-300 text-xs font-bold uppercase tracking-widest border border-white/10 hover:border-blue-500 transition-all skew-x-[-10deg] shrink-0"
+                                                            >
+                                                                <span className="inline-block skew-x-[10deg]">Copy IBAN</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Notifications / Alerts - Stacked & Stylized */}
+                                        <div className="space-y-4 mt-8 px-2">
+
+                                            {/* WhatsApp Alert */}
+                                            <div className="relative group/alert overflow-hidden">
+                                                <div className="absolute inset-0 bg-blue-600/10 transform skew-x-[-10deg] border-l-4 border-blue-500 transition-colors group-hover/alert:bg-blue-600/20"></div>
+                                                <div className="relative z-10 p-4 flex gap-4 items-center">
+                                                    <div className="w-10 h-10 bg-blue-600/20 flex items-center justify-center rounded text-blue-400 border border-blue-500/30 shadow-[0_0_15px_rgba(37,99,235,0.3)]">
+                                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-[10px] text-blue-400 font-black uppercase tracking-widest mb-0.5 animate-pulse">Action Required</p>
+                                                        <p className="text-gray-300 text-xs">
+                                                            Send proof to WhatsApp: <span className="text-white font-bold text-sm hover:text-blue-400 transition-colors cursor-pointer select-all">+92 333 8638325</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Confirmation Alert */}
+                                            <div className="relative group/alert overflow-hidden">
+                                                <div className="absolute inset-0 bg-emerald-600/10 transform skew-x-[-10deg] border-l-4 border-emerald-500 transition-colors group-hover/alert:bg-emerald-600/20"></div>
+                                                <div className="relative z-10 p-4 flex gap-4 items-center">
+                                                    <div className="w-10 h-10 bg-emerald-600/20 flex items-center justify-center rounded text-emerald-400 border border-emerald-500/30">
+                                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-[10px] text-emerald-400 font-black uppercase tracking-widest mb-0.5">Verification Pending</p>
+                                                        <p className="text-gray-300 text-xs">
+                                                            You will receive a confirmation call from <span className="text-emerald-400 font-bold">Patronum Esports</span>.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                     <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1 block">Payment Proof <span className="text-red-500">*</span></label>
                                     <div className="relative group/upload">
                                         <input
@@ -325,22 +452,41 @@ const Tekken8FaceOff2026 = () => {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className={`w-full py-5 mt-6 rounded-2xl font-black text-xl uppercase tracking-widest transition-all duration-300 transform border border-white/20 shadow-[0_10px_30px_-10px_rgba(79,70,229,0.5)] hover:shadow-[0_0_40px_rgba(124,58,237,0.6)] relative overflow-hidden group/btn ${loading
-                                        ? 'bg-gray-800 cursor-not-allowed text-gray-500'
-                                        : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white hover:scale-[1.02]'
-                                        }`}
+                                    className={`w-full h-16 mt-8 relative group/btn outline-none ${loading ? 'cursor-not-allowed grayscale' : 'cursor-pointer'}`}
                                 >
-                                    {/* Shine Effect */}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover/btn:opacity-100 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-all duration-700 ease-in-out skew-x-[-20deg]"></div>
+                                    {/* Skewed Background Container */}
+                                    <div className={`absolute inset-0 transform skew-x-[-20deg] border-2 transition-all duration-300 ${loading
+                                        ? 'bg-gray-800 border-gray-700'
+                                        : 'bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700 border-blue-400/30 group-hover/btn:border-blue-400 group-hover/btn:shadow-[0_0_40px_rgba(59,130,246,0.5)]'
+                                        }`}>
+                                        {/* Glitch Overlay */}
+                                        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
 
-                                    <span className="relative z-10 flex items-center justify-center gap-4 drop-shadow-md">
-                                        {loading ? 'Processing...' : 'Complete Registration'}
-                                        {!loading && (
-                                            <svg className="w-6 h-6 group-hover/btn:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                            </svg>
-                                        )}
+                                        {/* Animated Shine */}
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover/btn:opacity-100 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+                                    </div>
+
+                                    {/* Text Content (Unskewed) */}
+                                    <span className="relative z-10 flex items-center justify-center gap-3 w-full h-full transform skew-x-[-20deg]">
+                                        <span className={`font-black text-xl md:text-2xl uppercase italic tracking-[0.1em] transform skew-x-[20deg] flex items-center gap-3 ${loading ? 'text-gray-500' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]'}`}>
+                                            {loading ? 'Processing...' : (
+                                                <>
+                                                    <span className="group-hover/btn:translate-x-1 transition-transform duration-300">Complete Registration</span>
+                                                    <svg className="w-6 h-6 group-hover/btn:text-blue-300 group-hover/btn:translate-x-2 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 5l7 7-7 7M5 12h15" />
+                                                    </svg>
+                                                </>
+                                            )}
+                                        </span>
                                     </span>
+
+                                    {/* Decorative Corner Accents */}
+                                    {!loading && (
+                                        <>
+                                            <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-white/50 transform skew-x-[-20deg] translate-y-1 -translate-x-1 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                                            <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-white/50 transform skew-x-[-20deg] -translate-y-1 translate-x-1 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                                        </>
+                                    )}
                                 </button>
                             </form>
                         </div>
