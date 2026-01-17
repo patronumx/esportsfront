@@ -219,7 +219,6 @@ const players = [
         image: kashiImg,
         achievements: {
             wins: [
-                { year: "2025", name: "Takedown 2025", rank: "1st" },
                 { year: "2025", name: "PPG Battle of Champions S5", rank: "1st" },
                 { year: "2022", name: "Elite Championship", rank: "1st" },
                 { year: "2020", name: "TGL", rank: "1st" },
