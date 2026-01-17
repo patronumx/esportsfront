@@ -127,10 +127,10 @@ const players = [
             influence: "N/A"
         },
         socials: {
-            youtube: { value: "4.5K", sub: "Subscribers", link: "https://youtube.com" },
-            twitter: { value: "8.5K", sub: "Followers", link: "https://twitter.com" },
-            instagram: { value: "6.9K", sub: "Followers", link: "https://instagram.com" },
-            twitch: { value: "2.7K", sub: "Followers", link: "https://twitch.tv" }
+            youtube: { value: "4.5K", sub: "Subscribers", link: "https://www.youtube.com/@RealKhanImran" },
+            twitter: { value: "8.5K", sub: "Followers", link: "https://x.com/Khanimran675" },
+            instagram: { value: "6.9K", sub: "Followers", link: "https://www.instagram.com/fate_khanimran/" },
+            twitch: { value: "2.7K", sub: "Followers", link: "https://www.twitch.tv/fate_khan" }
         },
         characters: [
             { name: "Feng", img: fengImg, color: "from-red-600/20" }
@@ -183,7 +183,7 @@ const players = [
             gamingTag: "Esharib",
             startedPlaying: "N/A",
             rank: "Top Tier",
-            location: "Karachi, Pakistan",
+            location: "Karachi",
             born: "N/A",
             influence: "Alisa"
         },
@@ -242,7 +242,7 @@ const players = [
             gamingTag: "Kashi Snake",
             startedPlaying: "2019",
             rank: "Pro",
-            location: "Pakistan",
+            location: "Gujranwala",
             born: "N/A",
             influence: "Kazuya"
         },
@@ -303,7 +303,7 @@ const players = [
             gamingTag: "The Jon",
             startedPlaying: "2016",
             rank: "Pro",
-            location: "Pakistan/Saudi Arabia",
+            location: "Pakistan",
             born: "N/A",
             influence: "King"
         },
