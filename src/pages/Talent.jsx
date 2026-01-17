@@ -5,16 +5,16 @@ import { motion } from 'framer-motion';
 // Import Assets
 import PUBG from '../assets/PUBG.png';
 import FF from '../assets/FF.png';
-import TEKKEN from '../assets/TEKKEN.png';
+import TEKKEN from '../assets/tekken8/TEKKEN.png';
 import FC26 from '../assets/FC26.png';
 import HOK from '../assets/HOK.png';
 
 const games = [
     { name: "PUBG MOBILE", path: "/talent/pubg-mobile", img: PUBG, width: "w-40 md:w-56" },
-    { name: "FREE FIRE", path: "/talent/coming-soon", img: FF, width: "w-40 md:w-52" },
-    { name: "TEKKEN 8", path: "/talent/coming-soon", img: TEKKEN, width: "w-48 md:w-64" },
-    { name: "FC 26", path: "/talent/coming-soon", img: FC26, width: "w-32 md:w-44" },
-    { name: "HONOR OF KINGS", path: "/talent/coming-soon", img: HOK, width: "w-36 md:w-48" }
+    { name: "FREE FIRE", path: "/talent/free-fire", img: FF, width: "w-40 md:w-52" },
+    { name: "TEKKEN 8", path: "/talent/tekken8", img: TEKKEN, width: "w-48 md:w-64" },
+    { name: "FC 26", path: "/talent/fc26", img: FC26, width: "w-32 md:w-44" },
+    { name: "HONOR OF KINGS", path: "/talent/honor-of-kings", img: HOK, width: "w-36 md:w-48" }
 ];
 
 const Talent = () => {

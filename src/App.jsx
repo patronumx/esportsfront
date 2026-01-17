@@ -27,6 +27,10 @@ import LoginSelection from './pages/LoginSelection';
 import Talent from './pages/Talent';
 import PUBGMobile from './pages/talent/PUBGMobile';
 import ComingSoonGame from './pages/talent/ComingSoonGame';
+import Tekken8 from './pages/talent/Tekken8';
+import FreeFire from './pages/talent/FreeFire';
+import FC26 from './pages/talent/FC26';
+import HonorOfKings from './pages/talent/HonorOfKings';
 
 // Auth Pages
 import PlayerSignup from './pages/auth/PlayerSignup';
@@ -41,7 +45,7 @@ import ProDashboard from './pages/pro/Dashboard';
 import PGC2025 from './pages/events/PGC2025';
 import Tekken8FaceOff2026 from './pages/events/Tekken8FaceOff2026';
 import Tekken8AdminLogin from './pages/events/Tekken8AdminLogin';
-import Tekken8AdminDashboard from './pages/events/Tekken8AdminDashboard';
+import EventsAdminDashboard from './pages/events/EventsAdminDashboard';
 import Stats from './pages/Stats';
 
 // Admin Pages
@@ -197,11 +201,15 @@ function App() {
               <Route path="/talent" element={<Talent />} />
               <Route path="/talent/pubg-mobile" element={<PUBGMobile />} />
               <Route path="/talent/coming-soon" element={<ComingSoonGame />} />
+              <Route path="/talent/tekken8" element={<Tekken8 />} />
+              <Route path="/talent/free-fire" element={<FreeFire />} />
+              <Route path="/talent/fc26" element={<FC26 />} />
+              <Route path="/talent/honor-of-kings" element={<HonorOfKings />} />
               <Route path="/stats" element={<Stats />} />
 
               {/* Tekken 8 Admin */}
               <Route path="/events/tekken8/admin" element={<Tekken8AdminLogin />} />
-              <Route path="/events/tekken8/admin/dashboard" element={<Tekken8AdminDashboard />} />
+              <Route path="/events/admin/dashboard" element={<EventsAdminDashboard />} />
 
               {/* Auth Routes inside Public Layout (Transparent) */}
               <Route path="/team/login" element={<GuestRoute><UnifiedLogin type="team" /></GuestRoute>} />
