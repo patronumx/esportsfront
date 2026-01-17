@@ -14,6 +14,7 @@ import esharibImg from '../../assets/tekken8/Esharib.png';
 import kashiImg from '../../assets/tekken8/KASHI.png';
 import jonImg from '../../assets/tekken8/JON.png';
 import kingImg from '../../assets/tekken8/King.png';
+import kazuyaImg from '../../assets/tekken8/Kazuya.png';
 
 // --- DATA ---
 const players = [
@@ -252,7 +253,9 @@ const players = [
             instagram: { value: "2K+", sub: "Followers", link: "https://instagram.com" },
             twitch: { value: "1.5K+", sub: "Followers", link: "https://twitch.tv" }
         },
-        characters: [],
+        characters: [
+            { name: "Kazuya", img: kazuyaImg, color: "from-purple-700/20" }
+        ],
         heroTitle: {
             top: "Ashes Gaming",
             namePart1: "Kashi",
