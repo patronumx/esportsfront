@@ -209,7 +209,7 @@ function App() {
 
               {/* Tekken 8 Admin */}
               <Route path="/events/tekken8/admin" element={<Tekken8AdminLogin />} />
-              <Route path="/events/admin/dashboard" element={<EventsAdminDashboard />} />
+              <Route path="/events/tekken8/admin/dashboard" element={<EventsAdminDashboard />} />
 
               {/* Auth Routes inside Public Layout (Transparent) */}
               <Route path="/team/login" element={<GuestRoute><UnifiedLogin type="team" /></GuestRoute>} />
