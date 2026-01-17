@@ -279,15 +279,18 @@ const players = [
         image: jonImg,
         achievements: {
             wins: [
-                { year: "2018", name: "OUG Tournament 2018", rank: "1st" },
+                { year: "2025", name: "Paradise Game Battle", rank: "1st" },
+                { year: "2024", name: "Thaiger Uppercut 2024", rank: "1st" },
                 { year: "2024", name: "Ignite Tekken Cup", rank: "1st" },
+                { year: "2018", name: "OUG Tournament 2018", rank: "1st" },
             ],
             runnerUps: [
+                { year: "2025", name: "Takedown 2025", rank: "3rd" },
                 { year: "2019", name: "Takra Cup", rank: "2nd" },
-                { year: "2024", name: "Thaiger Uppercut 2024", rank: "2nd" },
             ],
             notable: [
                 { year: "2025", name: "Thaiger Uppercut 2025", rank: "Top 8" },
+                { year: "2024", name: "Esports World Cup 2024", rank: "5th" },
                 { year: "2019", name: "TWT Finals LCQ", rank: "4th" },
                 { year: "2024", name: "Tekken World Tour Finals", rank: "Qualified" },
                 { year: "2023", name: "Gamers8", rank: "Top 6" },
