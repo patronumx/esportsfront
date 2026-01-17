@@ -185,7 +185,7 @@ const players = [
             gamingTag: "Esharib",
             startedPlaying: "N/A",
             rank: "Top Tier",
-            location: "Karachi",
+            location: "Lahore",
             born: "N/A",
             influence: "Alisa"
         },
@@ -213,7 +213,7 @@ const players = [
         },
         sponsorships: []
     },
-    {
+    /* {
         id: 'kashi',
         name: 'Kashi Snake',
         nickname: 'Kashi Snake',
@@ -270,7 +270,7 @@ const players = [
             description: <>A highly consistent player in the Pakistani Tekken scene, known for deep runs in major tournaments. With multiple 1st place finishes in 2020 and 2022, and a strong presence in the Tekken World Tour Regional Finals.</>
         },
         sponsorships: []
-    },
+    }, */
     {
         id: 'jon',
         name: 'The Jon',
