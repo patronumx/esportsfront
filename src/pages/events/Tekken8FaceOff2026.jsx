@@ -409,7 +409,6 @@ const Tekken8FaceOff2026 = () => {
                                             id="paymentScreenshot"
                                             accept="image/*"
                                             onChange={handleFileChange}
-                                            required
                                             className="hidden"
                                         />
                                         <label
