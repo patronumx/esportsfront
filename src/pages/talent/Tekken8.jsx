@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTrophy, FaGamepad, FaMapMarkerAlt, FaBirthdayCake, FaFlag, FaYoutube, FaTwitter, FaInstagram, FaStar, FaMedal, FaHistory, FaArrowLeft, FaHandshake, FaTwitch } from 'react-icons/fa';
+import { FaTrophy, FaGamepad, FaMapMarkerAlt, FaBirthdayCake, FaFlag, FaYoutube, FaInstagram, FaStar, FaMedal, FaHistory, FaArrowLeft, FaHandshake, FaTwitch } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 // Assets
 import dawoodImg from '../../assets/tekken8/Dawood.png';
@@ -189,10 +190,10 @@ const players = [
             influence: "Alisa"
         },
         socials: {
-            twitter: { value: "1.4K+", sub: "Followers", link: "https://twitter.com" },
-            youtube: { value: "400+", sub: "Subscribers", link: "https://youtube.com" },
-            instagram: { value: "500+", sub: "Followers", link: "https://instagram.com" },
-            twitch: { value: "800+", sub: "Followers", link: "https://twitch.tv" }
+            twitter: { value: "1.4K+", sub: "Followers", link: "https://x.com/tk_esharib" },
+            youtube: { value: "400+", sub: "Subscribers", link: "https://www.youtube.com/@tkesharib" },
+            instagram: { value: "500+", sub: "Followers", link: "https://www.instagram.com/tk_esharib/" },
+            twitch: { value: "800+", sub: "Followers", link: "https://www.twitch.tv/Esharib_TK" }
         },
         characters: [
             { name: "Alisa", img: alisaImg, color: "from-pink-600/20" }
@@ -248,9 +249,8 @@ const players = [
             influence: "Kazuya"
         },
         socials: {
-            twitter: { value: "3K+", sub: "Followers", link: "https://twitter.com" },
-            youtube: { value: "1K+", sub: "Subscribers", link: "https://youtube.com" },
-            instagram: { value: "2K+", sub: "Followers", link: "https://instagram.com" },
+            twitter: { value: "3K+", sub: "Followers", link: "https://x.com/KashiSnake99" },
+            instagram: { value: "2K+", sub: "Followers", link: "https://www.instagram.com/kashi_snake/" },
             twitch: { value: "1.5K+", sub: "Followers", link: "https://twitch.tv" }
         },
         characters: [
@@ -309,9 +309,9 @@ const players = [
             influence: "King"
         },
         socials: {
-            twitter: { value: "12K+", sub: "Followers", link: "https://twitter.com/TheJon_T7" },
-            youtube: { value: "5K+", sub: "Subscribers", link: "https://youtube.com" },
-            instagram: { value: "4K+", sub: "Followers", link: "https://instagram.com" },
+            twitter: { value: "12K+", sub: "Followers", link: "https://x.com/THEJON07" },
+            youtube: { value: "5K+", sub: "Subscribers", link: "https://www.youtube.com/@thejonno1" },
+            instagram: { value: "4K+", sub: "Followers", link: "https://www.instagram.com/thejon07/" },
             twitch: { value: "3K+", sub: "Followers", link: "https://twitch.tv" }
         },
         characters: [
@@ -485,7 +485,7 @@ const PlayerDetail = ({ player, onBack }) => {
                                     <div className="text-cyan-400 font-bold uppercase tracking-widest text-sm mb-4">{player.role}</div>
                                     <div className="flex gap-3">
                                         {player.socials.youtube && <SocialIcon icon={<FaYoutube />} href={player.socials.youtube.link} className="bg-red-600 hover:bg-red-700" />}
-                                        {player.socials.twitter && <SocialIcon icon={<FaTwitter />} href={player.socials.twitter.link} className="bg-sky-500 hover:bg-sky-600" />}
+                                        {player.socials.twitter && <SocialIcon icon={<FaXTwitter />} href={player.socials.twitter.link} className="bg-slate-950 hover:bg-black border border-slate-800" />}
                                         {player.socials.instagram && <SocialIcon icon={<FaInstagram />} href={player.socials.instagram.link} className="bg-pink-600 hover:bg-pink-700" />}
                                         {player.socials.twitch && <SocialIcon icon={<FaTwitch />} href={player.socials.twitch.link} className="bg-purple-600 hover:bg-purple-700" />}
                                     </div>
@@ -623,7 +623,7 @@ const PlayerDetail = ({ player, onBack }) => {
                         <SectionContainer title="Content & Growth" icon={<FaYoutube />}>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                 {player.socials.youtube && <StatCard icon={<FaYoutube className="text-red-500" />} label="Subscribers" value={player.socials.youtube.value} sub={player.socials.youtube.sub} />}
-                                {player.socials.twitter && <StatCard icon={<FaTwitter className="text-sky-500" />} label="Followers" value={player.socials.twitter.value} sub={player.socials.twitter.sub} />}
+                                {player.socials.twitter && <StatCard icon={<FaXTwitter className="text-white" />} label="Followers" value={player.socials.twitter.value} sub={player.socials.twitter.sub} />}
                                 {player.socials.instagram && <StatCard icon={<FaInstagram className="text-pink-500" />} label="Followers" value={player.socials.instagram.value} sub={player.socials.instagram.sub} />}
                                 {player.socials.twitch && <StatCard icon={<FaTwitch className="text-purple-500" />} label="Followers" value={player.socials.twitch.value} sub={player.socials.twitch.sub} />}
                             </div>
