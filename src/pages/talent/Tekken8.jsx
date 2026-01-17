@@ -63,9 +63,10 @@ const players = [
             influence: "Chanel"
         },
         socials: {
-            youtube: { value: "5.06K", sub: "1.35M+ Views", link: "https://youtube.com" },
-            twitter: { value: "3,404", sub: "X (Twitter)", link: "https://twitter.com" },
-            instagram: { value: "1,269", sub: "Instagram", link: "https://instagram.com" }
+            youtube: { value: "5.06K", sub: "1.35M+ Views", link: "https://www.youtube.com/@dawoodsikandar-tk" },
+            twitter: { value: "3,404", sub: "X (Twitter)", link: "https://x.com/DawoodSikandar" },
+            instagram: { value: "1,269", sub: "Instagram", link: "https://www.instagram.com/dawood.sikandar/" },
+            twitch: { value: "Follow", sub: "Twitch", link: "https://www.twitch.tv/dawood_sikandar77" }
         },
         characters: [
             { name: "Alisa", img: alisaImg, color: "from-pink-600/20" },
