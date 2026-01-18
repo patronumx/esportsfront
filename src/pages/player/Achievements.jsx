@@ -3,6 +3,7 @@ import api from '../../api/client';
 import { Trophy, Plus, Trash2, Edit2, Award, Star, Save, X, Video, Play, ExternalLink } from 'lucide-react';
 import { showToast } from '../../utils/toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import ConfirmationModal from '../../components/common/ConfirmationModal';
 
 const PlayerAchievements = () => {
     const [achievements, setAchievements] = useState([]);
@@ -16,6 +17,10 @@ const PlayerAchievements = () => {
         description: '',
         montageLink: ''
     });
+
+    // Delete Modal State
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState(null);
 
     useEffect(() => {
         fetchAchievements();
@@ -82,17 +87,24 @@ const PlayerAchievements = () => {
         }
     };
 
-    const handleDelete = async (index) => {
-        if (!window.confirm('Are you sure you want to delete this achievement?')) return;
+    const confirmDelete = async () => {
+        if (itemToDelete === null) return;
         try {
-            const updatedAchievements = achievements.filter((_, i) => i !== index);
+            const updatedAchievements = achievements.filter((_, i) => i !== itemToDelete);
             const { data } = await api.put('/player/achievements', { achievements: updatedAchievements });
             setAchievements(data);
             showToast.success('Achievement deleted');
+            setIsDeleteModalOpen(false);
+            setItemToDelete(null);
         } catch (error) {
             console.error('Failed to delete achievement', error);
             showToast.error('Failed to delete achievement');
         }
+    };
+
+    const handleDeleteClick = (index) => {
+        setItemToDelete(index);
+        setIsDeleteModalOpen(true);
     };
 
     if (loading) {
@@ -158,7 +170,7 @@ const PlayerAchievements = () => {
                                     </div>
                                     <div className="flex gap-2">
                                         <button onClick={() => handleOpenModal(idx)} className="p-2 text-gray-500 hover:text-white transition-colors"><Edit2 className="w-4 h-4" /></button>
-                                        <button onClick={() => handleDelete(idx)} className="p-2 text-gray-500 hover:text-red-400 transition-colors"><Trash2 className="w-4 h-4" /></button>
+                                        <button onClick={() => handleDeleteClick(idx)} className="p-2 text-gray-500 hover:text-red-400 transition-colors"><Trash2 className="w-4 h-4" /></button>
                                     </div>
                                 </div>
 
@@ -293,6 +305,16 @@ const PlayerAchievements = () => {
                     </div>
                 )}
             </AnimatePresence>
+
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                onConfirm={confirmDelete}
+                title="Delete Achievement"
+                message="Are you sure you want to delete this achievement? This action cannot be undone."
+                confirmText="Delete"
+                isDanger={true}
+            />
         </div>
     );
 };
