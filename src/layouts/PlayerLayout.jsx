@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import api from '../api/client';
 import { useAuth } from '../context/AuthContext';
-import { LayoutDashboard, Calendar, Users, LogOut, Menu, X, Crosshair, User, Upload, Camera, Search } from 'lucide-react';
+import { LayoutDashboard, Calendar, Users, LogOut, Menu, X, Crosshair, User, Upload, Camera, Search, Trophy } from 'lucide-react';
 import Hyperspeed from '../components/Hyperspeed';
 import { showToast } from '../utils/toast';
 
@@ -159,6 +159,7 @@ const PlayerLayout = () => {
                     <div className="text-[10px] lg:text-xs font-bold text-gray-500 uppercase tracking-wider px-2 md:px-3 mb-1 mt-1">Main</div>
                     <NavItem to="/player/dashboard" icon={LayoutDashboard} label="Overview" />
                     <NavItem to="/player/matches" icon={Crosshair} label="My Matches" />
+                    <NavItem to="/player/achievements" icon={Trophy} label="Achievements" />
                     <NavItem to="/player/requests" icon={Calendar} label="My Requests" />
                     <NavItem to="/player/browse-teams" icon={Search} label="Browse Teams" />
                 </div>
@@ -175,7 +176,7 @@ const PlayerLayout = () => {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-y-auto relative z-10 bg-gradient-to-br from-black/0 via-violet-900/5 to-blue-900/5 pt-16 md:pt-0">
+            <main className="flex-1 overflow-y-auto relative bg-gradient-to-br from-black/0 via-violet-900/5 to-blue-900/5 pt-16 md:pt-0">
                 <div className="p-8 w-full">
                     <Outlet />
                 </div>

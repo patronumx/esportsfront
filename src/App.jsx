@@ -92,6 +92,7 @@ import PlayerDashboard from './pages/player/Dashboard';
 import BrowseTeams from './pages/player/BrowseTeams';
 import TeamProfile from './pages/player/TeamProfile';
 import PlayerRequests from './pages/player/Requests';
+import PlayerAchievements from './pages/player/Achievements';
 import PlayerLayout from './layouts/PlayerLayout';
 
 
@@ -285,6 +286,7 @@ function App() {
               <Route path="teams/:id" element={<TeamProfile />} />
               <Route path="requests" element={<PlayerRequests />} />
               <Route path="matches" element={<PlayerMatches />} />
+              <Route path="achievements" element={<PlayerAchievements />} />
             </Route>
 
             {/* Fallback */}

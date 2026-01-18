@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import api from '../../api/client';
-import { Briefcase, Trash2, Clock, Calendar, Smartphone, Plus, CheckCircle, XCircle, AlertCircle, Edit2, Save, X, Search, User } from 'lucide-react';
+import { Briefcase, Trash2, Clock, Calendar, Smartphone, Plus, CheckCircle, XCircle, AlertCircle, Edit2, Save, X, Search, User, Trophy, PlayCircle } from 'lucide-react';
 import ConfirmationModal from '../../components/common/ConfirmationModal';
 import { showToast } from '../../utils/toast';
 
@@ -48,6 +48,10 @@ const Recruitments = () => {
         minDevice: ''
     });
     const [saving, setSaving] = useState(false);
+
+    // Achievement Modal for Matches
+    const [selectedPlayer, setSelectedPlayer] = useState(null);
+    const [showAchievements, setShowAchievements] = useState(false);
 
     const fetchPosts = async () => {
         try {
@@ -503,10 +507,20 @@ const Recruitments = () => {
                                     <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden">
                                         {player.avatarUrl ? <img src={player.avatarUrl} alt={player.ign} className="w-full h-full object-cover" /> : <User className="w-6 h-6 text-zinc-600" />}
                                     </div>
-                                    <div>
+                                    <div className="flex-1">
                                         <div className="font-bold text-white">{player.ign}</div>
                                         <div className="text-xs text-gray-500">{player.experience} • {player.age}yo</div>
                                     </div>
+                                    <button
+                                        onClick={() => {
+                                            setSelectedPlayer(player);
+                                            setShowAchievements(true);
+                                        }}
+                                        className="p-2 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-lg hover:bg-amber-500 hover:text-black transition-all"
+                                        title="View Achievements"
+                                    >
+                                        <Trophy className="w-4 h-4" />
+                                    </button>
                                 </div>
                             ))}
                         </div>
@@ -514,6 +528,82 @@ const Recruitments = () => {
                         <div className="mt-8 text-center">
                             <p className="text-xs text-gray-500 mb-4">Notifications have been sent to these players.</p>
                             <button onClick={() => setMatches([])} className="bg-white/10 hover:bg-white/20 text-white px-6 py-2 rounded-lg font-bold text-sm transition-colors">Close</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Achievements Modal Overlay */}
+            {showAchievements && selectedPlayer && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4 animate-in fade-in duration-300">
+                    <div className="bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col shadow-2xl relative">
+                        <div className="p-8 border-b border-white/5 flex justify-between items-center bg-gradient-to-r from-violet-500/10 to-transparent">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center border border-amber-500/30">
+                                    <Trophy className="w-6 h-6 text-amber-500" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-black text-white italic tracking-tighter uppercase leading-none">
+                                        {selectedPlayer.ign}'s <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">Achievements</span>
+                                    </h2>
+                                    <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mt-1">Career Highlights & Awards</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setShowAchievements(false)}
+                                className="p-3 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white rounded-2xl transition-all border border-white/5"
+                            >
+                                <X className="w-6 h-6" />
+                            </button>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                            {selectedPlayer.achievements && selectedPlayer.achievements.length > 0 ? (
+                                selectedPlayer.achievements.map((achievement, idx) => (
+                                    <div key={idx} className="group/item relative bg-white/[0.02] border border-white/5 rounded-3xl p-6 transition-all hover:bg-white/[0.04] hover:border-amber-500/30">
+                                        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                                            <div className="space-y-2">
+                                                <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-full text-[10px] font-black text-amber-400 uppercase tracking-widest">
+                                                    #{achievement.placement || 'TBA'}
+                                                </div>
+                                                <h3 className="text-2xl font-black text-white italic tracking-tight uppercase leading-tight group-hover/item:text-amber-400 transition-colors">
+                                                    {achievement.title}
+                                                </h3>
+                                                <div className="flex items-center gap-2 text-gray-400 font-bold text-sm">
+                                                    <Briefcase className="w-4 h-4 text-violet-500" />
+                                                    {achievement.event}
+                                                </div>
+                                                {achievement.description && (
+                                                    <p className="text-gray-500 text-sm leading-relaxed mt-4 max-w-lg">
+                                                        {achievement.description}
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            {achievement.montageLink && (
+                                                <a
+                                                    href={achievement.montageLink}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex-shrink-0 flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-violet-600/20"
+                                                >
+                                                    <PlayCircle className="w-5 h-5" />
+                                                    Watch Montage
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="flex flex-col items-center justify-center py-12 text-center opacity-50">
+                                    <Trophy className="w-16 h-16 text-gray-600 mb-4" />
+                                    <p className="text-gray-400 font-bold italic uppercase tracking-widest">No achievements recorded yet</p>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="p-6 bg-white/[0.02] border-t border-white/5 text-center">
+                            <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em]">End of Transmission</p>
                         </div>
                     </div>
                 </div>
