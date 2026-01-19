@@ -181,7 +181,7 @@ const ScoutPlayers = () => {
                                         {/* Stats Grid */}
                                         <div className="flex-1 grid grid-cols-2 lg:grid-cols-3 gap-6 w-full lg:w-auto p-6 bg-white/[0.02] rounded-3xl border border-white/5">
                                             <div>
-                                                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-black mb-1">Combat Age</div>
+                                                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-black mb-1">Age</div>
                                                 <div className="text-lg font-black text-white italic">
                                                     {player.age ? `${player.age}Y` : '--'}
                                                 </div>
@@ -193,7 +193,7 @@ const ScoutPlayers = () => {
                                                 </div>
                                             </div>
                                             <div className="col-span-2 lg:col-span-1">
-                                                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-black mb-1">Primary Device</div>
+                                                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-black mb-1">Device</div>
                                                 <div className="text-sm font-bold text-gray-300 truncate" title={player.device}>
                                                     {player.device || '--'}
                                                 </div>
