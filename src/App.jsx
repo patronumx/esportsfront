@@ -31,6 +31,7 @@ import Tekken8 from './pages/talent/Tekken8';
 import FreeFire from './pages/talent/FreeFire';
 import FC26 from './pages/talent/FC26';
 import HonorOfKings from './pages/talent/HonorOfKings';
+import Management from './pages/Management';
 
 // Auth Pages
 import PlayerSignup from './pages/auth/PlayerSignup';
@@ -207,6 +208,7 @@ function App() {
               <Route path="/talent/fc26" element={<FC26 />} />
               <Route path="/talent/honor-of-kings" element={<HonorOfKings />} />
               <Route path="/stats" element={<Stats />} />
+              <Route path="/management" element={<Management />} />
 
               {/* Tekken 8 Admin */}
               <Route path="/events/tekken8/admin" element={<Tekken8AdminLogin />} />

@@ -33,7 +33,9 @@ const Navbar = () => {
     // { to: '/events', label: 'Events' }, // handled separately for dropdown
     { to: '/tech-anti-cheat', label: 'Technology' },
     // { to: '/faq', label: 'FAQ' },
+    // { to: '/faq', label: 'FAQ' },
     { to: '/about', label: 'About' },
+    { to: '/management', label: 'Management' },
   ];
 
   // Sub-links for Events dropdown
