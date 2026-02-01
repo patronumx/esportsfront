@@ -203,12 +203,12 @@ function App() {
               <Route path="/talent" element={<Talent />} />
               <Route path="/talent/pubg-mobile" element={<PUBGMobile />} />
               <Route path="/talent/coming-soon" element={<ComingSoonGame />} />
-              <Route path="/talent/tekken8" element={<Tekken8 />} />
+              <Route path="/talent/tekken8/:id?" element={<Tekken8 />} />
               <Route path="/talent/free-fire" element={<FreeFire />} />
               <Route path="/talent/fc26" element={<FC26 />} />
               <Route path="/talent/honor-of-kings" element={<HonorOfKings />} />
               <Route path="/stats" element={<Stats />} />
-              <Route path="/management" element={<Management />} />
+              <Route path="/management/:id?" element={<Management />} />
 
               {/* Tekken 8 Admin */}
               <Route path="/events/tekken8/admin" element={<Tekken8AdminLogin />} />

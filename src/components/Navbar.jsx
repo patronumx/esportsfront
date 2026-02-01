@@ -25,6 +25,7 @@ const Navbar = () => {
   // Main nav links, omitting "Events" which will be handled separately for dropdown
   const navLinks = [
     { to: '/', label: 'Home' },
+    { to: '/management', label: 'Leadership' },
     // { to: '/competitive-esports', label: 'Competitive' },
     // { to: '/creators-partners', label: 'Creators' },
     { to: '/brands', label: 'Brands' },
@@ -35,7 +36,6 @@ const Navbar = () => {
     // { to: '/faq', label: 'FAQ' },
     // { to: '/faq', label: 'FAQ' },
     { to: '/about', label: 'About' },
-    { to: '/management', label: 'Management' },
   ];
 
   // Sub-links for Events dropdown

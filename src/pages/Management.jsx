@@ -283,8 +283,22 @@ const players = [
 
 
 
+import { useParams, useNavigate } from 'react-router-dom';
+
 const Management = () => {
-    const [selectedPlayer, setSelectedPlayer] = useState(null);
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    // Find player based on URL param, normalized
+    const selectedPlayer = id ? players.find(p => p.id === id) : null;
+
+    const handleSelectPlayer = (player) => {
+        navigate(`/management/${player.id}`);
+    };
+
+    const handleBack = () => {
+        navigate('/management');
+    };
 
     return (
         <div className="min-h-screen bg-black text-white font-sans selection:bg-cyan-500 selection:text-white pb-20 overflow-x-hidden relative">
@@ -295,9 +309,9 @@ const Management = () => {
 
             <AnimatePresence mode="wait">
                 {!selectedPlayer ? (
-                    <RosterView key="roster" players={players} onSelect={setSelectedPlayer} />
+                    <RosterView key="roster" players={players} onSelect={handleSelectPlayer} />
                 ) : (
-                    <PlayerDetail key="detail" player={selectedPlayer} onBack={() => setSelectedPlayer(null)} />
+                    <PlayerDetail key="detail" player={selectedPlayer} onBack={handleBack} />
                 )}
             </AnimatePresence>
         </div>
