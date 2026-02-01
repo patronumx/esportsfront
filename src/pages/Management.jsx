@@ -5,7 +5,10 @@ import { FaXTwitter } from 'react-icons/fa6';
 import Hyperspeed from '../components/Hyperspeed';
 
 // Assets
-import saadImg from '../assets/management/SAAD.jpeg';
+import saadImg from '../assets/management/SAAD.png';
+import maazImg from '../assets/management/maz.png';
+import abdImg from '../assets/management/abd.png';
+import javsImg from '../assets/management/javs.png';
 import logo from '../assets/logo.png';
 
 // --- DATA ---
@@ -16,6 +19,7 @@ const players = [
         nickname: 'Saad Aziz',
         role: 'National Team Manager - Esports',
         image: saadImg,
+        imageClass: 'scale-[1.5] translate-y-2', // Zoomed in for Saad
         achievements: {
             wins: [
                 // Extracted from "Key Capabilities" & "Experience" as highlights
@@ -44,8 +48,8 @@ const players = [
         socials: {
             email: { value: "Email", sub: "Contact", link: "mailto:phantomEsports7223@gmail.com" },
             phone: { value: "Phone", sub: "Contact", link: "tel:+923137396135" },
-            // twitter: { value: "gw", sub: "X (Twitter)", link: "https://x.com/" }, 
-            // instagram: { value: "ig", sub: "Instagram", link: "https://www.instagram.com/" },
+            instagram: { value: "ig", sub: "Instagram", link: "https://www.instagram.com/phantom_7223/" },
+            linkedin: { value: "in", sub: "LinkedIn", link: "https://www.linkedin.com/in/saad-aziz-a71111328/" },
         },
         characters: [], // No characters for manager
         heroTitle: {
@@ -78,75 +82,205 @@ const players = [
         ]
     },
     {
-        id: 'uzair-ali',
-        name: 'Uzair Ali',
-        nickname: 'Uzair',
-        role: 'MOBA Team Manager',
-        image: logo, // Placeholder as no image was found
+        id: 'muhammad-maaz',
+        name: 'Muhammad Maaz',
+        nickname: 'Maaz',
+        role: 'Head of Operations - Patronum Esports',
+        image: maazImg,
+        imageClass: 'scale-[2.0] translate-y-3 -translate-x-3', // Increased zoom for Maaz
         achievements: {
             wins: [
-                { year: "N/A", name: "AIC Pakistan Qualifiers", rank: "1st" },
+                { year: "Present", name: "Patronum Esports Head Ops", rank: "Lead" },
+                { year: "2025", name: "National Team Program Builder (HOK/MLBB)", rank: "Director" },
+                { year: "2022-23", name: "Pro Scrims Pakistan Event Manager", rank: "Lead" },
             ],
-            runnerUps: [
-                { year: "N/A", name: "MLBB Monolith", rank: "2nd (SA)" },
-                { year: "N/A", name: "KOS S3 (South Asia)", rank: "2nd" },
-            ],
+            runnerUps: [],
             notable: [
-                { year: "N/A", name: "MLBB AAIT", rank: "3rd (SA)" },
-                { year: "N/A", name: "AIC SA", rank: "7th-8th" },
-                { year: "N/A", name: "KOS S1 (Wildcard)", rank: "3rd" },
-                { year: "N/A", name: "KOS S2 (South Asia)", rank: "3rd" },
-                { year: "N/A", name: "KOS S2 (Pacific Finals)", rank: "5th" },
-                { year: "N/A", name: "KOS S4 (South Asia)", rank: "5th" },
-                { year: "N/A", name: "IGE Masters: South Asia", rank: "3rd" },
+                { year: "2025", name: "Esports World Cup Content Creator", rank: "Creator" },
             ]
         },
         stats: {
-            yearsActive: "9+",
-            majorTitles: "Mgr"
+            yearsActive: "6+",
+            majorTitles: "HOP"
         },
         bio: {
-            gamingTag: "Uzair Ali",
-            startedPlaying: "2015", // Approx based on 9+ years exp
-            rank: "Manager",
-            location: "Pakistan",
-            born: "Age: 21",
-            influence: "MOBA"
+            gamingTag: "Maaz",
+            startedPlaying: "2020",
+            rank: "Head of Operations",
+            location: "Islamabad, Pakistan",
+            born: "N/A",
+            influence: "Operations"
         },
         socials: {
-            // No socials provided, using placeholders or empty
-            email: { value: "Email", sub: "Contact", link: "mailto:contact@patronum.com" },
+            email: { value: "Email", sub: "Contact", link: "mailto:businessmaz17@gmail.com" },
+            phone: { value: "Phone", sub: "Contact", link: "https://wa.me/923247904543" },
+            linkedin: { value: "in", sub: "LinkedIn", link: "https://www.linkedin.com/in/muhammad-maaz-96b8983a7/" },
+            instagram: { value: "ig", sub: "Instagram", link: "https://www.instagram.com/maazzz2026/" },
         },
         characters: [],
         heroTitle: {
-            top: "MOBA Specialist",
-            namePart1: "Uzair",
-            namePart2: "Ali"
+            top: "Head of Operations",
+            namePart1: "Muhammad",
+            namePart2: "Maaz"
         },
         badges: [
-            "MOBA VETERAN",
-            "REGIONAL MANAGER"
+            "HEAD OF OPS",
+            "EVENT STRATEGIST"
         ],
         highlight: {
-            title: "MOBA Ecosystem Expert",
-            description: <>Extensive experience across multiple MOBA titles including <strong className="text-white">Mobile Legends: Bang Bang (9 Years)</strong>, Heroes Order & Chaos (3 Years), Arena of Valor (3 Years), and Honor of Kings (1.5 Years). A seasoned competitor and manager with top placements across South Asia and Pacific regions.</>
+            title: "Esports Operations Strategist",
+            description: <>A passionate esports professional with experience in event management, team development, and content creation. Specializing in managing high-level esports events and player development programs to contribute to the growth of competitive gaming in Pakistan and South Asia. Proven track record with Patronum Esports and Pro Scrims Pakistan.</>
         },
         sponsorships: [
-            { year: "9 Years", name: "Mobile Legends Bang Bang", fullName: "Experience", description: "Deep understanding of the MLBB ecosystem with nearly a decade of involvement." },
-            { year: "3 Years", name: "Heroes Order & Chaos", fullName: "Experience", description: "Early MOBA adoption and competitive experience." },
-            { year: "3 Years", name: "Arena Of Valor", fullName: "Experience", description: "Competitive experience in AOV." },
-            { year: "1.5 Years", name: "Honor Of Kings", fullName: "Experience", description: "Recent focus on the emerging HOK scene." }
+            { year: "Nov 2025-Present", name: "Patronum Esports", fullName: "Head of Operations", description: "Leading Patronum Esports operations, partnerships, and strategic initiatives. directing national team programs for HOK and MLBB. Developing professional training frameworks and cultivating relationships with top clubs." },
+            { year: "Oct 2025-Present", name: "Patronum X Pvt. Ltd.", fullName: "Head of Technology", description: "Leading the development and execution of innovative software solutions and SaaS products. Managing the tech team to drive development of cutting-edge applications and platforms. Focusing on robust infrastructure, seamless integration, and scalable solutions." },
+            { year: "2025", name: "Esports World Cup", fullName: "Content Creator", description: "Attended EWC 2025 in Riyadh as a content creator, covering the event, interviewing players, and generating live social media content to enhance brand visibility." },
+            { year: "2022-2023", name: "Coda Shop", fullName: "Event Manager", description: "Managed partnerships with Coda Shop and local gaming communities for PUBG Mobile and Call of Duty tournaments." },
+            { year: "2020-2022", name: "Pro Scrims Pakistan", fullName: "Event Manager", description: "Managed esports tournament series for PUBG Mobile and Call of Duty. Organized online/offline events, logistics, and content production." },
+            { year: "2019-2021", name: "Professional Esports Player", fullName: "National Competitor", description: "Participated in numerous Pakistani national tournaments as a professional player, building deep insights into the competitive ecosystem." }
         ],
         skills: [
-            "MOBA Strategy & Meta Analysis",
-            "Team Management",
-            "Regional Tournament Operations",
-            "Talent Scouting",
-            "Cross-Title Expertise (MLBB, HOK, AOV)",
-            "Player Development"
+            "Esports Event Management (Online & LAN)",
+            "Team Development & Management",
+            "Content Creation & Social Media",
+            "Esports Partnerships & Networking",
+            "Scouting & Player Development",
+            "Tournament Logistics & Scheduling",
+            "Leadership & Strategic Planning",
+            "Full Stack Web Developer"
+        ]
+    },
+    {
+        id: 'abdullah-nazir',
+        name: 'Abdullah Nazir Ahmed',
+        nickname: 'Abdullah',
+        role: 'Team Manager - Patronum Esports',
+        image: abdImg,
+        imageClass: 'scale-[2.2] translate-y-3', // Zoomed in slightly more for Abdullah
+        achievements: {
+            wins: [
+                { year: "Present", name: "Patronum X Head of Operations", rank: "Partner" },
+                { year: "Present", name: "Patronum Esports Team Manager", rank: "Partner" },
+            ],
+            runnerUps: [],
+            notable: [
+                { year: "2025", name: "Esports World Cup Content Creator", rank: "Creator" },
+                { year: "2024", name: "Game Development Intern (M Labs)", rank: "Dev" },
+            ]
+        },
+        stats: {
+            yearsActive: "4+",
+            majorTitles: "Mgr"
+        },
+        bio: {
+            gamingTag: "Abdullah",
+            startedPlaying: "2021",
+            rank: "Team Manager",
+            location: "Islamabad, Pakistan",
+            born: "N/A",
+            influence: "Operations"
+        },
+        socials: {
+            email: { value: "Email", sub: "Contact", link: "mailto:malik.ab.0711@gmail.com" },
+            phone: { value: "Phone", sub: "Contact", link: "tel:+923110100792" },
+            instagram: { value: "ig", sub: "Instagram", link: "https://www.instagram.com/khanaabadoshh.x/" },
+            linkedin: { value: "in", sub: "LinkedIn", link: "https://www.linkedin.com/in/abdullah-nazir-ahmed-0b09a53a1/" },
+        },
+        characters: [],
+        heroTitle: {
+            top: "Team Manager",
+            namePart1: "Abdullah",
+            namePart2: "Nazir"
+        },
+        badges: [
+            "TEAM MANAGER",
+            "GAME DEVELOPER"
+        ],
+        highlight: {
+            title: "Esports Operations & Game Dev",
+            description: <>Game Developer and Operations Lead with a blend of technical and managerial expertise. As Head of Operations & Partner at Patronum X, ensures smooth execution of company goals and daily operations. Combines game development knowledge (Unity, Blender, C#) with esports management to bridge the gap between technical execution and strategic growth.</>
+        },
+        sponsorships: [
+            { year: "2025-Present", name: "Patronum X Pvt. Ltd.", fullName: "Head of Operations & Partner", description: "Overseeing daily operations, implementing SOPs, and coordinating between tech, design, and client teams to ensure delivery excellence. Contributing to strategic planning and business growth." },
+            { year: "2025-Present", name: "Patronum Esports", fullName: "Team Manager & Partner", description: "Leading team operations, tournament registrations, and logistics. Managing player rosters, discipline, and performance alignment. Developing partnerships to expand opportunities." },
+            { year: "2025", name: "Esports World Cup", fullName: "Content Creator", description: "Attended Esports World Cup as a content creator, engaging with the global community." }
+        ],
+        skills: [
+            "Game Development (Unity, Unreal Engine)",
+            "3D Modeling & Animation (Blender)",
+            "Team Operations & Leadership",
+            "Esports Tournament Management",
+            "Strategic Planning & SOP Implementation",
+            "C# & Machine Learning (ML Agents)",
+            "Problem Solving"
+        ]
+    },
+    {
+        id: 'javeria-akber',
+        name: 'Javeria Akber',
+        nickname: 'Javeria',
+        role: 'General Manager - Patronum Esports',
+        image: javsImg,
+        imageClass: 'scale-[1.35] translate-y-3', // Zoomed in for Javeria
+        achievements: {
+            wins: [
+                { year: "Present", name: "Patronum X CTO", rank: "Lead" },
+                { year: "Present", name: "Patronum Esports General Manager", rank: "Lead" },
+            ],
+            runnerUps: [],
+            notable: [
+                { year: "2025", name: "Esports World Cup Content Creator", rank: "Creator" },
+            ]
+        },
+        stats: {
+            yearsActive: "4+",
+            majorTitles: "CTO"
+        },
+        bio: {
+            gamingTag: "Javeria",
+            startedPlaying: "2019",
+            rank: "CTO / GM",
+            location: "Islamabad, Pakistan",
+            born: "N/A",
+            influence: "Technology"
+        },
+        socials: {
+            email: { value: "Email", sub: "Contact", link: "mailto:javeria.akber11@gmail.com" },
+            instagram: { value: "ig", sub: "Instagram", link: "https://www.instagram.com/shots.by.javs/" },
+            linkedin: { value: "in", sub: "LinkedIn", link: "https://www.linkedin.com/in/javeria-akber-b80b57228/" },
+        },
+        characters: [],
+        heroTitle: {
+            top: "Chief Technology Officer",
+            namePart1: "Javeria",
+            namePart2: "Akber"
+        },
+        badges: [
+            "CTO",
+            "GENERAL MANAGER"
+        ],
+        highlight: {
+            title: "AI Engineer & Tech Strategist",
+            description: <>AI Engineer with hands-on experience in machine learning, computer vision, and automation. As CTO at Patronum X and General Manager at Patronum Esports, leads technical strategy, scalable product development, and operational growth. Skilled in integrating AI models into real-world applications and driving data-driven decision-making.</>
+        },
+        sponsorships: [
+            { year: "Oct 2025-Present", name: "Patronum X Pvt. Ltd.", fullName: "Chief Technology Officer (CTO)", description: "Leading technical strategy and development of AI-driven and SaaS products. Responsible for system architecture, automation, and translating business requirements into scalable technology solutions." },
+            { year: "Nov 2025-Present", name: "Patronum Esports", fullName: "General Manager", description: "Overseeing day-to-day esports operations, team management, and strategic planning. Coordinating competitive teams, managing partnerships, and aligning operations with organizational goals." },
+            { year: "Project", name: "Vision Kick - Football Analysis", fullName: "YOLO / Computer Vision", description: "Built a YOLO-based system to detect players and ball in match footage. Added tracking for tactical movement visualization." },
+            { year: "Project", name: "Cyber-Threat Detection", fullName: "Machine Learning", description: "Trained ML models to classify malware using feature extraction." }
+        ],
+        skills: [
+            "Python, C++, SQL",
+            "Machine Learning & Deep Learning (CNNs, YOLO)",
+            "Computer Vision & Image Processing",
+            "Data Analysis (NumPy, Pandas)",
+            "Strategic Planning & Leadership",
+            "Esports Operations Management",
+            "Automation & System Architecture"
         ]
     }
 ];
+
 
 
 const Management = () => {
@@ -204,7 +338,7 @@ const RosterView = ({ players, onSelect }) => {
                                 <img
                                     src={player.image}
                                     alt={player.name}
-                                    className="w-full h-auto object-contain opacity-90 transition-transform duration-700 group-hover:scale-105"
+                                    className={`w-full h-auto object-contain opacity-90 transition-transform duration-700 group-hover:scale-105 ${player.imageClass || ''}`}
                                 />
                             </div>
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-90" />
@@ -286,7 +420,7 @@ const PlayerDetail = ({ player, onBack }) => {
                                 <img
                                     src={player.image}
                                     alt={player.name}
-                                    className="w-full h-auto object-contain opacity-100 group-hover:scale-105 transition-transform duration-700"
+                                    className={`w-full h-auto object-contain opacity-100 group-hover:scale-105 transition-transform duration-700 ${player.imageClass || ''}`}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
 
@@ -341,7 +475,7 @@ const PlayerDetail = ({ player, onBack }) => {
                         <SectionContainer title="Professional Profile" icon={<FaBriefcase />}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12 text-zinc-300">
                                 <div className="space-y-4">
-                                    <InfoRow label="Title" value={player.bio.gamingTag} icon={<FaBriefcase />} />
+                                    <InfoRow label="Name" value={player.bio.gamingTag} icon={<FaBriefcase />} />
                                     <InfoRow label="Experience Start" value={player.bio.startedPlaying} icon={<FaHistory />} />
                                     <InfoRow label="Designation" value={player.bio.rank} icon={<FaTrophy className="text-yellow-500" />} />
                                 </div>
