@@ -101,12 +101,12 @@ const players = [
             ]
         },
         stats: {
-            yearsActive: "6+",
+            yearsActive: "7+",
             majorTitles: "HOP"
         },
         bio: {
             gamingTag: "Maaz",
-            startedPlaying: "2020",
+            startedPlaying: "2019",
             rank: "Head of Operations",
             location: "Islamabad, Pakistan",
             born: "N/A",
