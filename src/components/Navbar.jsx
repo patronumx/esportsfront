@@ -25,6 +25,7 @@ const Navbar = () => {
   // Main nav links, omitting "Events" which will be handled separately for dropdown
   const navLinks = [
     { to: '/', label: 'Home' },
+    { to: '/management', label: 'Leadership' },
     // { to: '/competitive-esports', label: 'Competitive' },
     // { to: '/creators-partners', label: 'Creators' },
     { to: '/brands', label: 'Brands' },
@@ -33,13 +34,15 @@ const Navbar = () => {
     // { to: '/events', label: 'Events' }, // handled separately for dropdown
     { to: '/tech-anti-cheat', label: 'Technology' },
     // { to: '/faq', label: 'FAQ' },
+    // { to: '/faq', label: 'FAQ' },
     { to: '/about', label: 'About' },
   ];
 
   // Sub-links for Events dropdown
   const eventDropdownLinks = [
-    { to: '/events/pmgc-2025', label: 'PMGC 2025' },
+    // { to: '/events/pmgc-2025', label: 'PMGC 2025' },
     // { to: '/events/pgc-2025', label: 'PGC 2025' },
+    { to: '/events/tekken-8-face-off-2026', label: 'TEKKEN 8 FACE OFF 2026' }
   ];
 
   return (
@@ -84,17 +87,45 @@ const Navbar = () => {
               </Link>
             ))}
 
-            <Link
-              to="/events/pmgc-2025"
-              className={`text-base font-medium transition-all hover:text-violet-300 relative group ${location.pathname.startsWith('/events') ? 'text-violet-400' : 'text-slate-300'
-                }`}
+            {/* Events Dropdown */}
+            <div
+              className="relative group"
+              onMouseEnter={() => setEventsDropdownOpen(true)}
+              onMouseLeave={() => setEventsDropdownOpen(false)}
             >
-              Events
-              <span
-                className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-violet-500 to-purple-500 rounded-full transition-all duration-300 ${location.pathname.startsWith('/events') ? 'w-full' : 'w-0 group-hover:w-full'
+              <button
+                className={`text-base font-medium transition-all hover:text-violet-300 relative group flex items-center gap-1 ${location.pathname.startsWith('/events') ? 'text-violet-400' : 'text-slate-300'
                   }`}
-              ></span>
-            </Link>
+              >
+                Events
+                <svg className={`w-4 h-4 transition-transform duration-200 ${eventsDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                <span
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-violet-500 to-purple-500 rounded-full transition-all duration-300 ${location.pathname.startsWith('/events') ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                ></span>
+              </button>
+
+              {/* Dropdown Menu */}
+              <div
+                className={`absolute top-full left-1/2 -translate-x-1/2 pt-4 transition-all duration-300 transform origin-top ${eventsDropdownOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'
+                  }`}
+              >
+                <div className="bg-[#0f0f12] border border-violet-500/20 rounded-xl shadow-2xl shadow-purple-900/40 p-1.5 min-w-[240px] overflow-hidden backdrop-blur-3xl ring-1 ring-white/5">
+                  {eventDropdownLinks.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      className={`block px-4 py-3 text-sm font-bold tracking-wider rounded-lg transition-all duration-200 font-display ${location.pathname === link.to
+                        ? 'bg-gradient-to-r from-violet-600/20 to-purple-600/20 text-violet-300 border border-violet-500/30'
+                        : 'text-slate-300 hover:bg-violet-500/10 hover:text-white hover:pl-5'
+                        }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
 
             {navLinks.slice(4).map((link) => (
               <Link
@@ -161,15 +192,35 @@ const Navbar = () => {
             ))}
 
             {/* Events Mobile Dropdown */}
-            <Link
-              to="/events/pmgc-2025"
-              className={`block py-2 text-base font-medium transition-colors ${location.pathname.startsWith('/events')
-                ? 'text-violet-400'
-                : 'text-slate-300 hover:text-violet-400'
-                }`}
-            >
-              Events
-            </Link>
+            <div className="space-y-1">
+              <button
+                onClick={() => setMobileEventsDropdownOpen(!mobileEventsDropdownOpen)}
+                className={`flex items-center justify-between w-full py-2 text-base font-medium transition-colors ${location.pathname.startsWith('/events')
+                  ? 'text-violet-400'
+                  : 'text-slate-300 hover:text-violet-400'
+                  }`}
+              >
+                Events
+                <svg className={`w-4 h-4 transition-transform duration-200 ${mobileEventsDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </button>
+
+              {mobileEventsDropdownOpen && (
+                <div className="pl-4 space-y-2 border-l border-white/10 ml-2">
+                  {eventDropdownLinks.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      className={`block py-1 text-sm font-medium transition-colors ${location.pathname === link.to
+                        ? 'text-violet-400'
+                        : 'text-slate-400 hover:text-white'
+                        }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {navLinks.slice(4).map((link) => (
               <Link

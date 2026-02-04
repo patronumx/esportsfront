@@ -302,7 +302,7 @@ const TeamDashboard = () => {
                             {roster.slice(0, 6).map((player) => (
                                 <div key={player._id || player.uid || Math.random()} className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-3 hover:bg-white/10 transition-colors">
                                     <img
-                                        src={player.image || `https://ui-avatars.com/api/?name=${player.ign || player.name || 'P'}&background=random`}
+                                        src={player.image || player.avatarUrl || `https://ui-avatars.com/api/?name=${player.ign || player.name || 'P'}&background=random`}
                                         alt={player.ign}
                                         className="w-10 h-10 rounded-lg object-cover bg-black"
                                     />
@@ -451,8 +451,8 @@ const TeamDashboard = () => {
                                 scoutPlayers.slice(0, 3).map((player) => (
                                     <div key={player._id} className="flex items-center gap-3 group/app cursor-pointer bg-white/5 hover:bg-white/10 border border-white/5 p-3 rounded-xl transition-all">
                                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-800 to-black border border-white/10 flex items-center justify-center text-sm font-bold text-white overflow-hidden shadow-lg">
-                                            {player.image ? (
-                                                <img src={player.image} alt={player.ign} className="w-full h-full object-cover" />
+                                            {(player.image || player.avatarUrl) ? (
+                                                <img src={player.image || player.avatarUrl} alt={player.ign} className="w-full h-full object-cover" />
                                             ) : (
                                                 <span className="text-xs">{player.ign ? player.ign.charAt(0).toUpperCase() : '?'}</span>
                                             )}

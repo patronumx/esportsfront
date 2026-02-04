@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL || (window.location.hostname === 'localhost'
-        ? 'https://esportsback-5f0e5dfa1bec.herokuapp.com/api'
+        ? 'http://localhost:5000/api'
         : 'https://esportsback-5f0e5dfa1bec.herokuapp.com/api'),
     withCredentials: true
 });
@@ -18,10 +18,10 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response && error.response.status === 401) {
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
             // Dispatch custom event for AuthContext to handle
             import('../utils/toast').then(({ showToast }) => {
-                showToast.error("Session Expired: Please login again.");
+                showToast.error("Session Expired/Invalid: Please login again.");
             });
             window.dispatchEvent(new Event('auth:logout'));
         }

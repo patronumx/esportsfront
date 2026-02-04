@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api/client';
-import { User, Plus, X, Upload, Save } from 'lucide-react';
+import { User, Plus, X, Upload, Save, Trophy, PlayCircle, Briefcase } from 'lucide-react';
 import ConfirmationModal from '../../components/common/ConfirmationModal';
 import { showToast } from '../../utils/toast';
 
@@ -15,6 +15,10 @@ const TeamRoster = () => {
 
     const [editForm, setEditForm] = useState({ name: '', role: '', ign: '', uid: '', instagram: '', twitter: '', discord: '', image: '', file: null });
     const [uploading, setUploading] = useState(false);
+
+    // Achievement Modal
+    const [selectedPlayer, setSelectedPlayer] = useState(null);
+    const [showAchievements, setShowAchievements] = useState(false);
 
     useEffect(() => {
         fetchRoster();
@@ -46,7 +50,7 @@ const TeamRoster = () => {
                 instagram: player.socialLinks?.instagram || '',
                 twitter: player.socialLinks?.twitter || '',
                 discord: player.socialLinks?.discord || '',
-                image: player.image || '',
+                image: player.image || player.avatarUrl || '',
                 file: null
             });
         } else {
@@ -74,7 +78,10 @@ const TeamRoster = () => {
                 const uploadRes = await api.post('/upload', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
-                imageUrl = uploadRes.data.url;
+                // Cloudinary typically returns secure_url, but our backend map might return 'url' or 'secure_url'
+                imageUrl = uploadRes.data.secure_url || uploadRes.data.url;
+
+                console.log('Image Uploaded, URL:', imageUrl);
             }
 
             // Construct new roster
@@ -101,6 +108,8 @@ const TeamRoster = () => {
 
             // clean array
             const cleanRoster = newRoster.filter(p => p !== null);
+
+            console.log('Saving Roster Payload:', cleanRoster);
 
             const { data } = await api.post('/team/roster', { roster: cleanRoster });
             setTeam(data); // data is the updated team object
@@ -273,8 +282,8 @@ const TeamRoster = () => {
                                 <>
                                     <div className="h-48 w-full relative group">
                                         <div className="absolute inset-0 bg-[#151515] flex items-center justify-center overflow-hidden">
-                                            {player.image ? (
-                                                <img src={player.image} alt={player.name} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110" />
+                                            {(player.image || player.avatarUrl) ? (
+                                                <img src={player.image || player.avatarUrl} alt={player.name} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110" />
                                             ) : (
                                                 <User className="w-16 h-16 text-gray-700" />
                                             )}
@@ -288,6 +297,17 @@ const TeamRoster = () => {
                                                 <X size={14} />
                                             </button>
                                         </div>
+                                        {player && (
+                                            <button
+                                                onClick={() => {
+                                                    setSelectedPlayer(player);
+                                                    setShowAchievements(true);
+                                                }}
+                                                className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all flex items-center gap-2 px-4 py-2 bg-amber-500/90 backdrop-blur-md text-black rounded-xl text-[10px] font-black uppercase tracking-wider hover:bg-amber-400 shadow-xl"
+                                            >
+                                                <Trophy size={14} /> View Achievements
+                                            </button>
+                                        )}
                                     </div>
                                     <div className="p-6 relative -mt-12 z-10 text-center flex-1 flex flex-col justify-end">
                                         <h3 className="text-2xl font-black text-white mb-0.5 uppercase tracking-tight">{player.name}</h3>
@@ -333,6 +353,82 @@ const TeamRoster = () => {
                 confirmText="Remove"
                 isDanger={true}
             />
+
+            {/* Achievements Modal Overlay */}
+            {showAchievements && selectedPlayer && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4 animate-in fade-in duration-300">
+                    <div className="bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col shadow-2xl relative text-left">
+                        <div className="p-8 border-b border-white/5 flex justify-between items-center bg-gradient-to-r from-violet-500/10 to-transparent">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center border border-amber-500/30">
+                                    <Trophy className="w-6 h-6 text-amber-500" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-black text-white italic tracking-tighter uppercase leading-none">
+                                        {selectedPlayer.ign}'s <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">Achievements</span>
+                                    </h2>
+                                    <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mt-1">Career Highlights & Awards</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setShowAchievements(false)}
+                                className="p-3 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white rounded-2xl transition-all border border-white/5"
+                            >
+                                <X className="w-6 h-6" />
+                            </button>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                            {selectedPlayer.achievements && selectedPlayer.achievements.length > 0 ? (
+                                selectedPlayer.achievements.map((achievement, idx) => (
+                                    <div key={idx} className="group/item relative bg-white/[0.02] border border-white/5 rounded-3xl p-6 transition-all hover:bg-white/[0.04] hover:border-amber-500/30">
+                                        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                                            <div className="space-y-2 text-left">
+                                                <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-full text-[10px] font-black text-amber-400 uppercase tracking-widest">
+                                                    #{achievement.placement || 'TBA'}
+                                                </div>
+                                                <h3 className="text-2xl font-black text-white italic tracking-tight uppercase leading-tight group-hover/item:text-amber-400 transition-colors">
+                                                    {achievement.title}
+                                                </h3>
+                                                <div className="flex items-center gap-2 text-gray-400 font-bold text-sm">
+                                                    <Briefcase className="w-4 h-4 text-violet-500" />
+                                                    {achievement.event}
+                                                </div>
+                                                {achievement.description && (
+                                                    <p className="text-gray-500 text-sm leading-relaxed mt-4 max-w-lg">
+                                                        {achievement.description}
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            {achievement.montageLink && (
+                                                <a
+                                                    href={achievement.montageLink}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex-shrink-0 flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-violet-600/20"
+                                                >
+                                                    <PlayCircle className="w-5 h-5" />
+                                                    Watch Montage
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="flex flex-col items-center justify-center py-12 text-center opacity-50">
+                                    <Trophy className="w-16 h-16 text-gray-600 mb-4" />
+                                    <p className="text-gray-400 font-bold italic uppercase tracking-widest">No achievements recorded yet</p>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="p-6 bg-white/[0.02] border-t border-white/5 text-center">
+                            <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em]">End of Transmission</p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div >
     );
 };
