@@ -45,7 +45,11 @@ import ProDashboard from './pages/pro/Dashboard';
 // import PMGC2025 from './pages/events/PMGC2025New';
 import PGC2025 from './pages/events/PGC2025';
 import Tekken8FaceOff2026 from './pages/events/Tekken8FaceOff2026';
+import RiseOfMoba from './pages/events/RiseOfMoba';
+import RiseOfMobaHOK from './pages/events/RiseOfMobaHOK';
+import RiseOfMobaML from './pages/events/RiseOfMobaML';
 import Tekken8AdminLogin from './pages/events/Tekken8AdminLogin';
+import MobaAdminLogin from './pages/events/MobaAdminLogin';
 import EventsAdminDashboard from './pages/events/EventsAdminDashboard';
 import Stats from './pages/Stats';
 
@@ -200,6 +204,9 @@ function App() {
               {/* <Route path="/events/pmgc-2025" element={<PMGC2025 />} /> */}
               <Route path="/events/pgc-2025" element={<PGC2025 />} />
               <Route path="/events/tekken-8-face-off-2026" element={<Tekken8FaceOff2026 />} />
+              <Route path="/events/rise-of-moba" element={<RiseOfMoba />} />
+              <Route path="/events/rise-of-moba/hok/register" element={<RiseOfMobaHOK />} />
+              <Route path="/events/rise-of-moba/mlbb/register" element={<RiseOfMobaML />} />
               <Route path="/talent" element={<Talent />} />
               <Route path="/talent/pubg-mobile" element={<PUBGMobile />} />
               <Route path="/talent/coming-soon" element={<ComingSoonGame />} />
@@ -211,8 +218,15 @@ function App() {
               <Route path="/management/:id?" element={<Management />} />
 
               {/* Tekken 8 Admin */}
+              <Route path="/events/admin" element={<EventsAdminDashboard />} />
               <Route path="/events/tekken8/admin" element={<Tekken8AdminLogin />} />
-              <Route path="/events/tekken8/admin/dashboard" element={<EventsAdminDashboard />} />
+              <Route path="/events/tekken8/admin/dashboard" element={<EventsAdminDashboard forcedSlug="tekken8" />} />
+
+              {/* MOBA Admin Routes */}
+              <Route path="/events/moba/mlbb/admin" element={<MobaAdminLogin game="mlbb" />} />
+              <Route path="/events/moba/mlbb/admin/dashboard" element={<EventsAdminDashboard forcedSlug="mlbb" />} />
+              <Route path="/events/moba/hok/admin" element={<MobaAdminLogin game="hok" />} />
+              <Route path="/events/moba/hok/admin/dashboard" element={<EventsAdminDashboard forcedSlug="hok" />} />
 
               {/* Auth Routes inside Public Layout (Transparent) */}
               <Route path="/team/login" element={<GuestRoute><UnifiedLogin type="team" /></GuestRoute>} />

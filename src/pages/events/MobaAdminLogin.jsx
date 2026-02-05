@@ -2,12 +2,34 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import banner from '../../assets/tekken8/banner.png';
+import mlBanner from '../../assets/events/ml.png';
+import hokBanner from '../../assets/events/hok.jpg';
 
-const Tekken8AdminLogin = () => {
+const MobaAdminLogin = ({ game }) => {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    const config = {
+        mlbb: {
+            title: 'MLBB Admin',
+            banner: mlBanner,
+            color: 'text-blue-500',
+            borderColor: 'focus:border-blue-500',
+            btnColor: 'bg-blue-600 hover:bg-blue-500',
+            redirect: '/events/moba/mlbb/admin/dashboard'
+        },
+        hok: {
+            title: 'HOK Admin',
+            banner: hokBanner,
+            color: 'text-yellow-500',
+            borderColor: 'focus:border-yellow-500',
+            btnColor: 'bg-yellow-600 hover:bg-yellow-500',
+            redirect: '/events/moba/hok/admin/dashboard'
+        }
+    };
+
+    const currentConfig = config[game] || config.mlbb;
 
     const handleChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -18,11 +40,11 @@ const Tekken8AdminLogin = () => {
         setLoading(true);
         try {
             const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/api$/, '');
-            const res = await axios.post(`${API_BASE}/api/tekken8/admin/login`, credentials);
+            const res = await axios.post(`${API_BASE}/api/moba/admin/login`, credentials);
             if (res.data.success) {
-                localStorage.setItem('tekken8_admin_token', res.data.token);
+                localStorage.setItem('moba_admin_token', res.data.token);
                 toast.success('Access Granted');
-                navigate('/events/tekken8/admin/dashboard');
+                navigate(currentConfig.redirect);
             }
         } catch (err) {
             toast.error(err.response?.data?.message || 'Access Denied');
@@ -34,17 +56,12 @@ const Tekken8AdminLogin = () => {
     return (
         <div
             className="min-h-screen bg-[#050505] text-white flex items-center justify-center p-4 relative bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${banner})` }}
+            style={{ backgroundImage: `url(${currentConfig.banner})` }}
         >
             {/* Dark Overlay */}
             <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
 
             <div className="w-full max-w-md bg-[#0c0c10]/90 border border-white/10 rounded-2xl p-8 relative overflow-hidden shadow-2xl backdrop-blur-md z-10">
-
-                {/* Decorative Elements */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -ml-16 -mb-16 pointer-events-none"></div>
-
                 <div className="relative z-10">
                     <button
                         onClick={() => navigate('/events/admin')}
@@ -54,7 +71,9 @@ const Tekken8AdminLogin = () => {
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                     </button>
                     <div className="text-center mb-10">
-                        <h2 className="text-3xl font-black italic uppercase tracking-wider mb-2">Admin <span className="text-orange-500">Access</span></h2>
+                        <h2 className="text-3xl font-black italic uppercase tracking-wider mb-2">
+                            {currentConfig.title} <span className={currentConfig.color}>Access</span>
+                        </h2>
                         <p className="text-gray-500 text-xs font-mono uppercase tracking-[0.2em]">Restricted Area</p>
                     </div>
 
@@ -66,7 +85,7 @@ const Tekken8AdminLogin = () => {
                                 name="username"
                                 value={credentials.username}
                                 onChange={handleChange}
-                                className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:border-orange-500 transition-colors outline-none"
+                                className={`w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white ${currentConfig.borderColor} transition-colors outline-none`}
                                 required
                             />
                         </div>
@@ -77,14 +96,14 @@ const Tekken8AdminLogin = () => {
                                 name="password"
                                 value={credentials.password}
                                 onChange={handleChange}
-                                className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:border-orange-500 transition-colors outline-none"
+                                className={`w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white ${currentConfig.borderColor} transition-colors outline-none`}
                                 required
                             />
                         </div>
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-orange-600 hover:bg-orange-500 text-black font-black uppercase tracking-widest py-3 rounded-lg transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+                            className={`w-full ${currentConfig.btnColor} text-white font-black uppercase tracking-widest py-3 rounded-lg transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed`}
                         >
                             {loading ? 'Authenticating...' : 'Enter System'}
                         </button>
@@ -95,4 +114,4 @@ const Tekken8AdminLogin = () => {
     );
 };
 
-export default Tekken8AdminLogin;
+export default MobaAdminLogin;

@@ -42,7 +42,8 @@ const Navbar = () => {
   const eventDropdownLinks = [
     // { to: '/events/pmgc-2025', label: 'PMGC 2025' },
     // { to: '/events/pgc-2025', label: 'PGC 2025' },
-    { to: '/events/tekken-8-face-off-2026', label: 'TEKKEN 8 FACE OFF 2026' }
+    { to: '/events/tekken-8-face-off-2026', label: 'TEKKEN 8 FACE OFF 2026' },
+    { to: '/events/rise-of-moba', label: 'RISE OF MOBA' }
   ];
 
   return (

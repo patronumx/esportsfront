@@ -100,6 +100,12 @@ const Tekken8FaceOff2026 = () => {
                             <span className="block md:inline md:ml-4 text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-red-500 to-orange-400 drop-shadow-[0_0_30px_rgba(239,68,68,0.6)] pr-6 py-4 brightness-110">FACE OFF</span>
                         </span>
                     </h1>
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mt-4 tracking-widest uppercase drop-shadow-lg">
+                        Event Dates: <span className="text-red-500">16, 17 May</span>
+                    </h2>
+                    <h2 className="text-xl md:text-2xl font-bold text-gray-300 mt-2 tracking-wide uppercase">
+                        Venue: <span className="text-white">Lahore, Pakistan</span>
+                    </h2>
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
@@ -144,7 +150,7 @@ const Tekken8FaceOff2026 = () => {
                                                     <span className="text-orange-400 font-extrabold text-sm uppercase italic tracking-wider">Early Bird</span>
                                                     <span className="bg-orange-500 text-black text-[10px] font-black px-2 py-0.5 rounded shadow-[0_0_10px_rgba(249,115,22,0.6)] uppercase italic">Best Value</span>
                                                 </div>
-                                                <p className="text-sm text-white font-bold tracking-wider font-sans drop-shadow-md">21 Jan - 18 Feb</p>
+                                                <p className="text-sm text-white font-bold tracking-wider font-sans drop-shadow-md">27 Feb – 15 Mar</p>
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-xs text-gray-500 font-bold uppercase mb-0.5">PKR</p>
@@ -160,7 +166,7 @@ const Tekken8FaceOff2026 = () => {
                                         <div className="transform skew-x-[12deg] flex justify-between items-center">
                                             <div>
                                                 <span className="text-blue-400 font-bold text-sm uppercase italic tracking-wider block mb-1">Standard</span>
-                                                <p className="text-sm text-gray-200 font-bold tracking-wider font-sans">18 Feb - 15 Mar</p>
+                                                <p className="text-sm text-gray-200 font-bold tracking-wider font-sans">16 Mar – 30 Apr</p>
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-3xl md:text-4xl font-black italic text-gray-200 leading-none">2000</p>
@@ -175,7 +181,7 @@ const Tekken8FaceOff2026 = () => {
                                         <div className="transform skew-x-[12deg] flex justify-between items-center">
                                             <div>
                                                 <span className="text-red-500/70 group-hover:text-red-500 font-bold text-sm uppercase italic tracking-wider block mb-1 transition-colors">Last Call</span>
-                                                <p className="text-sm text-gray-400 group-hover:text-gray-200 font-bold tracking-wider font-sans transition-colors">16 Mar - 26 Mar</p>
+                                                <p className="text-sm text-gray-400 group-hover:text-gray-200 font-bold tracking-wider font-sans transition-colors">1 May – 14 May</p>
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-3xl md:text-4xl font-black italic text-gray-500 group-hover:text-gray-200 leading-none transition-colors">2500</p>
@@ -188,7 +194,7 @@ const Tekken8FaceOff2026 = () => {
                     </div>
 
                     {/* Right Side: Registration Form */}
-                    <div className="w-full md:w-7/12 lg:w-8/12">
+                    {/* <div className="w-full md:w-7/12 lg:w-8/12">
                         <div className="bg-[#0f0f12]/80 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
 
                             <div className="relative z-10 mb-10 border-b border-white/5 pb-8">
@@ -202,7 +208,6 @@ const Tekken8FaceOff2026 = () => {
 
                             <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    {/* Full Name */}
                                     <div className="space-y-3 group">
                                         <label className="text-xs font-bold text-gray-400 uppercase tracking-widest group-focus-within:text-indigo-400 transition-colors pl-1">Full Name <span className="text-red-500">*</span></label>
                                         <div className="relative">
@@ -221,7 +226,6 @@ const Tekken8FaceOff2026 = () => {
                                         </div>
                                     </div>
 
-                                    {/* Email */}
                                     <div className="space-y-3 group">
                                         <label className="text-xs font-bold text-gray-400 uppercase tracking-widest group-focus-within:text-indigo-400 transition-colors pl-1">Email <span className="text-red-500">*</span></label>
                                         <div className="relative">
@@ -240,7 +244,6 @@ const Tekken8FaceOff2026 = () => {
                                         </div>
                                     </div>
 
-                                    {/* Phone Number */}
                                     <div className="space-y-3 group">
                                         <label className="text-xs font-bold text-gray-400 uppercase tracking-widest group-focus-within:text-indigo-400 transition-colors pl-1">WhatsApp <span className="text-red-500">*</span></label>
                                         <div className="relative">
@@ -259,7 +262,6 @@ const Tekken8FaceOff2026 = () => {
                                         </div>
                                     </div>
 
-                                    {/* Coupon Code */}
                                     <div className="space-y-3 group">
                                         <label className="text-xs font-bold text-gray-400 uppercase tracking-widest group-focus-within:text-indigo-400 transition-colors pl-1">Promo Code</label>
                                         <div className="relative">
@@ -278,24 +280,18 @@ const Tekken8FaceOff2026 = () => {
                                     </div>
                                 </div>
 
-                                {/* Payment Screenshot */}
                                 <div className="space-y-4 pt-4 border-t border-white/5">
 
-                                    {/* Bank Details Section - Phase 2 Electric DoJo */}
                                     <div className="relative mb-10 mt-2">
 
-                                        {/* Outer Skewed Container */}
                                         <div className="relative transform skew-x-[-10deg] bg-[#0c0c10] border-l-4 border-orange-600 rounded-r-2xl overflow-hidden group/bank transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(249,115,22,0.2)]">
 
-                                            {/* Dynamic Background Elements */}
                                             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
                                             <div className="absolute top-0 right-0 w-64 h-full bg-gradient-to-l from-orange-600/10 to-transparent"></div>
                                             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-orange-600/0 via-orange-600/50 to-orange-600/0"></div>
 
-                                            {/* Content Wrapper (Unskew) */}
                                             <div className="transform skew-x-[10deg] p-6 relative z-10">
 
-                                                {/* Header */}
                                                 <div className="flex items-center justify-between mb-8 pb-2 border-b border-white/5">
                                                     <div className="flex items-center gap-3">
                                                         <div className="w-2 h-2 bg-orange-500 rotate-45 animate-pulse"></div>
@@ -308,7 +304,7 @@ const Tekken8FaceOff2026 = () => {
 
                                                 <div className="space-y-6">
 
-                                                    {/* Bank & Title Grid */}
+                                                
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                         <div className="group/item">
                                                             <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 block group-hover/item:text-orange-400 transition-colors">Bank Name</span>
@@ -324,7 +320,6 @@ const Tekken8FaceOff2026 = () => {
                                                         </div>
                                                     </div>
 
-                                                    {/* Account Number - Big & Bold */}
                                                     <div className="bg-black/40 p-4 border border-white/5 rounded-lg group/acc hover:border-orange-500/30 transition-all relative overflow-hidden">
                                                         <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-orange-500/10 to-transparent opacity-0 group-hover/acc:opacity-100 transition-opacity"></div>
                                                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
@@ -342,7 +337,6 @@ const Tekken8FaceOff2026 = () => {
                                                         </div>
                                                     </div>
 
-                                                    {/* IBAN */}
                                                     <div className="bg-black/40 p-4 border border-white/5 rounded-lg group/iban hover:border-blue-500/30 transition-all relative overflow-hidden">
                                                         <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-blue-500/10 to-transparent opacity-0 group-hover/iban:opacity-100 transition-opacity"></div>
                                                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
@@ -364,10 +358,8 @@ const Tekken8FaceOff2026 = () => {
                                             </div>
                                         </div>
 
-                                        {/* Notifications / Alerts - Stacked & Stylized */}
                                         <div className="space-y-4 mt-8 px-2">
 
-                                            {/* WhatsApp Alert */}
                                             <div className="relative group/alert overflow-hidden">
                                                 <div className="absolute inset-0 bg-blue-600/10 transform skew-x-[-10deg] border-l-4 border-blue-500 transition-colors group-hover/alert:bg-blue-600/20"></div>
                                                 <div className="relative z-10 p-4 flex gap-4 items-center">
@@ -383,7 +375,6 @@ const Tekken8FaceOff2026 = () => {
                                                 </div>
                                             </div>
 
-                                            {/* Confirmation Alert */}
                                             <div className="relative group/alert overflow-hidden">
                                                 <div className="absolute inset-0 bg-emerald-600/10 transform skew-x-[-10deg] border-l-4 border-emerald-500 transition-colors group-hover/alert:bg-emerald-600/20"></div>
                                                 <div className="relative z-10 p-4 flex gap-4 items-center">
@@ -419,7 +410,6 @@ const Tekken8FaceOff2026 = () => {
                                                 : 'border-white/10 bg-[#121215]/50 hover:border-indigo-500/50 hover:bg-indigo-500/5'
                                                 }`}
                                         >
-                                            {/* Hover Glow */}
                                             <div className="absolute inset-0 bg-indigo-500/5 opacity-0 group-hover/upload:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
                                             <div className="text-center space-y-4 relative z-10 p-6">
@@ -454,19 +444,15 @@ const Tekken8FaceOff2026 = () => {
                                     disabled={loading}
                                     className={`w-full h-16 mt-8 relative group/btn outline-none ${loading ? 'cursor-not-allowed grayscale' : 'cursor-pointer'}`}
                                 >
-                                    {/* Skewed Background Container */}
                                     <div className={`absolute inset-0 transform skew-x-[-20deg] border-2 transition-all duration-300 ${loading
                                         ? 'bg-gray-800 border-gray-700'
                                         : 'bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700 border-blue-400/30 group-hover/btn:border-blue-400 group-hover/btn:shadow-[0_0_40px_rgba(59,130,246,0.5)]'
                                         }`}>
-                                        {/* Glitch Overlay */}
                                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
 
-                                        {/* Animated Shine */}
                                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover/btn:opacity-100 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
                                     </div>
 
-                                    {/* Text Content (Unskewed) */}
                                     <span className="relative z-10 flex items-center justify-center gap-3 w-full h-full transform skew-x-[-20deg]">
                                         <span className={`font-black text-xl md:text-2xl uppercase italic tracking-[0.1em] transform skew-x-[20deg] flex items-center gap-3 ${loading ? 'text-gray-500' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]'}`}>
                                             {loading ? 'Processing...' : (
@@ -480,7 +466,6 @@ const Tekken8FaceOff2026 = () => {
                                         </span>
                                     </span>
 
-                                    {/* Decorative Corner Accents */}
                                     {!loading && (
                                         <>
                                             <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-white/50 transform skew-x-[-20deg] translate-y-1 -translate-x-1 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
@@ -490,7 +475,7 @@ const Tekken8FaceOff2026 = () => {
                                 </button>
                             </form>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
