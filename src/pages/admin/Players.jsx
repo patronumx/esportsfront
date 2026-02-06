@@ -14,6 +14,9 @@ const AdminPlayers = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [deleteId, setDeleteId] = useState(null);
 
+    // Selection State
+    const [selectedPlayers, setSelectedPlayers] = useState(new Set());
+
     // Modals
     const [showAddModal, setShowAddModal] = useState(false);
     const [showBroadcastModal, setShowBroadcastModal] = useState(false);
@@ -25,7 +28,7 @@ const AdminPlayers = () => {
         avatarUrl: '', team: ''
     });
 
-    const [broadcastData, setBroadcastData] = useState({ id: null, ign: '', message: '' });
+    const [broadcastData, setBroadcastData] = useState({ id: null, ign: '', message: '', isBulk: false });
     const [sendingBroadcast, setSendingBroadcast] = useState(false);
 
     useEffect(() => {
@@ -92,7 +95,13 @@ const AdminPlayers = () => {
     };
 
     const openBroadcastModal = (player) => {
-        setBroadcastData({ id: player._id, ign: player.ign, message: '' });
+        setBroadcastData({ id: player._id, ign: player.ign, message: '', isBulk: false });
+        setShowBroadcastModal(true);
+    };
+
+    const openBulkBroadcastModal = () => {
+        if (selectedPlayers.size === 0) return;
+        setBroadcastData({ id: null, ign: `${selectedPlayers.size} Selected Players`, message: '', isBulk: true });
         setShowBroadcastModal(true);
     };
 
@@ -100,9 +109,19 @@ const AdminPlayers = () => {
         e.preventDefault();
         setSendingBroadcast(true);
         try {
-            await api.post(`/admin/players/${broadcastData.id}/broadcast`, { message: broadcastData.message });
+            if (broadcastData.isBulk) {
+                const playerIds = Array.from(selectedPlayers);
+                const { data } = await api.post('/admin/players/broadcast-bulk', {
+                    playerIds,
+                    message: broadcastData.message
+                });
+                showToast.success(data.message);
+                setSelectedPlayers(new Set()); // Clear selection
+            } else {
+                await api.post(`/admin/players/${broadcastData.id}/broadcast`, { message: broadcastData.message });
+                showToast.success('Broadcast sent!');
+            }
             setShowBroadcastModal(false);
-            showToast.success('Broadcast sent!');
         } catch (error) {
             console.error(error);
             showToast.error(error.response?.data?.message || 'Failed to send broadcast');
@@ -111,11 +130,32 @@ const AdminPlayers = () => {
         }
     };
 
+
     const filteredPlayers = players.filter(player =>
         player.ign?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         player.realName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         player.team?.name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    // Selection Logic
+    const toggleSelect = (id) => {
+        const newSet = new Set(selectedPlayers);
+        if (newSet.has(id)) {
+            newSet.delete(id);
+        } else {
+            newSet.add(id);
+        }
+        setSelectedPlayers(newSet);
+    };
+
+    const toggleSelectAll = () => {
+        if (selectedPlayers.size === filteredPlayers.length) {
+            setSelectedPlayers(new Set());
+        } else {
+            const newSet = new Set(filteredPlayers.map(p => p._id));
+            setSelectedPlayers(newSet);
+        }
+    };
 
     const teamOptions = teams.map(t => ({ value: t._id, label: t.name }));
     teamOptions.unshift({ value: '', label: 'Free Agent (No Team)' });
@@ -139,6 +179,14 @@ const AdminPlayers = () => {
                     <p className="text-gray-400 text-sm">Overview of all registered players across all teams.</p>
                 </div>
                 <div className="flex gap-3">
+                    {selectedPlayers.size > 0 && (
+                        <button
+                            onClick={openBulkBroadcastModal}
+                            className="px-4 py-2 bg-green-600 text-white rounded-xl flex items-center hover:bg-green-500 transition-colors shadow-lg shadow-green-600/20 font-bold animate-in fade-in zoom-in duration-200"
+                        >
+                            <Send className="mr-2 w-4 h-4" /> Message ({selectedPlayers.size})
+                        </button>
+                    )}
                     <button onClick={() => setShowAddModal(true)} className="px-4 py-2 bg-blue-600 text-white rounded-xl flex items-center hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/20 font-bold">
                         <Plus className="mr-2 w-4 h-4" /> Add Player
                     </button>
@@ -148,81 +196,101 @@ const AdminPlayers = () => {
                 </div>
             </div>
 
-            {/* Search */}
-            <div className="relative group">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 group-focus-within:text-blue-400 transition-colors w-5 h-5" />
-                <input
-                    type="text"
-                    placeholder="Search players by IGN, Real Name, or Team..."
-                    className="w-full bg-black/20 border border-white/5 rounded-2xl pl-12 pr-4 py-4 text-white focus:outline-none focus:border-blue-500/50 focus:bg-black/40 transition-all duration-300 backdrop-blur-sm"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
+            {/* Search & Actions */}
+            <div className="flex gap-4 items-center">
+                <div className="relative group flex-grow">
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 group-focus-within:text-blue-400 transition-colors w-5 h-5" />
+                    <input
+                        type="text"
+                        placeholder="Search players by IGN, Real Name, or Team..."
+                        className="w-full bg-black/20 border border-white/5 rounded-2xl pl-12 pr-4 py-4 text-white focus:outline-none focus:border-blue-500/50 focus:bg-black/40 transition-all duration-300 backdrop-blur-sm"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
+                <button
+                    onClick={toggleSelectAll}
+                    className={`px-4 py-4 rounded-2xl border transition-all font-bold whitespace-nowrap ${selectedPlayers.size === filteredPlayers.length && filteredPlayers.length > 0 ? 'bg-blue-600/20 border-blue-500 text-blue-400' : 'bg-black/20 border-white/5 text-gray-400 hover:text-white'}`}
+                >
+                    {selectedPlayers.size === filteredPlayers.length && filteredPlayers.length > 0 ? 'Deselect All' : 'Select All'}
+                </button>
             </div>
 
             {/* Players Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredPlayers.map(player => (
-                    <div key={player._id} className="group relative bg-gray-900 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/30 transition-all duration-500 hover:-translate-y-1 shadow-xl">
-                        {/* Background Gradient */}
-                        <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-purple-900/20 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                {filteredPlayers.map(player => {
+                    const isSelected = selectedPlayers.has(player._id);
+                    return (
+                        <div
+                            key={player._id}
+                            onClick={() => toggleSelect(player._id)}
+                            className={`group relative bg-gray-900 rounded-3xl overflow-hidden border transition-all duration-300 cursor-pointer shadow-xl ${isSelected ? 'border-blue-500 ring-1 ring-blue-500/50 transform scale-[1.02]' : 'border-white/5 hover:border-blue-500/30'}`}
+                        >
+                            {/* Selection Indicator */}
+                            <div className={`absolute top-4 right-4 z-20 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${isSelected ? 'bg-blue-500 border-blue-500' : 'border-gray-600 bg-black/40'}`}>
+                                {isSelected && <div className="w-2.5 h-2.5 bg-white rounded-full" />}
+                            </div>
 
-                        <div className="p-6 relative z-10">
-                            <div className="flex justify-between items-start mb-4">
-                                <div className="w-16 h-16 rounded-full bg-black border border-white/10 p-1 shadow-lg group-hover:scale-105 transition-transform duration-500 overflow-hidden">
-                                    {player.image || player.avatarUrl ? (
-                                        <img src={player.image || player.avatarUrl} alt={player.ign} className="w-full h-full object-cover rounded-full" />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center bg-gray-800 text-gray-500">
-                                            <User className="w-8 h-8" />
+                            {/* Background Gradient */}
+                            <div className={`absolute top-0 inset-x-0 h-24 bg-gradient-to-b transition-opacity duration-500 ${isSelected ? 'from-blue-900/40 opacity-100' : 'from-purple-900/20 opacity-50 group-hover:opacity-100'}`}></div>
+
+                            <div className="p-6 relative z-10">
+                                <div className="flex justify-between items-start mb-4">
+                                    <div className="w-16 h-16 rounded-full bg-black border border-white/10 p-1 shadow-lg group-hover:scale-105 transition-transform duration-500 overflow-hidden">
+                                        {player.image || player.avatarUrl ? (
+                                            <img src={player.image || player.avatarUrl} alt={player.ign} className="w-full h-full object-cover rounded-full" />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center bg-gray-800 text-gray-500">
+                                                <User className="w-8 h-8" />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300" onClick={e => e.stopPropagation()}>
+                                        <button onClick={() => openBroadcastModal(player)} className="p-2 bg-green-500/10 text-green-400 rounded-lg hover:bg-green-500 hover:text-white transition-colors" title="Send Broadcast">
+                                            <Send className="w-4 h-4" />
+                                        </button>
+                                        <button onClick={() => handleDelete(player._id)} className="p-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500 hover:text-white transition-colors" title="Delete Player">
+                                            <Trash2 className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <h3 className="text-xl font-bold text-white mb-0.5">{player.ign}</h3>
+                                <div className="text-sm text-gray-500 mb-4">{player.name || 'Unknown Name'}</div>
+
+                                <div className="space-y-2">
+                                    <Link to={`/sys-admin-secret-login/teams/${player.team?._id}`} onClick={e => e.stopPropagation()} className="bg-white/5 rounded-lg p-2 flex items-center justify-between border border-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+                                        <div className="flex items-center text-xs text-gray-400 uppercase font-bold">
+                                            <Shield className="w-3 h-3 mr-1.5" /> Team
+                                        </div>
+                                        <div className="text-blue-300 font-medium text-sm truncate max-w-[120px]">
+                                            {player.team ? (
+                                                <div className="flex items-center gap-1">
+                                                    {player.team.logoUrl && <img src={player.team.logoUrl} className="w-4 h-4 rounded-full" />}
+                                                    <span>{player.team.name}</span>
+                                                </div>
+                                            ) : 'Free Agent'}
+                                        </div>
+                                    </Link>
+                                    <div className="bg-white/5 rounded-lg p-2 flex items-center justify-between border border-white/5">
+                                        <div className="flex items-center text-xs text-gray-400 uppercase font-bold">
+                                            <Gamepad2 className="w-3 h-3 mr-1.5" /> Role
+                                        </div>
+                                        <div className="text-white font-medium text-sm">{player.role || 'Player'}</div>
+                                    </div>
+                                    {(player.phone) && (
+                                        <div className="bg-white/5 rounded-lg p-2 flex items-center justify-between border border-white/5">
+                                            <div className="flex items-center text-xs text-gray-400 uppercase font-bold">
+                                                <Phone className="w-3 h-3 mr-1.5" /> Phone
+                                            </div>
+                                            <div className="text-gray-300 font-mono text-xs">{player.phone}</div>
                                         </div>
                                     )}
                                 </div>
-                                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <button onClick={() => openBroadcastModal(player)} className="p-2 bg-green-500/10 text-green-400 rounded-lg hover:bg-green-500 hover:text-white transition-colors" title="Send Broadcast">
-                                        <Send className="w-4 h-4" />
-                                    </button>
-                                    <button onClick={() => handleDelete(player._id)} className="p-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500 hover:text-white transition-colors" title="Delete Player">
-                                        <Trash2 className="w-4 h-4" />
-                                    </button>
-                                </div>
-                            </div>
-
-                            <h3 className="text-xl font-bold text-white mb-0.5">{player.ign}</h3>
-                            <div className="text-sm text-gray-500 mb-4">{player.name || 'Unknown Name'}</div>
-
-                            <div className="space-y-2">
-                                <Link to={`/sys-admin-secret-login/teams/${player.team?._id}`} className="bg-white/5 rounded-lg p-2 flex items-center justify-between border border-white/5 hover:bg-white/10 transition-colors cursor-pointer">
-                                    <div className="flex items-center text-xs text-gray-400 uppercase font-bold">
-                                        <Shield className="w-3 h-3 mr-1.5" /> Team
-                                    </div>
-                                    <div className="text-blue-300 font-medium text-sm truncate max-w-[120px]">
-                                        {player.team ? (
-                                            <div className="flex items-center gap-1">
-                                                {player.team.logoUrl && <img src={player.team.logoUrl} className="w-4 h-4 rounded-full" />}
-                                                <span>{player.team.name}</span>
-                                            </div>
-                                        ) : 'Free Agent'}
-                                    </div>
-                                </Link>
-                                <div className="bg-white/5 rounded-lg p-2 flex items-center justify-between border border-white/5">
-                                    <div className="flex items-center text-xs text-gray-400 uppercase font-bold">
-                                        <Gamepad2 className="w-3 h-3 mr-1.5" /> Role
-                                    </div>
-                                    <div className="text-white font-medium text-sm">{player.role || 'Player'}</div>
-                                </div>
-                                {(player.phone) && (
-                                    <div className="bg-white/5 rounded-lg p-2 flex items-center justify-between border border-white/5">
-                                        <div className="flex items-center text-xs text-gray-400 uppercase font-bold">
-                                            <Phone className="w-3 h-3 mr-1.5" /> Phone
-                                        </div>
-                                        <div className="text-gray-300 font-mono text-xs">{player.phone}</div>
-                                    </div>
-                                )}
                             </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             {/* Add Player Modal */}

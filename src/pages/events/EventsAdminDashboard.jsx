@@ -51,6 +51,7 @@ const EventsAdminDashboard = ({ forcedSlug }) => { // specific prop or from gene
 
     // Bulk Messaging State
     const [selectedIds, setSelectedIds] = useState([]);
+    const [selectedPlayerIds, setSelectedPlayerIds] = useState([]); // New state for individual players
     const [showBulkMessageModal, setShowBulkMessageModal] = useState(false);
     const [bulkMessageText, setBulkMessageText] = useState('');
     const [bulkSending, setBulkSending] = useState(false);
@@ -195,7 +196,7 @@ const EventsAdminDashboard = ({ forcedSlug }) => { // specific prop or from gene
         };
     };
 
-    const sendVerificationMessage = (registration) => {
+    const sendVerificationMessage = (registration, type = 'captain') => {
         const token = localStorage.getItem(selectedEvent.tokenKey);
         if (!token) return;
 
@@ -208,41 +209,59 @@ const EventsAdminDashboard = ({ forcedSlug }) => { // specific prop or from gene
         const contact = getContactDetails(registration);
         const isResend = registration.isVerified;
 
+        let title = isResend ? 'Resend Verification?' : 'Send Verification?';
+        let messageText = isResend
+            ? `Team is already verified. Send message again to ${type === 'all' ? 'the entire team' : contact.display}?`
+            : `Send verification message to ${type === 'all' ? 'the entire team' : contact.display}?`;
+
         setConfirmation({
             isOpen: true,
-            title: isResend ? 'Resend Verification?' : 'Send Verification?',
-            message: isResend
-                ? `Team is already verified. Send message again to ${contact.display}?`
-                : `Send verification message to ${contact.display}?`,
+            title,
+            message: messageText,
             confirmText: 'Send Message',
             cancelText: 'Cancel',
             isDangerous: false,
             onConfirm: async () => {
                 setVerifyingId(registration._id);
-                const loadingToast = toast.loading(`Sending message to ${contact.display}...`);
+                const loadingToast = toast.loading(`Sending message to ${type === 'all' ? 'Team' : contact.display}...`);
 
                 try {
                     const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/api$/, '');
 
-                    let message = '';
-                    if (isMoba) {
-                        message = `Salam ${contact.name}!\n\nYour registration for *${selectedEvent.name}* (Team: *${registration.teamName}*) has been verified ✅.\n\nYou will receive updates on your matches schedule very soon. Stay tuned!\n\nRegards,\n*Patronum Esports*`;
-                    } else {
-                        message = `Salam ${contact.name}!\n\nYour payment for *${selectedEvent.name}* has been verified ✅.\n\nYou will receive the update on your matches schedule very soon. Stay tuned!\n\nRegards,\n*Patronum Esports*`;
-                    }
+                    const getMsg = (name) => {
+                        if (isMoba) {
+                            return `Salam ${name}!\n\nYour registration for *${selectedEvent.name}* (Team: *${registration.teamName}*) has been verified ✅.\n\nYou will receive updates on your matches schedule very soon. Stay tuned!\n\nRegards,\n*Patronum Esports*`;
+                        }
+                        return `Salam ${name}!\n\nYour payment for *${selectedEvent.name}* has been verified ✅.\n\nYou will receive the update on your matches schedule very soon. Stay tuned!\n\nRegards,\n*Patronum Esports*`;
+                    };
 
-                    await axios.post(`${API_BASE}${selectedEvent.apiEndpoint}/admin/notify`, {
-                        phoneNumber: contact.phone,
-                        message,
-                        registrationId: registration._id
-                    }, {
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
+                    if (isMoba && type === 'all') {
+                        // Send to all players
+                        for (const player of registration.players || []) {
+                            if (!player.phone) continue;
+                            await axios.post(`${API_BASE}${selectedEvent.apiEndpoint}/admin/notify`, {
+                                phoneNumber: player.phone,
+                                message: getMsg(player.name),
+                                registrationId: registration._id
+                            }, {
+                                headers: { Authorization: `Bearer ${token}` }
+                            });
+                        }
+                    } else {
+                        // Default: single message to captain/user
+                        await axios.post(`${API_BASE}${selectedEvent.apiEndpoint}/admin/notify`, {
+                            phoneNumber: contact.phone,
+                            message: getMsg(contact.name),
+                            registrationId: registration._id
+                        }, {
+                            headers: { Authorization: `Bearer ${token}` }
+                        });
+                    }
 
                     // Update local state
                     setRegistrations(prev => prev.map(r => r._id === registration._id ? { ...r, isVerified: true } : r));
 
-                    toast.success(`Message sent to ${contact.display}`, { id: loadingToast });
+                    toast.success(`Message(s) sent successfully`, { id: loadingToast });
                 } catch (err) {
                     console.error(err);
                     toast.error('Failed to send message', { id: loadingToast });
@@ -262,6 +281,7 @@ const EventsAdminDashboard = ({ forcedSlug }) => { // specific prop or from gene
         let successCount = 0;
         let failCount = 0;
 
+        // 1. Process Team Selections (Broadcast to Captain)
         for (const id of selectedIds) {
             const reg = registrations.find(r => r._id === id);
             if (!reg) continue;
@@ -278,18 +298,44 @@ const EventsAdminDashboard = ({ forcedSlug }) => { // specific prop or from gene
                 });
                 successCount++;
             } catch (err) {
-                console.error(`Failed to message ${contact.display}`, err);
+                console.error(`Failed to message team ${contact.display}`, err);
                 failCount++;
             }
         }
 
-        // Update isVerified for all selected
+        // 2. Process Individual Player Selections
+        if (isMoba && selectedPlayerIds.length > 0) {
+            // Flatten all players from all registrations to find selected ones
+            const allPlayers = registrations.flatMap(reg => reg.players || []);
+
+            for (const pid of selectedPlayerIds) {
+                const player = allPlayers.find(p => p._id === pid);
+                if (!player) continue;
+
+                try {
+                    await axios.post(`${API_BASE}${selectedEvent.apiEndpoint}/admin/notify`, {
+                        phoneNumber: player.phone,
+                        message: bulkMessageText,
+                        // registrationId: parentReg?._id // Optional: might not want to verify the whole team just for one player msg
+                    }, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    successCount++;
+                } catch (err) {
+                    console.error(`Failed to message player ${player.name}`, err);
+                    failCount++;
+                }
+            }
+        }
+
+        // Update isVerified for all selected TEAMS (not players)
         setRegistrations(prev => prev.map(r => selectedIds.includes(r._id) ? { ...r, isVerified: true } : r));
 
         setBulkSending(false);
         setShowBulkMessageModal(false);
         setBulkMessageText('');
         setSelectedIds([]);
+        setSelectedPlayerIds([]); // Clear player selection
         toast.success(`Sent ${successCount} messages. ${failCount > 0 ? `${failCount} failed.` : ''}`);
     };
 
@@ -613,14 +659,16 @@ const EventsAdminDashboard = ({ forcedSlug }) => { // specific prop or from gene
                     <div className="flex items-center gap-4">
                         <button
                             onClick={() => setShowBulkMessageModal(true)}
-                            disabled={selectedIds.length === 0}
-                            className={`group relative px-6 py-3 border text-[10px] font-black uppercase tracking-[0.2em] transition-all rounded clip-path-slant ${selectedIds.length > 0
+                            disabled={selectedIds.length === 0 && selectedPlayerIds.length === 0}
+                            className={`group relative px-6 py-3 border text-[10px] font-black uppercase tracking-[0.2em] transition-all rounded clip-path-slant ${selectedIds.length > 0 || selectedPlayerIds.length > 0
                                 ? 'bg-orange-600 border-orange-500 text-white hover:bg-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_30px_rgba(249,115,22,0.6)]'
                                 : 'bg-white/5 border-white/10 text-gray-500 cursor-not-allowed'}`}
                         >
                             <span className="relative z-10 flex items-center gap-2">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
-                                {selectedIds.length > 0 ? `Message (${selectedIds.length})` : 'Message Selected'}
+                                {selectedIds.length + selectedPlayerIds.length > 0
+                                    ? `Message (${selectedIds.length + selectedPlayerIds.length})`
+                                    : 'Message Selected'}
                             </span>
                         </button>
 
@@ -731,13 +779,24 @@ const EventsAdminDashboard = ({ forcedSlug }) => { // specific prop or from gene
                                                                 <div className="absolute top-0 left-0 w-[2px] h-full bg-gradient-to-b from-transparent via-orange-500/50 to-transparent opacity-0 group-hover/player:opacity-100 transition-opacity"></div>
 
                                                                 <div className="flex justify-between items-start mb-3">
-                                                                    <div className="flex flex-col">
-                                                                        <span className="text-gray-200 font-bold text-sm tracking-tight group-hover/player:text-white transition-colors">{player.name}</span>
-                                                                        <div className="flex items-center gap-2 mt-1">
-                                                                            <span className="text-[10px] font-mono text-orange-500/90 bg-orange-500/10 px-1.5 py-0.5 rounded border border-orange-500/10 tracking-wide">
-                                                                                {player.ign}
-                                                                            </span>
-                                                                            {idx === 0 && <span className="text-[8px] font-black uppercase text-yellow-500 bg-yellow-500/10 px-1.5 py-0.5 rounded border border-yellow-500/20 tracking-wider">CPT</span>}
+                                                                    <div className="flex items-start gap-3">
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            checked={selectedPlayerIds.includes(player._id)}
+                                                                            onChange={(e) => {
+                                                                                if (e.target.checked) setSelectedPlayerIds([...selectedPlayerIds, player._id]);
+                                                                                else setSelectedPlayerIds(selectedPlayerIds.filter(id => id !== player._id));
+                                                                            }}
+                                                                            className="w-4 h-4 mt-0.5 rounded border-white/20 bg-black/40 checked:bg-orange-500 focus:ring-orange-500/50 cursor-pointer accent-orange-500 transition-all"
+                                                                        />
+                                                                        <div className="flex flex-col">
+                                                                            <span className="text-gray-200 font-bold text-sm tracking-tight group-hover/player:text-white transition-colors">{player.name}</span>
+                                                                            <div className="flex items-center gap-2 mt-1">
+                                                                                <span className="text-[10px] font-mono text-orange-500/90 bg-orange-500/10 px-1.5 py-0.5 rounded border border-orange-500/10 tracking-wide">
+                                                                                    {player.ign}
+                                                                                </span>
+                                                                                {idx === 0 && <span className="text-[8px] font-black uppercase text-yellow-500 bg-yellow-500/10 px-1.5 py-0.5 rounded border border-yellow-500/20 tracking-wider">CPT</span>}
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="text-right">
@@ -797,10 +856,17 @@ const EventsAdminDashboard = ({ forcedSlug }) => { // specific prop or from gene
                                                     </button>
 
                                                     <button
-                                                        onClick={() => handleDelete(reg._id)}
-                                                        className="col-span-2 py-2 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-lg border border-red-500/20 transition-all text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-2"
+                                                        onClick={() => handleEdit(reg)}
+                                                        className="py-2 px-3 bg-white/10 hover:bg-white/20 text-white rounded-lg border border-white/10 transition-all text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-2"
                                                     >
-                                                        Delete Team <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                                        Edit Details <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                                                    </button>
+
+                                                    <button
+                                                        onClick={() => handleDelete(reg._id)}
+                                                        className="py-2 px-3 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-lg border border-red-500/20 transition-all text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-2"
+                                                    >
+                                                        Delete <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                                     </button>
                                                 </div>
                                             </div>
@@ -987,41 +1053,140 @@ const EventsAdminDashboard = ({ forcedSlug }) => { // specific prop or from gene
                             </button>
 
                             <h2 className="text-2xl font-black italic uppercase text-white mb-6 tracking-wide">
-                                Edit <span className="text-orange-500">Warrior</span>
+                                Edit <span className="text-orange-500">{isMoba ? 'War-Squad' : 'Warrior'}</span>
                             </h2>
 
-                            <div className="space-y-4">
-                                <div>
-                                    <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">Full Name</label>
-                                    <input
-                                        type="text"
-                                        value={editingUser.fullName || editingUser.name || ''}
-                                        onChange={(e) => setEditingUser({ ...editingUser, fullName: e.target.value, name: e.target.value })}
-                                        className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition-colors"
-                                    />
-                                </div>
+                            <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
+                                {isMoba ? (
+                                    <>
+                                        <div>
+                                            <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">Team Name</label>
+                                            <input
+                                                type="text"
+                                                value={editingUser.teamName || ''}
+                                                onChange={(e) => setEditingUser({ ...editingUser, teamName: e.target.value })}
+                                                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition-colors"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">Country</label>
+                                            <input
+                                                type="text"
+                                                value={editingUser.country || ''}
+                                                onChange={(e) => setEditingUser({ ...editingUser, country: e.target.value })}
+                                                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition-colors"
+                                            />
+                                        </div>
 
-                                <div>
-                                    <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">Phone Number</label>
-                                    <input
-                                        type="text"
-                                        value={editingUser.phoneNumber || editingUser.phone || ''}
-                                        onChange={(e) => setEditingUser({ ...editingUser, phoneNumber: e.target.value, phone: e.target.value })}
-                                        className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition-colors"
-                                    />
-                                </div>
+                                        <div className="border-t border-white/10 pt-4 mt-4">
+                                            <label className="block text-sm font-bold uppercase tracking-widest text-orange-500 mb-4">Roster</label>
+                                            {editingUser.players?.map((player, idx) => (
+                                                <div key={idx} className="bg-white/5 rounded-lg p-4 mb-3 border border-white/5">
+                                                    <div className="text-xs font-mono text-gray-500 mb-2">Player {idx + 1} {idx === 0 && '(Captain)'}</div>
+                                                    <div className="grid grid-cols-2 gap-3">
+                                                        <div>
+                                                            <label className="text-[10px] text-gray-400 uppercase">Name</label>
+                                                            <input
+                                                                type="text"
+                                                                value={player.name || ''}
+                                                                onChange={(e) => {
+                                                                    const newPlayers = [...editingUser.players];
+                                                                    newPlayers[idx].name = e.target.value;
+                                                                    setEditingUser({ ...editingUser, players: newPlayers });
+                                                                }}
+                                                                className="w-full bg-black/30 border border-white/10 rounded px-2 py-1.5 text-xs text-white"
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label className="text-[10px] text-gray-400 uppercase">IGN</label>
+                                                            <input
+                                                                type="text"
+                                                                value={player.ign || ''}
+                                                                onChange={(e) => {
+                                                                    const newPlayers = [...editingUser.players];
+                                                                    newPlayers[idx].ign = e.target.value;
+                                                                    setEditingUser({ ...editingUser, players: newPlayers });
+                                                                }}
+                                                                className="w-full bg-black/30 border border-white/10 rounded px-2 py-1.5 text-xs text-white"
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label className="text-[10px] text-gray-400 uppercase">Phone</label>
+                                                            <input
+                                                                type="text"
+                                                                value={player.phone || ''}
+                                                                onChange={(e) => {
+                                                                    const newPlayers = [...editingUser.players];
+                                                                    newPlayers[idx].phone = e.target.value;
+                                                                    setEditingUser({ ...editingUser, players: newPlayers });
+                                                                }}
+                                                                className="w-full bg-black/30 border border-white/10 rounded px-2 py-1.5 text-xs text-white"
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label className="text-[10px] text-gray-400 uppercase">Device</label>
+                                                            <input
+                                                                type="text"
+                                                                value={player.deviceName || ''}
+                                                                onChange={(e) => {
+                                                                    const newPlayers = [...editingUser.players];
+                                                                    newPlayers[idx].deviceName = e.target.value;
+                                                                    setEditingUser({ ...editingUser, players: newPlayers });
+                                                                }}
+                                                                className="w-full bg-black/30 border border-white/10 rounded px-2 py-1.5 text-xs text-white"
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-2">
+                                                            <label className="text-[10px] text-gray-400 uppercase">Server ID</label>
+                                                            <input
+                                                                type="text"
+                                                                value={player.serverId || ''}
+                                                                onChange={(e) => {
+                                                                    const newPlayers = [...editingUser.players];
+                                                                    newPlayers[idx].serverId = e.target.value;
+                                                                    setEditingUser({ ...editingUser, players: newPlayers });
+                                                                }}
+                                                                className="w-full bg-black/30 border border-white/10 rounded px-2 py-1.5 text-xs text-white"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div>
+                                            <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">Full Name</label>
+                                            <input
+                                                type="text"
+                                                value={editingUser.fullName || editingUser.name || ''}
+                                                onChange={(e) => setEditingUser({ ...editingUser, fullName: e.target.value, name: e.target.value })}
+                                                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition-colors"
+                                            />
+                                        </div>
 
+                                        <div>
+                                            <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">Phone Number</label>
+                                            <input
+                                                type="text"
+                                                value={editingUser.phoneNumber || editingUser.phone || ''}
+                                                onChange={(e) => setEditingUser({ ...editingUser, phoneNumber: e.target.value, phone: e.target.value })}
+                                                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition-colors"
+                                            />
+                                        </div>
 
-
-                                <div>
-                                    <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">Email</label>
-                                    <input
-                                        type="email"
-                                        value={editingUser.email || ''}
-                                        onChange={(e) => setEditingUser({ ...editingUser, email: e.target.value })}
-                                        className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition-colors"
-                                    />
-                                </div>
+                                        <div>
+                                            <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">Email</label>
+                                            <input
+                                                type="email"
+                                                value={editingUser.email || ''}
+                                                onChange={(e) => setEditingUser({ ...editingUser, email: e.target.value })}
+                                                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition-colors"
+                                            />
+                                        </div>
+                                    </>
+                                )}
 
                                 <button
                                     onClick={handleUpdate}
