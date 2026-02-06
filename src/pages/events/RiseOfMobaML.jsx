@@ -66,7 +66,8 @@ const RiseOfMobaML = () => {
         }
 
         try {
-            await axios.post('http://localhost:5000/api/moba/register', {
+            const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/api$/, '');
+            await axios.post(`${API_BASE}/api/moba/register`, {
                 teamName,
                 country,
                 game: 'MLBB',

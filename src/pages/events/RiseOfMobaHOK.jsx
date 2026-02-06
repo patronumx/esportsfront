@@ -69,11 +69,8 @@ const RiseOfMobaHOK = () => {
         }
 
         try {
-            // Using a relative path which will be proxied or full URL if configured
-            // Assuming localhost or relative path based on setup
-            // Since User's setup usually has proxy or cors, we'll try direct relative first if proxy set, or full
-            // Looking at other files might help but standard axios call:
-            await axios.post('http://localhost:5000/api/moba/register', {
+            const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/api$/, '');
+            await axios.post(`${API_BASE}/api/moba/register`, {
                 teamName,
                 country,
                 game: 'HOK',

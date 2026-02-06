@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || (window.location.hostname === 'localhost'
-        ? 'http://localhost:5000/api'
-        : 'https://esportsback-5f0e5dfa1bec.herokuapp.com/api'),
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
     withCredentials: true
 });
 
