@@ -53,7 +53,7 @@ const Footer = () => {
               href="mailto:business@patronumesports.com"
               className="text-sm text-slate-400 hover:text-violet-300 transition-colors block mb-4"
             >
-              business@patronumesports.com
+              patronumgg@gmail.com
             </a>
 
             <div className="flex gap-3">
