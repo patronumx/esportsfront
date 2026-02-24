@@ -16,6 +16,9 @@ import kashiImg from '../../assets/tekken8/KASHI.png';
 import jonImg from '../../assets/tekken8/JON.png';
 import kingImg from '../../assets/tekken8/King.png';
 import kazuyaImg from '../../assets/tekken8/Kazuya.png';
+import farzeenImg from '../../assets/tekken8/FARZEEN.png';
+import shaheenImg from '../../assets/tekken8/Shaheen.png';
+import usamaImg from '../../assets/tekken8/USAMA.png';
 
 // --- DATA ---
 const players = [
@@ -333,6 +336,121 @@ const players = [
         sponsorships: [
             { year: "2024", name: "AL QADSIAH", fullName: "Al Qadsiah", description: "Representing Al Qadsiah, a prominent Saudi sports club entered into esports." },
             { year: "2021-2023", name: "ASHES", fullName: "Ashes Gaming", description: "Former member of Arslan Ash's team, Ashes Gaming." }
+        ]
+    },
+    {
+        id: 'farzeen',
+        name: 'Muhammad Farzeen',
+        nickname: 'Farzeen',
+        role: 'Professional Tekken Player',
+        image: farzeenImg,
+        achievements: {
+            wins: [
+                { year: "2025", name: "Cape Town Showdown 2025", rank: "1st" },
+                { year: "2025", name: "South East Asia Major 2025", rank: "1st" },
+                { year: "2024", name: "Battle Arena Melbourne 14", rank: "1st" },
+            ],
+            runnerUps: [
+                { year: "2025", name: "Takedown 2025", rank: "2nd" },
+            ],
+            notable: [
+                { year: "2025", name: "Tekken World Tour Finals 2025", rank: "4th" },
+                { year: "2024", name: "Evolution Championship Series 2024", rank: "13th-16th" },
+                { year: "2023", name: "Evolution Championship Series 2023", rank: "13th-16th" },
+            ]
+        },
+        stats: {
+            yearsActive: "5+",
+            majorTitles: "3"
+        },
+        bio: {
+            gamingTag: "Farzeen",
+            startedPlaying: "2020",
+            rank: "Top 5 in Pakistan",
+            location: "Pakistan",
+            born: "06-09-2002",
+            influence: "Shaheen"
+        },
+        socials: {
+            youtube: { value: "3.07K", sub: "Subscribers", link: "https://www.youtube.com/@FalcFarzeen" },
+            twitter: { value: "5.9K", sub: "Followers", link: "https://x.com/Farzeen_tk" },
+            instagram: { value: "7.3K", sub: "Followers", link: "https://www.instagram.com/farzeen_tk/" }
+        },
+        characters: [
+            { name: "Shaheen", img: shaheenImg, color: "from-green-600/20" }
+        ],
+        heroTitle: {
+            top: "Team Falcons",
+            namePart1: "Farzeen",
+            namePart2: ""
+        },
+        badges: [
+            "TWT FINALS 2025 4TH PLACE",
+            "SHAHEEN SPECIALIST"
+        ],
+        highlight: {
+            title: "The Shaheen Specialist",
+            description: <>Muhammad "Farzeen" is a rising star in the global Tekken scene, representing <strong>Team Falcons</strong>. Known for his exceptional <strong>Shaheen</strong>, he made history by placing 4th at the Tekken World Tour Finals 2025. His clinical playstyle and rapid rise have made him one of the most respected players from Pakistan.</>
+        },
+        sponsorships: [
+            { year: "2024", name: "TEAM FALCONS", fullName: "Team Falcons", description: "Signed with Team Falcons, one of the premier esports organizations in the world, representing them in major international tournaments." }
+        ]
+    },
+    {
+        id: 'usama',
+        name: 'Usama Abbasi',
+        nickname: 'Usama',
+        role: 'Professional Tekken Player',
+        image: usamaImg,
+        achievements: {
+            wins: [
+                { year: "2025", name: "Takedown 2025", rank: "1st" },
+                { year: "N/A", name: "Guard Breaker", rank: "1st" }
+            ],
+            runnerUps: [
+                { year: "2025", name: "Final Round 2025", rank: "2nd" }
+            ],
+            notable: [
+                { year: "2025", name: "Tekken World Tour Finals 2025", rank: "5th-6th" },
+                { year: "2025", name: "Only The Best TWT Challenger", rank: "3rd" },
+                { year: "N/A", name: "Frame Trap", rank: "3rd" }
+            ]
+        },
+        stats: {
+            yearsActive: "5+",
+            majorTitles: "2+"
+        },
+        bio: {
+            gamingTag: "Usama",
+            startedPlaying: "N/A",
+            rank: "Top Tier",
+            location: "Pakistan",
+            born: "N/A",
+            influence: "Jin / Shaheen"
+        },
+        socials: {
+            youtube: { value: "745", sub: "Subscribers", link: "https://www.youtube.com/@usamatk708" },
+            twitter: { value: "1.1K", sub: "Followers", link: "https://x.com/usamatekken708?s=09&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnIXmBYb736KEXbfJFZwyMU5dyzV0sUaN_8j4GJ0QaVXXNly4ELxWARVCPUz4_aem_BLanX-PK4W3w3LAApfGfQw" },
+            instagram: { value: "761", sub: "Followers", link: "https://www.instagram.com/usamatekken708/" }
+        },
+        characters: [
+            { name: "Kazuya", img: kazuyaImg, color: "from-purple-700/20" }
+        ],
+        heroTitle: {
+            top: "Team Falcons",
+            namePart1: "Usama",
+            namePart2: "Abbasi"
+        },
+        badges: [
+            "TWT FINALS 2025 TOP 6",
+            "TAKEDOWN CHAMPION"
+        ],
+        highlight: {
+            title: "Emerging Top Tier Talent",
+            description: <>Usama Abbasi is a massive force in the global Tekken 8 scene. Recently signed to <strong>Team Falcons</strong>, his 5th-6th place finish at the prestigious Tekken World Tour Finals 2025 and an authoritative win at Takedown 2025 cement his status as one of Pakistan's elite players.</>
+        },
+        sponsorships: [
+            { year: "2025", name: "TEAM FALCONS", fullName: "Team Falcons", description: "Representing Team Falcons, a premier global esports organization." }
         ]
     }
 ];
