@@ -19,6 +19,10 @@ import kazuyaImg from '../../assets/tekken8/Kazuya.png';
 import farzeenImg from '../../assets/tekken8/FARZEEN.png';
 import shaheenImg from '../../assets/tekken8/Shaheen.png';
 import usamaImg from '../../assets/tekken8/USAMA.png';
+import eddyImg from '../../assets/tekken8/Eddy.webp';
+import asukaImg from '../../assets/tekken8/ASUKA.webp';
+import victorImg from '../../assets/tekken8/VICTOR.webp';
+import lidiaImg from '../../assets/tekken8/LIDIA.webp';
 
 // --- DATA ---
 const players = [
@@ -360,16 +364,16 @@ const players = [
             ]
         },
         stats: {
-            yearsActive: "5+",
+            yearsActive: "8+",
             majorTitles: "3"
         },
         bio: {
             gamingTag: "Farzeen",
-            startedPlaying: "2020",
+            startedPlaying: "2018",
             rank: "Top 5 in Pakistan",
             location: "Pakistan",
             born: "06-09-2002",
-            influence: "Shaheen"
+            influence: "Victor"
         },
         socials: {
             youtube: { value: "3.07K", sub: "Subscribers", link: "https://www.youtube.com/@FalcFarzeen" },
@@ -377,7 +381,8 @@ const players = [
             instagram: { value: "7.3K", sub: "Followers", link: "https://www.instagram.com/farzeen_tk/" }
         },
         characters: [
-            { name: "Shaheen", img: shaheenImg, color: "from-green-600/20" }
+            { name: "Victor", img: victorImg, color: "from-gray-400/20" },
+            { name: "Lidia", img: lidiaImg, color: "from-red-600/20" }
         ],
         heroTitle: {
             top: "Team Falcons",
@@ -386,11 +391,11 @@ const players = [
         },
         badges: [
             "TWT FINALS 2025 4TH PLACE",
-            "SHAHEEN SPECIALIST"
+            "VICTOR SPECIALIST"
         ],
         highlight: {
-            title: "The Shaheen Specialist",
-            description: <>Muhammad "Farzeen" is a rising star in the global Tekken scene, representing <strong>Team Falcons</strong>. Known for his exceptional <strong>Shaheen</strong>, he made history by placing 4th at the Tekken World Tour Finals 2025. His clinical playstyle and rapid rise have made him one of the most respected players from Pakistan.</>
+            title: "The Victor Specialist",
+            description: <>Muhammad "Farzeen" is a rising star in the global Tekken scene, representing <strong>Team Falcons</strong>. Known for his exceptional <strong>Victor</strong>, he made history by placing 4th at the Tekken World Tour Finals 2025. His clinical playstyle and rapid rise have made him one of the most respected players from Pakistan.</>
         },
         sponsorships: [
             { year: "2024", name: "TEAM FALCONS", fullName: "Team Falcons", description: "Signed with Team Falcons, one of the premier esports organizations in the world, representing them in major international tournaments." }
@@ -417,16 +422,16 @@ const players = [
             ]
         },
         stats: {
-            yearsActive: "5+",
+            yearsActive: "11+",
             majorTitles: "2+"
         },
         bio: {
             gamingTag: "Usama",
-            startedPlaying: "N/A",
+            startedPlaying: "2015",
             rank: "Top Tier",
             location: "Pakistan",
             born: "N/A",
-            influence: "Jin / Shaheen"
+            influence: "Asuka / Eddy"
         },
         socials: {
             youtube: { value: "745", sub: "Subscribers", link: "https://www.youtube.com/@usamatk708" },
@@ -434,7 +439,8 @@ const players = [
             instagram: { value: "761", sub: "Followers", link: "https://www.instagram.com/usamatekken708/" }
         },
         characters: [
-            { name: "Kazuya", img: kazuyaImg, color: "from-purple-700/20" }
+            { name: "Eddy", img: eddyImg, color: "from-yellow-600/20" },
+            { name: "Asuka", img: asukaImg, color: "from-blue-600/20" }
         ],
         heroTitle: {
             top: "Team Falcons",
