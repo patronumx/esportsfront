@@ -101,7 +101,7 @@ const Tekken8FaceOff2026 = () => {
                         </span>
                     </h1>
                     <h2 className="text-2xl md:text-3xl font-bold text-white mt-4 tracking-widest uppercase drop-shadow-lg">
-                        Event Dates: <span className="text-red-500">16, 17 May</span>
+                        Event Dates: <span className="text-red-500">Coming Soon</span>
                     </h2>
                     <h2 className="text-xl md:text-2xl font-bold text-gray-300 mt-2 tracking-wide uppercase">
                         Venue: <span className="text-white">Lahore, Pakistan</span>
@@ -150,7 +150,7 @@ const Tekken8FaceOff2026 = () => {
                                                     <span className="text-orange-400 font-extrabold text-sm uppercase italic tracking-wider">Early Bird</span>
                                                     <span className="bg-orange-500 text-black text-[10px] font-black px-2 py-0.5 rounded shadow-[0_0_10px_rgba(249,115,22,0.6)] uppercase italic">Best Value</span>
                                                 </div>
-                                                <p className="text-sm text-white font-bold tracking-wider font-sans drop-shadow-md">27 Feb – 15 Mar</p>
+                                                <p className="text-sm text-white font-bold tracking-wider font-sans drop-shadow-md">Coming Soon</p>
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-xs text-gray-500 font-bold uppercase mb-0.5">PKR</p>
@@ -166,7 +166,7 @@ const Tekken8FaceOff2026 = () => {
                                         <div className="transform skew-x-[12deg] flex justify-between items-center">
                                             <div>
                                                 <span className="text-blue-400 font-bold text-sm uppercase italic tracking-wider block mb-1">Standard</span>
-                                                <p className="text-sm text-gray-200 font-bold tracking-wider font-sans">16 Mar – 30 Apr</p>
+                                                <p className="text-sm text-gray-200 font-bold tracking-wider font-sans">Coming Soon</p>
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-3xl md:text-4xl font-black italic text-gray-200 leading-none">2000</p>
@@ -181,7 +181,7 @@ const Tekken8FaceOff2026 = () => {
                                         <div className="transform skew-x-[12deg] flex justify-between items-center">
                                             <div>
                                                 <span className="text-red-500/70 group-hover:text-red-500 font-bold text-sm uppercase italic tracking-wider block mb-1 transition-colors">Last Call</span>
-                                                <p className="text-sm text-gray-400 group-hover:text-gray-200 font-bold tracking-wider font-sans transition-colors">1 May – 14 May</p>
+                                                <p className="text-sm text-gray-400 group-hover:text-gray-200 font-bold tracking-wider font-sans transition-colors">Coming Soon</p>
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-3xl md:text-4xl font-black italic text-gray-500 group-hover:text-gray-200 leading-none transition-colors">2500</p>

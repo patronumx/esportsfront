@@ -23,6 +23,10 @@ import eddyImg from '../../assets/tekken8/Eddy.webp';
 import asukaImg from '../../assets/tekken8/ASUKA.webp';
 import victorImg from '../../assets/tekken8/VICTOR.webp';
 import lidiaImg from '../../assets/tekken8/LIDIA.webp';
+import atifImg from '../../assets/tekken8/ATIF.png';
+import annaImg from '../../assets/tekken8/ANNA.webp';
+import bryanImg from '../../assets/tekken8/BRYAN.webp';
+import dragunovImg from '../../assets/tekken8/DRAGNOV.webp';
 
 // --- DATA ---
 const players = [
@@ -38,14 +42,14 @@ const players = [
                 { year: "2025", name: "Iqra University Tournament", rank: "1st" },
                 { year: "2024", name: "Mooring 2024", rank: "1st" },
                 { year: "2023", name: "Fast daira23", rank: "1st" },
-                { year: "2022", name: "Thaiger Uppercut 2022", rank: "1st" },
+                { year: "2022", name: "Thaiger Uppercut 2022", rank: "1st", earnings: "$1,440" },
                 { year: "2021", name: "UGP SIALKOT", rank: "1st" },
                 { year: "2018", name: "7CG CUP", rank: "1st" },
                 { year: "2017", name: "PGA Cup S2", rank: "1st" },
             ],
             runnerUps: [
                 { year: "2025", name: "The Baaz Gauntlet 2 Karachi Qualifier", rank: "2nd" },
-                { year: "2024", name: "Thaiger Uppercut 2024 - T8 3v3", rank: "2nd" },
+                { year: "2024", name: "Thaiger Uppercut 2024 - T8 3v3", rank: "2nd", earnings: "$500" },
                 { year: "2024", name: "Khan's Power Crusher #1", rank: "2nd" },
                 { year: "2023", name: "Daska Championship Tekken 7", rank: "2nd" },
                 { year: "2021", name: "PPG - Battle of Champions S2", rank: "2nd" },
@@ -111,11 +115,11 @@ const players = [
         image: khanImg,
         achievements: {
             wins: [
-                { year: "2023", name: "Gamers 8 Riyadh", rank: "1st" },
+                { year: "2023", name: "Gamers 8 Riyadh", rank: "1st", earnings: "$500,000" },
                 { year: "N/A", name: "Penang Esports", rank: "1st" },
             ],
             runnerUps: [
-                { year: "2024", name: "EVO USA", rank: "2nd" },
+                { year: "2024", name: "EVO USA", rank: "2nd", earnings: "$3,436" },
                 { year: "N/A", name: "Kurokuro Cup", rank: "2nd" },
             ],
             notable: [
@@ -286,21 +290,21 @@ const players = [
         image: jonImg,
         achievements: {
             wins: [
-                { year: "2025", name: "Paradise Game Battle", rank: "1st" },
-                { year: "2024", name: "Thaiger Uppercut 2024", rank: "1st" },
+                { year: "2025", name: "Paradise Game Battle", rank: "1st", earnings: "$1,623" },
+                { year: "2024", name: "Thaiger Uppercut 2024", rank: "1st", earnings: "$1,382" },
                 { year: "2024", name: "Ignite Tekken Cup", rank: "1st" },
                 { year: "2018", name: "OUG Tournament 2018", rank: "1st" },
             ],
             runnerUps: [
-                { year: "2025", name: "Takedown 2025", rank: "3rd" },
+                { year: "2025", name: "Takedown 2025", rank: "3rd", earnings: "$1,079" },
                 { year: "2019", name: "Takra Cup", rank: "2nd" },
             ],
             notable: [
                 { year: "2025", name: "Thaiger Uppercut 2025", rank: "Top 8" },
-                { year: "2024", name: "Esports World Cup 2024", rank: "5th" },
+                { year: "2024", name: "Esports World Cup 2024", rank: "5th", earnings: "$45,000" },
                 { year: "2019", name: "TWT Finals LCQ", rank: "4th" },
                 { year: "2024", name: "Tekken World Tour Finals", rank: "Qualified" },
-                { year: "2023", name: "Gamers8", rank: "Top 6" },
+                { year: "2023", name: "Gamers8", rank: "Top 6", earnings: "$50,000" },
             ]
         },
         stats: {
@@ -350,15 +354,15 @@ const players = [
         image: farzeenImg,
         achievements: {
             wins: [
-                { year: "2025", name: "Cape Town Showdown 2025", rank: "1st" },
-                { year: "2025", name: "South East Asia Major 2025", rank: "1st" },
-                { year: "2024", name: "Battle Arena Melbourne 14", rank: "1st" },
+                { year: "2025", name: "Cape Town Showdown 2025", rank: "1st", earnings: "$1,000" },
+                { year: "2025", name: "South East Asia Major 2025", rank: "1st", earnings: "$1,000" },
+                { year: "2024", name: "Battle Arena Melbourne 14", rank: "1st", earnings: "$3,000" },
             ],
             runnerUps: [
                 { year: "2025", name: "Takedown 2025", rank: "2nd" },
             ],
             notable: [
-                { year: "2025", name: "Tekken World Tour Finals 2025", rank: "4th" },
+                { year: "2025", name: "Tekken World Tour Finals 2025", rank: "4th", earnings: "$15,000" },
                 { year: "2024", name: "Evolution Championship Series 2024", rank: "13th-16th" },
                 { year: "2023", name: "Evolution Championship Series 2023", rank: "13th-16th" },
             ]
@@ -409,15 +413,15 @@ const players = [
         image: usamaImg,
         achievements: {
             wins: [
-                { year: "2025", name: "Takedown 2025", rank: "1st" },
+                { year: "2025", name: "Takedown 2025", rank: "1st", earnings: "$4,448" },
                 { year: "N/A", name: "Guard Breaker", rank: "1st" }
             ],
             runnerUps: [
                 { year: "2025", name: "Final Round 2025", rank: "2nd" }
             ],
             notable: [
-                { year: "2025", name: "Tekken World Tour Finals 2025", rank: "5th-6th" },
-                { year: "2025", name: "Only The Best TWT Challenger", rank: "3rd" },
+                { year: "2025", name: "Tekken World Tour Finals 2025", rank: "5th-6th", earnings: "$9,500" },
+                { year: "2025", name: "Only The Best TWT Challenger", rank: "3rd", earnings: "$584" },
                 { year: "N/A", name: "Frame Trap", rank: "3rd" }
             ]
         },
@@ -457,6 +461,73 @@ const players = [
         },
         sponsorships: [
             { year: "2025", name: "TEAM FALCONS", fullName: "Team Falcons", description: "Representing Team Falcons, a premier global esports organization." }
+        ]
+    },
+    {
+        id: 'atif',
+        name: 'Atif Butt',
+        nickname: 'Atif Butt',
+        role: 'Professional Tekken Player',
+        image: atifImg,
+        achievements: {
+            wins: [
+                { year: "2024", name: "CEO 2024", rank: "1st", earnings: "$2,895" },
+                { year: "2022", name: "Tekken World Tour Finals", rank: "1st", earnings: "$50,000" },
+                { year: "2019", name: "Tokyo Tekken Masters", rank: "1st", earnings: "$4,651" }
+            ],
+            runnerUps: [
+                { year: "2025", name: "Evolution Championship Series (EVO)", rank: "2nd" },
+                { year: "2024", name: "Evolution Championship Series (EVO)", rank: "2nd", earnings: "$6,000" },
+                { year: "2024", name: "Esports World Cup", rank: "2nd", earnings: "$200,000" },
+                { year: "2024", name: "Tekken World Tour Finals", rank: "2nd", earnings: "$25,000" }
+            ],
+            notable: [
+                { year: "2025", name: "Combo Breaker", rank: "2nd" },
+                { year: "2025", name: "CEO", rank: "2nd" },
+                { year: "2025", name: "Takedown", rank: "3rd" },
+                { year: "2023", name: "Gamers8", rank: "4th", earnings: "$50,000" },
+                { year: "2023", name: "Thaiger Uppercut", rank: "3rd", earnings: "$1,000" }
+            ]
+        },
+        stats: {
+            yearsActive: "5+",
+            majorTitles: "3+"
+        },
+        bio: {
+            gamingTag: "Atif Butt",
+            startedPlaying: "N/A",
+            rank: "Top Tier",
+            location: "Pakistan",
+            born: "N/A",
+            influence: "Akuma / Dragunov"
+        },
+        socials: {
+            twitter: { value: "19.5K", sub: "Followers", link: "https://x.com/AtifButt540" },
+            youtube: { value: "26K", sub: "Subscribers", link: "https://www.youtube.com/@falcons_atif" },
+            instagram: { value: "17.8K", sub: "Followers", link: "https://www.instagram.com/tk_atif/" },
+            twitch: { value: "4.6K", sub: "Followers", link: "https://www.twitch.tv/falcon_atif?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnNaqQ6bvWmOH3yozMOKwltjMPm3wWtzx_6W_8q3lolqoJgOGL759VVbKAV2Y_aem_7X5bDsP2SjoJjbe0NCtg6g" }
+        },
+        characters: [
+            { name: "Dragunov", img: dragunovImg, color: "from-blue-800/20" },
+            { name: "Anna", img: annaImg, color: "from-red-800/20" },
+            { name: "Bryan", img: bryanImg, color: "from-gray-500/20" }
+        ],
+        heroTitle: {
+            top: "Team Falcons",
+            namePart1: "Atif",
+            namePart2: "Butt"
+        },
+        badges: [
+            "TWT 2022 CHAMPION",
+            "CEO 2024 CHAMPION"
+        ],
+        highlight: {
+            title: "Global Champion",
+            description: <>Atif "Atif Butt" Ijaz is a Pakistani Fighting Games player currently representing <strong>Team Falcons</strong>. He first became internationally known for his Akuma in Tekken 7, winning Tokyo Tekken Masters 2019. His mastery of the game culminated at the 2022 Tekken World Tour Finals, an event he won in dominating fashion. He has continued his consistent top-level play into Tekken 8, winning CEO 2024 and securing 2nd at EVO 2024, Esports World Cup 2024, and TWT Global Finals 2024.</>
+        },
+        sponsorships: [
+            { year: "2024", name: "TEAM FALCONS", fullName: "Team Falcons", description: "Currently representing Team Falcons." },
+            { year: "2021-2023", name: "ASHES", fullName: "Ashes Gaming", description: "Former member of Arslan Ash's team, Ashes Gaming." }
         ]
     }
 ];
@@ -726,7 +797,7 @@ const PlayerDetail = ({ player, onBack }) => {
                                     </h4>
                                     <div className="grid gap-3">
                                         {player.achievements.wins.map((ach, i) => (
-                                            <AchievementRow key={i} year={ach.year} name={ach.name} rank={ach.rank} />
+                                            <AchievementRow key={i} year={ach.year} name={ach.name} rank={ach.rank} earnings={ach.earnings} />
                                         ))}
                                     </div>
                                 </div>
@@ -738,7 +809,7 @@ const PlayerDetail = ({ player, onBack }) => {
                                     </h4>
                                     <div className="grid gap-3">
                                         {player.achievements.runnerUps.map((ach, i) => (
-                                            <AchievementRow key={i} year={ach.year} name={ach.name} rank={ach.rank} />
+                                            <AchievementRow key={i} year={ach.year} name={ach.name} rank={ach.rank} earnings={ach.earnings} />
                                         ))}
                                     </div>
                                 </div>
@@ -750,7 +821,7 @@ const PlayerDetail = ({ player, onBack }) => {
                                     </h4>
                                     <div className="grid gap-3">
                                         {player.achievements.notable.map((ach, i) => (
-                                            <AchievementRow key={i} year={ach.year} name={ach.name} rank={ach.rank} highlight={false} />
+                                            <AchievementRow key={i} year={ach.year} name={ach.name} rank={ach.rank} highlight={false} earnings={ach.earnings} />
                                         ))}
                                     </div>
                                 </div>
@@ -808,7 +879,7 @@ const InfoRow = ({ label, value, icon }) => (
     </div>
 );
 
-const AchievementRow = ({ year, name, rank, highlight = true }) => {
+const AchievementRow = ({ year, name, rank, highlight = true, earnings }) => {
     let rankStyle = "text-zinc-500 bg-slate-800/50 border-slate-700";
     let icon = <FaStar />;
 
@@ -842,10 +913,17 @@ const AchievementRow = ({ year, name, rank, highlight = true }) => {
                 </div>
             </div>
 
-            {/* Rank Badge */}
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-lg border uppercase tracking-wider font-black text-sm md:text-base ${rankStyle}`}>
-                <span className="text-lg">{icon}</span>
-                {rank}
+            {/* Rank Badge & Earnings */}
+            <div className="flex flex-col md:flex-row items-end md:items-center gap-2 md:gap-4 ml-auto">
+                {earnings && (
+                    <div className="text-green-400 font-mono font-bold text-sm md:text-base bg-green-900/20 px-3 py-1 rounded-lg border border-green-500/30">
+                        {earnings}
+                    </div>
+                )}
+                <div className={`flex items-center gap-2 px-4 py-2 rounded-lg border uppercase tracking-wider font-black text-sm md:text-base ${rankStyle}`}>
+                    <span className="text-lg">{icon}</span>
+                    {rank}
+                </div>
             </div>
         </div>
     );

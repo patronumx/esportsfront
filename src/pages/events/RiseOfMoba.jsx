@@ -55,7 +55,7 @@ const RiseOfMoba = () => {
                             <div className="absolute inset-0 bg-yellow-600 blur-lg opacity-20"></div>
                             <div className="relative bg-gradient-to-r from-yellow-900/40 via-yellow-800/40 to-yellow-900/40 border border-yellow-500/30 px-6 py-1.5 rounded-full transform skew-x-[-10deg]">
                                 <span className="block transform skew-x-[10deg] text-sm md:text-base font-bold text-yellow-500 tracking-[0.15em] uppercase">
-                                    March 1 - March 8
+                                    Coming Soon
                                 </span>
                             </div>
                         </div>
