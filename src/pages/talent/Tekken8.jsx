@@ -30,258 +30,73 @@ import dragunovImg from '../../assets/tekken8/DRAGNOV.webp';
 
 // --- DATA ---
 const players = [
-    {
-        id: 'dawood',
-        name: 'Dawood Sikandar',
-        nickname: 'Dawood Sikandar',
+       {
+        id: 'atif',
+        name: 'Atif Butt',
+        nickname: 'Atif Butt',
         role: 'Professional Tekken Player',
-        image: dawoodImg,
+        image: atifImg,
         achievements: {
             wins: [
-                { year: "2025", name: "Pak vs Saudia", rank: "1st" },
-                { year: "2025", name: "Iqra University Tournament", rank: "1st" },
-                { year: "2024", name: "Mooring 2024", rank: "1st" },
-                { year: "2023", name: "Fast daira23", rank: "1st" },
-                { year: "2022", name: "Thaiger Uppercut 2022", rank: "1st", earnings: "$1,440" },
-                { year: "2021", name: "UGP SIALKOT", rank: "1st" },
-                { year: "2018", name: "7CG CUP", rank: "1st" },
-                { year: "2017", name: "PGA Cup S2", rank: "1st" },
+                { year: "2024", name: "CEO 2024", rank: "1st", earnings: "$2,895" },
+                { year: "2022", name: "Tekken World Tour Finals", rank: "1st", earnings: "$50,000" },
+                { year: "2019", name: "Tokyo Tekken Masters", rank: "1st", earnings: "$4,651" }
             ],
             runnerUps: [
-                { year: "2025", name: "The Baaz Gauntlet 2 Karachi Qualifier", rank: "2nd" },
-                { year: "2024", name: "Thaiger Uppercut 2024 - T8 3v3", rank: "2nd", earnings: "$500" },
-                { year: "2024", name: "Khan's Power Crusher #1", rank: "2nd" },
-                { year: "2023", name: "Daska Championship Tekken 7", rank: "2nd" },
-                { year: "2021", name: "PPG - Battle of Champions S2", rank: "2nd" },
+                { year: "2025", name: "Evolution Championship Series (EVO)", rank: "2nd" },
+                { year: "2024", name: "Evolution Championship Series (EVO)", rank: "2nd", earnings: "$6,000" },
+                { year: "2024", name: "Esports World Cup", rank: "2nd", earnings: "$200,000" },
+                { year: "2024", name: "Tekken World Tour Finals", rank: "2nd", earnings: "$25,000" }
             ],
             notable: [
-                { year: "2025", name: "Esports World Cup 2025 LCQ", rank: "17th" },
-                { year: "2025", name: "EVO 2025", rank: "17th" },
-                { year: "2024", name: "Gamers Galaxy Pakistan", rank: "9th" },
-                { year: "2022", name: "WeRTitan Cup", rank: "3rd" },
-                { year: "2016", name: "D Generation X", rank: "3rd" },
+                { year: "2025", name: "Combo Breaker", rank: "2nd" },
+                { year: "2025", name: "CEO", rank: "2nd" },
+                { year: "2025", name: "Takedown", rank: "3rd" },
+                { year: "2023", name: "Gamers8", rank: "4th", earnings: "$50,000" },
+                { year: "2023", name: "Thaiger Uppercut", rank: "3rd", earnings: "$1,000" }
             ]
         },
         stats: {
-            yearsActive: "10+",
-            majorTitles: "9"
+            yearsActive: "5+",
+            majorTitles: "3+"
         },
         bio: {
-            gamingTag: "Dawood Sikandar",
-            startedPlaying: "2012",
-            rank: "Top 5 in Pakistan",
-            location: "Faisalabad, Pakistan",
-            born: "24-06-1995",
-            influence: "Chanel"
-        },
-        socials: {
-            youtube: { value: "5.06K", sub: "1.35M+ Views", link: "https://www.youtube.com/@dawoodsikandar-tk" },
-            twitter: { value: "3,404", sub: "X (Twitter)", link: "https://x.com/DawoodSikandar" },
-            instagram: { value: "1,269", sub: "Instagram", link: "https://www.instagram.com/dawood.sikandar/" },
-            twitch: { value: "Follow", sub: "Twitch", link: "https://www.twitch.tv/dawood_sikandar77" }
-        },
-        characters: [
-            { name: "Alisa", img: alisaImg, color: "from-pink-600/20" },
-            { name: "Kuma", img: kumaImg, color: "from-amber-600/20" }
-        ],
-        heroTitle: {
-            top: "Pakistani Esports Icon",
-            namePart1: "Dawood",
-            namePart2: "Sikandar"
-        },
-        badges: [
-            "THIAGER UPPERCUT 2022 CHAMPION",
-            "MOORING 2024 CHAMPION"
-        ],
-        highlight: {
-            title: "Breakthrough Player of the Year 2022",
-            description: <>One of the historic Tekken 7v7 exhibition match in Riyadh, Team Pakistan secured a dominant <strong className="text-white">15–8 victory</strong> over Saudi Arabia. My standout performance in this international clash led to me being honored with this prestigious award, cementing my rise on the global stage.</>
-        },
-        sponsorships: [
-            { year: "2017", name: "PGA", fullName: "Pakistan Gaming Arena", description: "PGA is an independent organization for the COMMUNITY and support players all around Pakstan." },
-            { year: "2018", name: "7CG", fullName: "7 Cities Gaming League", description: "7 Cities is a gaming league and pro team from the mid Atlantic Region" },
-            { year: "2019", name: "V SLASH", fullName: "vSlash Esports", description: "vSlash Esports is an esports organization in the UAE that focuses on games such as CS:GO, DragonBall FighterZ, Street Fighter V, Super Smash Bros. Ultimate, and Tekken 7." },
-            { year: "2019-2022", name: "ASHES GAMING", fullName: "Ashes Gaming", description: "Ashes Gaming is a Pakistani esports organization founded by Arslan Ash, with the goal of promoting and unearthing new talents in Pakistan." },
-            { year: "2023-2024", name: "M5HOST", fullName: "M5Host Digital Solutions", description: "M5Host is a digital services (like web development, digital marketing etc.) provider company across the globe." },
-            { year: "May 2024", name: "CLOUD9", fullName: "Cloud9", description: "Cloud9 (C9), is an American professional esports company based in Santa Monica, California." },
-            { year: "May 2025", name: "NOVA", fullName: "Nova Esports", description: "Nova Esports is a leading professional esports organization based in Hong Kong that competes in multiple mobile and PC game titles" },
-        ]
-    },
-    {
-        id: 'khan',
-        name: 'Imran Khan',
-        nickname: 'Khan',
-        role: 'Professional Tekken Player',
-        image: khanImg,
-        achievements: {
-            wins: [
-                { year: "2023", name: "Gamers 8 Riyadh", rank: "1st", earnings: "$500,000" },
-                { year: "N/A", name: "Penang Esports", rank: "1st" },
-            ],
-            runnerUps: [
-                { year: "2024", name: "EVO USA", rank: "2nd", earnings: "$3,436" },
-                { year: "N/A", name: "Kurokuro Cup", rank: "2nd" },
-            ],
-            notable: [
-                { year: "2019", name: "FV Major Cup 2019", rank: "4th" },
-                { year: "N/A", name: "PPG Dojo", rank: "3rd" },
-            ]
-        },
-        stats: {
-            yearsActive: "10+",
-            majorTitles: "2+"
-        },
-        bio: {
-            gamingTag: "Imran Khan",
-            startedPlaying: "2014",
-            rank: "Top 10 in Pakistan",
-            location: "Pakistan",
-            born: "N/A",
-            influence: "N/A"
-        },
-        socials: {
-            youtube: { value: "4.5K", sub: "Subscribers", link: "https://www.youtube.com/@RealKhanImran" },
-            twitter: { value: "8.5K", sub: "Followers", link: "https://x.com/Khanimran675" },
-            instagram: { value: "6.9K", sub: "Followers", link: "https://www.instagram.com/fate_khanimran/" },
-            twitch: { value: "2.7K", sub: "Followers", link: "https://www.twitch.tv/fate_khan" }
-        },
-        characters: [
-            { name: "Feng", img: fengImg, color: "from-red-600/20" }
-        ],
-        heroTitle: {
-            top: "Pakistani Esports Icon",
-            namePart1: "Imran",
-            namePart2: "Khan"
-        },
-        badges: [
-            "GAMERS 8 RIYADH WINNER",
-            "EVO USA FINALIST"
-        ],
-        highlight: {
-            title: "Global Contender",
-            description: <>As a dedicated and passionate Tekken player, I bring over a decade of professional experience and a proven track record of success. I am committed to continually improving my skills and achieving excellence in the esports scene. With my USA visa in hand, I am well-positioned to compete in key international events and take my game to the next level.</>
-        },
-        sponsorships: []
-    },
-    {
-        id: 'esharib',
-        name: 'Esharib',
-        nickname: 'Esharib',
-        role: 'Professional Tekken Player',
-        image: esharibImg,
-        achievements: {
-            wins: [
-                { year: "2025", name: "NASCON 2025", rank: "1st" },
-                { year: "2025", name: "Baaz Gauntlet 2 Qualifier", rank: "1st" },
-                { year: "2025", name: "E Net Ronix UGX 2025", rank: "1st" },
-                { year: "2023", name: "TS Showdown S2", rank: "1st" },
-            ],
-            runnerUps: [
-                { year: "2023", name: "KS S2", rank: "2nd" },
-                { year: "2022", name: "NASCON 2022", rank: "2nd" },
-            ],
-            notable: [
-                { year: "2025", name: "Level Up Dojo", rank: "3rd" },
-                { year: "2025", name: "Heatwave Showdown", rank: "4th" },
-                { year: "2024", name: "Havoc 3", rank: "5th" },
-                { year: "2023", name: "Elite Tekken Championship", rank: "3rd" },
-                { year: "2022", name: "Best of the Best Dojo", rank: "3rd" },
-            ]
-        },
-        stats: {
-            yearsActive: "4+",
-            majorTitles: "4"
-        },
-        bio: {
-            gamingTag: "Esharib",
+            gamingTag: "Atif Butt",
             startedPlaying: "N/A",
             rank: "Top Tier",
-            location: "Lahore",
+            location: "Pakistan",
             born: "N/A",
-            influence: "Alisa"
+            influence: "Akuma / Dragunov"
         },
         socials: {
-            twitter: { value: "1.4K+", sub: "Followers", link: "https://x.com/tk_esharib" },
-            youtube: { value: "400+", sub: "Subscribers", link: "https://www.youtube.com/@tkesharib" },
-            instagram: { value: "500+", sub: "Followers", link: "https://www.instagram.com/tk_esharib/" },
-            twitch: { value: "800+", sub: "Followers", link: "https://www.twitch.tv/Esharib_TK" }
+            twitter: { value: "19.5K", sub: "Followers", link: "https://x.com/AtifButt540" },
+            youtube: { value: "26K", sub: "Subscribers", link: "https://www.youtube.com/@falcons_atif" },
+            instagram: { value: "17.8K", sub: "Followers", link: "https://www.instagram.com/tk_atif/" },
+            twitch: { value: "4.6K", sub: "Followers", link: "https://www.twitch.tv/falcon_atif?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnNaqQ6bvWmOH3yozMOKwltjMPm3wWtzx_6W_8q3lolqoJgOGL759VVbKAV2Y_aem_7X5bDsP2SjoJjbe0NCtg6g" }
         },
         characters: [
-            { name: "Alisa", img: alisaImg, color: "from-pink-600/20" }
+            { name: "Dragunov", img: dragunovImg, color: "from-blue-800/20" },
+            { name: "Anna", img: annaImg, color: "from-red-800/20" },
+            { name: "Bryan", img: bryanImg, color: "from-gray-500/20" }
         ],
         heroTitle: {
-            top: "Free Agent",
-            namePart1: "Esharib",
-            namePart2: ""
+            top: "Team Falcons",
+            namePart1: "Atif",
+            namePart2: "Butt"
         },
         badges: [
-            "HOLDER OF 5 YEAR US VISA",
-            "NASCON CHAMPION"
+            "TWT 2022 CHAMPION",
+            "CEO 2024 CHAMPION"
         ],
         highlight: {
-            title: "International Prospect",
-            description: <>A formidable Alisa main and emerging talent from Karachi. As a free agent holding a <strong className="text-white">5-Year US Visa</strong>, I am ready to compete on the global stage. My consistent top placements in major national tournaments prove my capability to challenge the best.</>
+            title: "Global Champion",
+            description: <>Atif "Atif Butt" Ijaz is a Pakistani Fighting Games player currently representing <strong>Team Falcons</strong>. He first became internationally known for his Akuma in Tekken 7, winning Tokyo Tekken Masters 2019. His mastery of the game culminated at the 2022 Tekken World Tour Finals, an event he won in dominating fashion. He has continued his consistent top-level play into Tekken 8, winning CEO 2024 and securing 2nd at EVO 2024, Esports World Cup 2024, and TWT Global Finals 2024.</>
         },
-        sponsorships: []
+        sponsorships: [
+            { year: "2024", name: "TEAM FALCONS", fullName: "Team Falcons", description: "Currently representing Team Falcons." },
+            { year: "2021-2023", name: "ASHES", fullName: "Ashes Gaming", description: "Former member of Arslan Ash's team, Ashes Gaming." }
+        ]
     },
-    /* {
-        id: 'kashi',
-        name: 'Kashi Snake',
-        nickname: 'Kashi Snake',
-        role: 'Professional Tekken Player',
-        image: kashiImg,
-        achievements: {
-            wins: [
-                { year: "2025", name: "PPG Battle of Champions S5", rank: "1st" },
-                { year: "2022", name: "Elite Championship", rank: "1st" },
-                { year: "2020", name: "TGL", rank: "1st" },
-            ],
-            runnerUps: [
-                { year: "2024", name: "Pakistan's Tekken Tussle S1", rank: "2nd" },
-                { year: "2022", name: "Clash of Warriors", rank: "2nd" },
-            ],
-            notable: [
-                { year: "2025", name: "Tekken Final Judgment", rank: "3rd" },
-                { year: "2024", name: "EWC LCQ", rank: "Top 8" },
-                { year: "2022", name: "TWT Regional Finals", rank: "3rd" },
-                { year: "2019", name: "Takra Cup", rank: "4th" },
-            ]
-        },
-        stats: {
-            yearsActive: "6+",
-            majorTitles: "5+"
-        },
-        bio: {
-            gamingTag: "Kashi Snake",
-            startedPlaying: "2019",
-            rank: "Pro",
-            location: "Gujranwala",
-            born: "N/A",
-            influence: "Kazuya"
-        },
-        socials: {
-            twitter: { value: "3K+", sub: "Followers", link: "https://x.com/KashiSnake99" },
-            instagram: { value: "2K+", sub: "Followers", link: "https://www.instagram.com/kashi_snake/" },
-            twitch: { value: "1.5K+", sub: "Followers", link: "https://twitch.tv" }
-        },
-        characters: [
-            { name: "Kazuya", img: kazuyaImg, color: "from-purple-700/20" }
-        ],
-        heroTitle: {
-            top: "Ashes Gaming",
-            namePart1: "Kashi",
-            namePart2: "Snake"
-        },
-        badges: [
-            "TAKEDOWN CHAMPION",
-            "ASHES GAMING"
-        ],
-        highlight: {
-            title: "Consistent Performer",
-            description: <>A highly consistent player in the Pakistani Tekken scene, known for deep runs in major tournaments. With multiple 1st place finishes in 2020 and 2022, and a strong presence in the Tekken World Tour Regional Finals.</>
-        },
-        sponsorships: []
-    }, */
     {
         id: 'jon',
         name: 'The Jon',
@@ -464,72 +279,180 @@ const players = [
         ]
     },
     {
-        id: 'atif',
-        name: 'Atif Butt',
-        nickname: 'Atif Butt',
+        id: 'esharib',
+        name: 'Esharib',
+        nickname: 'Esharib',
         role: 'Professional Tekken Player',
-        image: atifImg,
+        image: esharibImg,
         achievements: {
             wins: [
-                { year: "2024", name: "CEO 2024", rank: "1st", earnings: "$2,895" },
-                { year: "2022", name: "Tekken World Tour Finals", rank: "1st", earnings: "$50,000" },
-                { year: "2019", name: "Tokyo Tekken Masters", rank: "1st", earnings: "$4,651" }
+                { year: "2025", name: "NASCON 2025", rank: "1st" },
+                { year: "2025", name: "Baaz Gauntlet 2 Qualifier", rank: "1st" },
+                { year: "2025", name: "E Net Ronix UGX 2025", rank: "1st" },
+                { year: "2023", name: "TS Showdown S2", rank: "1st" },
             ],
             runnerUps: [
-                { year: "2025", name: "Evolution Championship Series (EVO)", rank: "2nd" },
-                { year: "2024", name: "Evolution Championship Series (EVO)", rank: "2nd", earnings: "$6,000" },
-                { year: "2024", name: "Esports World Cup", rank: "2nd", earnings: "$200,000" },
-                { year: "2024", name: "Tekken World Tour Finals", rank: "2nd", earnings: "$25,000" }
+                { year: "2023", name: "KS S2", rank: "2nd" },
+                { year: "2022", name: "NASCON 2022", rank: "2nd" },
             ],
             notable: [
-                { year: "2025", name: "Combo Breaker", rank: "2nd" },
-                { year: "2025", name: "CEO", rank: "2nd" },
-                { year: "2025", name: "Takedown", rank: "3rd" },
-                { year: "2023", name: "Gamers8", rank: "4th", earnings: "$50,000" },
-                { year: "2023", name: "Thaiger Uppercut", rank: "3rd", earnings: "$1,000" }
+                { year: "2025", name: "Level Up Dojo", rank: "3rd" },
+                { year: "2025", name: "Heatwave Showdown", rank: "4th" },
+                { year: "2024", name: "Havoc 3", rank: "5th" },
+                { year: "2023", name: "Elite Tekken Championship", rank: "3rd" },
+                { year: "2022", name: "Best of the Best Dojo", rank: "3rd" },
             ]
         },
         stats: {
-            yearsActive: "5+",
-            majorTitles: "3+"
+            yearsActive: "4+",
+            majorTitles: "4"
         },
         bio: {
-            gamingTag: "Atif Butt",
+            gamingTag: "Esharib",
             startedPlaying: "N/A",
             rank: "Top Tier",
-            location: "Pakistan",
+            location: "Lahore",
             born: "N/A",
-            influence: "Akuma / Dragunov"
+            influence: "Alisa"
         },
         socials: {
-            twitter: { value: "19.5K", sub: "Followers", link: "https://x.com/AtifButt540" },
-            youtube: { value: "26K", sub: "Subscribers", link: "https://www.youtube.com/@falcons_atif" },
-            instagram: { value: "17.8K", sub: "Followers", link: "https://www.instagram.com/tk_atif/" },
-            twitch: { value: "4.6K", sub: "Followers", link: "https://www.twitch.tv/falcon_atif?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnNaqQ6bvWmOH3yozMOKwltjMPm3wWtzx_6W_8q3lolqoJgOGL759VVbKAV2Y_aem_7X5bDsP2SjoJjbe0NCtg6g" }
+            twitter: { value: "1.4K+", sub: "Followers", link: "https://x.com/tk_esharib" },
+            youtube: { value: "400+", sub: "Subscribers", link: "https://www.youtube.com/@tkesharib" },
+            instagram: { value: "500+", sub: "Followers", link: "https://www.instagram.com/tk_esharib/" },
+            twitch: { value: "800+", sub: "Followers", link: "https://www.twitch.tv/Esharib_TK" }
         },
         characters: [
-            { name: "Dragunov", img: dragunovImg, color: "from-blue-800/20" },
-            { name: "Anna", img: annaImg, color: "from-red-800/20" },
-            { name: "Bryan", img: bryanImg, color: "from-gray-500/20" }
+            { name: "Alisa", img: alisaImg, color: "from-pink-600/20" }
         ],
         heroTitle: {
-            top: "Team Falcons",
-            namePart1: "Atif",
-            namePart2: "Butt"
+            top: "Free Agent",
+            namePart1: "Esharib",
+            namePart2: ""
         },
         badges: [
-            "TWT 2022 CHAMPION",
-            "CEO 2024 CHAMPION"
+            "HOLDER OF 5 YEAR US VISA",
+            "NASCON CHAMPION"
         ],
         highlight: {
-            title: "Global Champion",
-            description: <>Atif "Atif Butt" Ijaz is a Pakistani Fighting Games player currently representing <strong>Team Falcons</strong>. He first became internationally known for his Akuma in Tekken 7, winning Tokyo Tekken Masters 2019. His mastery of the game culminated at the 2022 Tekken World Tour Finals, an event he won in dominating fashion. He has continued his consistent top-level play into Tekken 8, winning CEO 2024 and securing 2nd at EVO 2024, Esports World Cup 2024, and TWT Global Finals 2024.</>
+            title: "International Prospect",
+            description: <>A formidable Alisa main and emerging talent from Karachi. As a free agent holding a <strong className="text-white">5-Year US Visa</strong>, I am ready to compete on the global stage. My consistent top placements in major national tournaments prove my capability to challenge the best.</>
         },
-        sponsorships: [
-            { year: "2024", name: "TEAM FALCONS", fullName: "Team Falcons", description: "Currently representing Team Falcons." },
-            { year: "2021-2023", name: "ASHES", fullName: "Ashes Gaming", description: "Former member of Arslan Ash's team, Ashes Gaming." }
-        ]
-    }
+        sponsorships: []
+    },
+    {
+        id: 'khan',
+        name: 'Imran Khan',
+        nickname: 'Khan',
+        role: 'Professional Tekken Player',
+        image: khanImg,
+        achievements: {
+            wins: [
+                { year: "2023", name: "Gamers 8 Riyadh", rank: "1st", earnings: "$500,000" },
+                { year: "N/A", name: "Penang Esports", rank: "1st" },
+            ],
+            runnerUps: [
+                { year: "2024", name: "EVO USA", rank: "2nd", earnings: "$3,436" },
+                { year: "N/A", name: "Kurokuro Cup", rank: "2nd" },
+            ],
+            notable: [
+                { year: "2019", name: "FV Major Cup 2019", rank: "4th" },
+                { year: "N/A", name: "PPG Dojo", rank: "3rd" },
+            ]
+        },
+        stats: {
+            yearsActive: "10+",
+            majorTitles: "2+"
+        },
+        bio: {
+            gamingTag: "Imran Khan",
+            startedPlaying: "2014",
+            rank: "Top 10 in Pakistan",
+            location: "Pakistan",
+            born: "N/A",
+            influence: "N/A"
+        },
+        socials: {
+            youtube: { value: "4.5K", sub: "Subscribers", link: "https://www.youtube.com/@RealKhanImran" },
+            twitter: { value: "8.5K", sub: "Followers", link: "https://x.com/Khanimran675" },
+            instagram: { value: "6.9K", sub: "Followers", link: "https://www.instagram.com/fate_khanimran/" },
+            twitch: { value: "2.7K", sub: "Followers", link: "https://www.twitch.tv/fate_khan" }
+        },
+        characters: [
+            { name: "Feng", img: fengImg, color: "from-red-600/20" }
+        ],
+        heroTitle: {
+            top: "Pakistani Esports Icon",
+            namePart1: "Imran",
+            namePart2: "Khan"
+        },
+        badges: [
+            "GAMERS 8 RIYADH WINNER",
+            "EVO USA FINALIST"
+        ],
+        highlight: {
+            title: "Global Contender",
+            description: <>As a dedicated and passionate Tekken player, I bring over a decade of professional experience and a proven track record of success. I am committed to continually improving my skills and achieving excellence in the esports scene. With my USA visa in hand, I am well-positioned to compete in key international events and take my game to the next level.</>
+        },
+        sponsorships: []
+    },
+    /* {
+        id: 'kashi',
+        name: 'Kashi Snake',
+        nickname: 'Kashi Snake',
+        role: 'Professional Tekken Player',
+        image: kashiImg,
+        achievements: {
+            wins: [
+                { year: "2025", name: "PPG Battle of Champions S5", rank: "1st" },
+                { year: "2022", name: "Elite Championship", rank: "1st" },
+                { year: "2020", name: "TGL", rank: "1st" },
+            ],
+            runnerUps: [
+                { year: "2024", name: "Pakistan's Tekken Tussle S1", rank: "2nd" },
+                { year: "2022", name: "Clash of Warriors", rank: "2nd" },
+            ],
+            notable: [
+                { year: "2025", name: "Tekken Final Judgment", rank: "3rd" },
+                { year: "2024", name: "EWC LCQ", rank: "Top 8" },
+                { year: "2022", name: "TWT Regional Finals", rank: "3rd" },
+                { year: "2019", name: "Takra Cup", rank: "4th" },
+            ]
+        },
+        stats: {
+            yearsActive: "6+",
+            majorTitles: "5+"
+        },
+        bio: {
+            gamingTag: "Kashi Snake",
+            startedPlaying: "2019",
+            rank: "Pro",
+            location: "Gujranwala",
+            born: "N/A",
+            influence: "Kazuya"
+        },
+        socials: {
+            twitter: { value: "3K+", sub: "Followers", link: "https://x.com/KashiSnake99" },
+            instagram: { value: "2K+", sub: "Followers", link: "https://www.instagram.com/kashi_snake/" },
+            twitch: { value: "1.5K+", sub: "Followers", link: "https://twitch.tv" }
+        },
+        characters: [
+            { name: "Kazuya", img: kazuyaImg, color: "from-purple-700/20" }
+        ],
+        heroTitle: {
+            top: "Ashes Gaming",
+            namePart1: "Kashi",
+            namePart2: "Snake"
+        },
+        badges: [
+            "TAKEDOWN CHAMPION",
+            "ASHES GAMING"
+        ],
+        highlight: {
+            title: "Consistent Performer",
+            description: <>A highly consistent player in the Pakistani Tekken scene, known for deep runs in major tournaments. With multiple 1st place finishes in 2020 and 2022, and a strong presence in the Tekken World Tour Regional Finals.</>
+        },
+        sponsorships: []
+    }, */
 ];
 
 
