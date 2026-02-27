@@ -135,10 +135,9 @@ const players = [
             influence: "King"
         },
         socials: {
-            twitter: { value: "12K+", sub: "Followers", link: "https://x.com/THEJON07" },
-            youtube: { value: "5K+", sub: "Subscribers", link: "https://www.youtube.com/@thejonno1" },
-            instagram: { value: "4K+", sub: "Followers", link: "https://www.instagram.com/thejon07/" },
-            twitch: { value: "3K+", sub: "Followers", link: "https://twitch.tv" }
+            twitter: { value: "5.74K+", sub: "Followers", link: "https://x.com/THEJON07" },
+            youtube: { value: "6.28K+", sub: "Subscribers", link: "https://www.youtube.com/@thejonno1" },
+            instagram: { value: "2.1K+", sub: "Followers", link: "https://www.instagram.com/thejon07/" }
         },
         characters: [
             { name: "King", img: kingImg, color: "from-yellow-600/20" }
@@ -374,7 +373,7 @@ const players = [
         socials: {
             youtube: { value: "4.5K", sub: "Subscribers", link: "https://www.youtube.com/@RealKhanImran" },
             twitter: { value: "8.5K", sub: "Followers", link: "https://x.com/Khanimran675" },
-            instagram: { value: "6.9K", sub: "Followers", link: "https://www.instagram.com/fate_khanimran/" },
+            instagram: { value: "6.9K", sub: "Followers", link: "https://www.instagram.com/real_khanimran/" },
             twitch: { value: "2.7K", sub: "Followers", link: "https://www.twitch.tv/fate_khan" }
         },
         characters: [
