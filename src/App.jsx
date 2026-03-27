@@ -31,7 +31,7 @@ import Tekken8 from './pages/talent/Tekken8';
 import FreeFire from './pages/talent/FreeFire';
 import FC26 from './pages/talent/FC26';
 import HonorOfKings from './pages/talent/HonorOfKings';
-import Management from './pages/Management';
+// import Management from './pages/Management';
 
 // Auth Pages
 import PlayerSignup from './pages/auth/PlayerSignup';
@@ -203,7 +203,7 @@ function App() {
               <Route path="/tech-anti-cheat" element={<TechAntiCheat />} />
               {/* <Route path="/events/pmgc-2025" element={<PMGC2025 />} /> */}
               <Route path="/events/pgc-2025" element={<PGC2025 />} />
-              <Route path="/events/tekken-8-face-off-2026" element={<Tekken8FaceOff2026 />} />
+              {/* <Route path="/events/tekken-8-face-off-2026" element={<Tekken8FaceOff2026 />} /> */}
               <Route path="/events/rise-of-moba" element={<RiseOfMoba />} />
               <Route path="/events/rise-of-moba/hok/register" element={<RiseOfMobaHOK />} />
               <Route path="/events/rise-of-moba/mlbb/register" element={<RiseOfMobaML />} />
@@ -215,7 +215,7 @@ function App() {
               <Route path="/talent/fc26" element={<FC26 />} />
               <Route path="/talent/honor-of-kings" element={<HonorOfKings />} />
               <Route path="/stats" element={<Stats />} />
-              <Route path="/management/:id?" element={<Management />} />
+              {/* <Route path="/management/:id?" element={<Management />} /> */}
 
               {/* Tekken 8 Admin */}
               <Route path="/events/admin" element={<EventsAdminDashboard />} />

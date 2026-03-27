@@ -25,7 +25,7 @@ const Navbar = () => {
   // Main nav links, omitting "Events" which will be handled separately for dropdown
   const navLinks = [
     { to: '/', label: 'Home' },
-    { to: '/management', label: 'Leadership' },
+    // { to: '/management', label: 'Leadership' },
     // { to: '/competitive-esports', label: 'Competitive' },
     // { to: '/creators-partners', label: 'Creators' },
     { to: '/brands', label: 'Brands' },
@@ -42,7 +42,7 @@ const Navbar = () => {
   const eventDropdownLinks = [
     // { to: '/events/pmgc-2025', label: 'PMGC 2025' },
     // { to: '/events/pgc-2025', label: 'PGC 2025' },
-    { to: '/events/tekken-8-face-off-2026', label: 'TEKKEN 8 FACE OFF 2026' },
+    // { to: '/events/tekken-8-face-off-2026', label: 'TEKKEN 8 FACE OFF 2026' },
     { to: '/events/rise-of-moba', label: 'RISE OF MOBA' }
   ];
 
@@ -73,7 +73,7 @@ const Navbar = () => {
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
-            {navLinks.slice(0, 4).map((link) => (
+            {navLinks.slice(0, 3).map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
@@ -128,7 +128,7 @@ const Navbar = () => {
               </div>
             </div>
 
-            {navLinks.slice(4).map((link) => (
+            {navLinks.slice(3).map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
@@ -181,7 +181,7 @@ const Navbar = () => {
       {mobileOpen && (
         <div className="lg:hidden bg-brand-card/98 backdrop-blur-xl border-t border-violet-500/20">
           <div className="px-6 py-6 space-y-4">
-            {navLinks.slice(0, 4).map((link) => (
+            {navLinks.slice(0, 3).map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
@@ -223,7 +223,7 @@ const Navbar = () => {
               )}
             </div>
 
-            {navLinks.slice(4).map((link) => (
+            {navLinks.slice(3).map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
